@@ -3,7 +3,10 @@ unique_ids:
     standard-page.html: DPIATTLUU7LETI3BAXE5LR3D52DMQODU
     theme.css: 6X5CJ7UQMDQZ5P4CGZETJ25226EVXB32
   forms:
-    Form1: D2TCEOQNGTXMVFP5F2WI67NP5YMMRRPW
+    EditListPlayers: '1740899736366190282002388.42975'
+    RotationPlayers: D2TCEOQNGTXMVFP5F2WI67NP5YMMRRPW
+    RotationPlayers.RowTemplate1: '1740898968637185911636560.65524'
   modules: {}
   scripts: {}
-  server_modules: {}
+  server_modules:
+    ServerModule1: '1740899511159694885097819.3915'
