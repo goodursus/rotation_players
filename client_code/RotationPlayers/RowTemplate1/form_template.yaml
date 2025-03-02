@@ -1,3 +1,13 @@
-components: []
+components:
+- components:
+  - event_bindings: {click: edit_row_click}
+    layout_properties: {}
+    name: edit_row
+    properties: {icon: 'fa:pencil', text: ''}
+    type: Button
+  layout_properties: {column: RNAOGK}
+  name: flow_panel_1
+  properties: {}
+  type: FlowPanel
 container: {type: DataRowPanel}
 is_package: true
