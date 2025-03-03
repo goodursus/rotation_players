@@ -1,5 +1,25 @@
 allow_embedding: false
 db_schema:
+  court:
+    client: full
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: id
+      type: number
+    - admin_ui: {order: 1, width: 200}
+      name: game_id
+      type: number
+    - admin_ui: {order: 2, width: 200}
+      name: player_id
+      type: number
+    - admin_ui: {order: 3, width: 200}
+      name: position
+      type: number
+    - admin_ui: {order: 4, width: 200}
+      name: status
+      type: number
+    server: full
+    title: court
   players:
     client: full
     columns:

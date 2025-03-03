@@ -13,7 +13,10 @@ class RotationPlayers(RotationPlayersTemplate):
 
     self.repeating_panel_1.items = app_tables.players.search()
     self.repeating_panel_1.add_event_handler('x-edit-player', self.edit_player)
+    self.repeating_panel_1.add_event_handler('x-delete-player', self.delete_player)
   
+    self.repeating_panel_2.items = app_tables.court.search()
+ 
   def add_player_click(self, **event_args):
     item = {}
     editing_form = EditListPlayers(item=item)
@@ -36,3 +39,9 @@ class RotationPlayers(RotationPlayersTemplate):
       anvil.server.call('update_player', player, item)
       #refresh the Data Grid
       self.repeating_panel_1.items = app_tables.players.search()
+
+  def delete_player(self, player, **event_args):
+    if confirm(f"Do you really want to delete the player {player['name']}?"):
+      anvil.server.call('delete_player', player)
+      #refresh the Data Grid
+      self.repeating_panel_1.items = app_tables.players.search()    

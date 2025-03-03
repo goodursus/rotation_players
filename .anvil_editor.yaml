@@ -6,6 +6,7 @@ unique_ids:
     RotationPlayers: D2TCEOQNGTXMVFP5F2WI67NP5YMMRRPW
     RotationPlayers.EditListPlayers: '1740899736366190282002388.42975'
     RotationPlayers.RowTemplate1: '1740898968637185911636560.65524'
+    RotationPlayers.RowTemplate2: '17409892836497864179646.728253'
   modules: {}
   scripts: {}
   server_modules:

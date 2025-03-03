@@ -1,0 +1,23 @@
+components:
+- data_bindings:
+  - {code: 'self.item[''position'']', property: tag, writeback: false}
+  layout_properties: {column: VJQQOR}
+  name: flow_panel_1
+  properties: {}
+  type: FlowPanel
+- layout_properties: {column: VJQQOR}
+  name: flow_panel_2
+  properties: {}
+  type: FlowPanel
+- data_bindings:
+  - {code: 'self.item[''position'']', property: tag, writeback: false}
+  layout_properties: {column: WNPEOZ}
+  name: flow_panel_3
+  properties: {}
+  type: FlowPanel
+- layout_properties: {column: WNPEOZ}
+  name: flow_panel_4
+  properties: {}
+  type: FlowPanel
+container: {type: DataRowPanel}
+is_package: true

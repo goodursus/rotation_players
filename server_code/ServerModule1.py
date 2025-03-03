@@ -12,3 +12,7 @@ def add_player(player_data):
 def update_player(player, player_data):
   if player_data['number_player'] and player_data['name']:
     player.update(**player_data)
+
+@anvil.server.callable
+def delete_player(player):
+    player.delete()    
