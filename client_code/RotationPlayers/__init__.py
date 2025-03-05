@@ -15,7 +15,7 @@ class RotationPlayers(RotationPlayersTemplate):
     self.repeating_panel_1.add_event_handler('x-edit-player', self.edit_player)
     self.repeating_panel_1.add_event_handler('x-delete-player', self.delete_player)
   
-    self.repeating_panel_2.items = app_tables.court.search()
+    self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
     #self.refresh_articles()
     
   def add_player_click(self, **event_args):

@@ -17,12 +17,12 @@ components:
   type: ColumnPanel
 - components:
   - data_bindings:
-    - {code: 'self.item[''player_id_1'']', property: text, writeback: false}
+    - {code: 'self.item[''name_1'']', property: text, writeback: false}
     name: player_1
     properties: {}
     type: Label
   - data_bindings:
-    - {code: 'self.item[''player_id_2'']', property: text, writeback: false}
+    - {code: 'self.item[''name_2'']', property: text, writeback: false}
     name: player_2
     properties: {}
     type: Label
@@ -32,13 +32,13 @@ components:
   properties: {background: 'theme:Surface Variant', border: '5'}
   type: FlowPanel
 - data_bindings:
-  - {code: 'self.item[''player_id_3'']', property: text, writeback: false}
+  - {code: 'self.item[''name_3'']', property: text, writeback: false}
   layout_properties: {grid_position: 'PFAJSM,WGDAVM RTYIJA,PEZZNK'}
   name: player_3
   properties: {}
   type: Label
 - data_bindings:
-  - {code: 'self.item[''player_id_4'']', property: text, writeback: false}
+  - {code: 'self.item[''name_4'']', property: text, writeback: false}
   layout_properties: {grid_position: 'PFAJSM,WGDAVM RTYIJA,OUUABF'}
   name: player_4
   properties: {}
