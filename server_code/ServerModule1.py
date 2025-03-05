@@ -26,7 +26,7 @@ def get_courts():
   )  
 
 @anvil.server.callable
-def get_records_with_names():
+def get_records_with_names_1():
     # Создаем словарь кодов и имен
     players_dict = {row['number_player']: row['name'] for row in app_tables.players.search()}
     
@@ -44,3 +44,34 @@ def get_records_with_names():
         }
         for row in app_tables.court.search()
     ]  
+
+def get_game_status_emoji(value):
+  emoji_map = {
+    1 : "🏆",  # Победа
+    0 : "😢",  # Проигрыш
+    -1: "⏳"  # Отдых
+    }
+  return emoji_map.get(value, "❓")  # Если что-то неизвестное, ставим "❓"
+
+@anvil.server.callable
+def get_records_with_names():
+    # Создаем словарь кодов и имен
+    players_dict = {row['number_player']: row['name'] for row in app_tables.players.search()}
+    
+    # Загружаем записи и подставляем имя + другие данные
+    return [
+        {
+            "name_1": players_dict.get(row['player_id_1'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
+            "player_id_1": row['player_id_1'],
+            "name_2": players_dict.get(row['player_id_2'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
+            "player_id_2": row['player_id_2'],
+            "name_3": players_dict.get(row['player_id_3'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
+            "player_id_3": row['player_id_3'],
+            "name_4": players_dict.get(row['player_id_4'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
+            "player_id_4": row['player_id_4'],
+            "id": row['id'],  # Дополнительные текстовые поля
+            "game_id": row['game_id'],
+            "status_emoji": get_game_status_emoji(row['status'])
+        }
+        for row in app_tables.court.search()
+    ]
