@@ -4,7 +4,7 @@ import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-from .EditListPlayers import EditListPlayers
+from .ListPlayers import ListPlayers
 
 class RotationPlayers(RotationPlayersTemplate):
   def __init__(self, **properties):
@@ -16,10 +16,11 @@ class RotationPlayers(RotationPlayersTemplate):
     self.repeating_panel_1.add_event_handler('x-delete-player', self.delete_player)
   
     self.repeating_panel_2.items = app_tables.court.search()
- 
+    #self.refresh_articles()
+    
   def add_player_click(self, **event_args):
     item = {}
-    editing_form = EditListPlayers(item=item)
+    editing_form = ListPlayers(item=item)
   
     #if the user clicks OK on the alert
     if alert(content=editing_form, large=True):
@@ -31,7 +32,7 @@ class RotationPlayers(RotationPlayersTemplate):
   def edit_player(self, player, **event_args):
     #player is the row from the Data Table
     item = dict(player)
-    editing_form = EditListPlayers(item=item)
+    editing_form = ListPlayers(item=item)
   
     #if the user clicks OK on the alert
     if alert(content=editing_form, large=True):
@@ -45,3 +46,10 @@ class RotationPlayers(RotationPlayersTemplate):
       anvil.server.call('delete_player', player)
       #refresh the Data Grid
       self.repeating_panel_1.items = app_tables.players.search()    
+
+  def refresh_articles(self):
+    # Load existing articles from the Data Table, 
+    # and display them in the RepeatingPanel
+    self.repeating_panel_2.items = anvil.server.call('get_courts')  
+    qqq = 1
+    

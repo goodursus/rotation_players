@@ -16,3 +16,11 @@ def update_player(player, player_data):
 @anvil.server.callable
 def delete_player(player):
     player.delete()    
+
+# In your Server Module
+@anvil.server.callable
+def get_courts():
+  # Get a list of articles from the Data Table, sorted by 'created' column, in descending order
+  return app_tables.court.search(
+    tables.order_by("id", ascending = True)
+  )  

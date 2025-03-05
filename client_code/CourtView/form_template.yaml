@@ -1,0 +1,52 @@
+components:
+- components:
+  - data_bindings:
+    - {code: 'self.item[''id'']', property: text, writeback: false}
+    layout_properties: {grid_position: 'XLUTYA,AXUBEV'}
+    name: number_court
+    properties:
+      align: center
+      bold: true
+      font_size: 48
+      spacing:
+        padding: [null, null, 0, null]
+    type: Label
+  layout_properties: {grid_position: 'PFAJSM,YNWHFJ'}
+  name: column_panel_1
+  properties: {}
+  type: ColumnPanel
+- components:
+  - data_bindings:
+    - {code: 'self.item[''player_id_1'']', property: text, writeback: false}
+    name: player_1
+    properties: {}
+    type: Label
+  - data_bindings:
+    - {code: 'self.item[''player_id_2'']', property: text, writeback: false}
+    name: player_2
+    properties: {}
+    type: Label
+  data_bindings: []
+  layout_properties: {grid_position: 'PFAJSM,WGDAVM WOMCCN,BGAWNV'}
+  name: flow_panel_1
+  properties: {background: 'theme:Surface Variant', border: '5'}
+  type: FlowPanel
+- data_bindings:
+  - {code: 'self.item[''player_id_3'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'PFAJSM,WGDAVM RTYIJA,PEZZNK'}
+  name: player_3
+  properties: {}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''player_id_4'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'PFAJSM,WGDAVM RTYIJA,OUUABF'}
+  name: player_4
+  properties: {}
+  type: Label
+container:
+  properties:
+    col_widths: '{"YNWHFJ":2,"WGDAVM":23,"PEZZNK":5,"OUUABF":55}'
+    spacing:
+      padding: [null, null, 0, null]
+  type: ColumnPanel
+is_package: true
