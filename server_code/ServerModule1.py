@@ -40,18 +40,17 @@ def get_records_with_names_1():
             "name_3": players_dict.get(row['player_id_3'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
             "player_id_3": row['player_id_3'],
             "name_4": players_dict.get(row['player_id_4'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
-            "player_id_4": row['player_id_4'],
+            "player_id_4": row['player_id_4']
         }
         for row in app_tables.court.search()
     ]  
 
-def get_game_status_emoji(value):
-  emoji_map = {
-    1 : "🏆",  # Победа
-    0 : "😢",  # Проигрыш
-    -1: "⏳"  # Отдых
-    }
-  return emoji_map.get(value, "❓")  # Если что-то неизвестное, ставим "❓"
+def get_game_status(value):
+    def get_game_status(value):
+#        emoji_map = {1: "🏆", -1: "😢", 0: "🛌"}
+        color_map = {1: "#d4edda", -1: "#cce5ff", 0: "#fff3cd"}  # Цвет фона
+#        return emoji_map.get(value, "❓"), color_map.get(value, "#ffffff")
+        return color_map.get(value, "#ffffff")
 
 @anvil.server.callable
 def get_records_with_names():
@@ -71,7 +70,8 @@ def get_records_with_names():
             "player_id_4": row['player_id_4'],
             "id": row['id'],  # Дополнительные текстовые поля
             "game_id": row['game_id'],
-            "status_emoji": get_game_status_emoji(row['status'])
+#            "status_emoji": get_game_status(row['status'])[0],
+            "bg_color": get_game_status(row['status'])
         }
         for row in app_tables.court.search()
     ]

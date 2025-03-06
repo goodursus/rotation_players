@@ -16,6 +16,7 @@ class RotationPlayers(RotationPlayersTemplate):
     self.repeating_panel_1.add_event_handler('x-delete-player', self.delete_player)
   
     self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
+    qqq = 1
     #self.refresh_articles()
     
   def add_player_click(self, **event_args):
@@ -51,5 +52,5 @@ class RotationPlayers(RotationPlayersTemplate):
     # Load existing articles from the Data Table, 
     # and display them in the RepeatingPanel
     self.repeating_panel_2.items = anvil.server.call('get_courts')  
-    qqq = 1
+    
     

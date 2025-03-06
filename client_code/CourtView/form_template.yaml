@@ -17,18 +17,6 @@ components:
   properties: {}
   type: ColumnPanel
 - data_bindings:
-  - {code: 'self.item[''name_1'']', property: text, writeback: false}
-  layout_properties: {grid_position: 'PFAJSM,WGDAVM XWHWLR,PLZMXG'}
-  name: player_1
-  properties: {background: 'theme:Dark Overlay 1'}
-  type: Label
-- data_bindings:
-  - {code: 'self.item[''name_2'']', property: text, writeback: false}
-  layout_properties: {grid_position: 'PFAJSM,WGDAVM XWHWLR,XWXSHS'}
-  name: player_2
-  properties: {background: 'theme:Dark Overlay 1'}
-  type: Label
-- data_bindings:
   - {code: 'self.item[''name_3'']', property: text, writeback: false}
   layout_properties: {grid_position: 'PFAJSM,WGDAVM RTYIJA,PEZZNK'}
   name: player_3
@@ -40,9 +28,28 @@ components:
   name: player_4
   properties: {}
   type: Label
+- components:
+  - data_bindings:
+    - {code: 'self.item[''name_1'']', property: text, writeback: false}
+    layout_properties: {grid_position: 'JNSJOZ,PFIIHG'}
+    name: player_1
+    properties: {background: ''}
+    type: Label
+  - data_bindings:
+    - {code: 'self.item[''name_2'']', property: text, writeback: false}
+    layout_properties: {grid_position: 'JNSJOZ,XJKKDQ'}
+    name: player_2
+    properties: {background: ''}
+    type: Label
+  data_bindings:
+  - {code: 'self.item[''bg_color'']', property: background, writeback: false}
+  layout_properties: {full_width_row: false, grid_position: 'PFAJSM,WGDAVM VABGJB,GPCUPC', row_background: ''}
+  name: outlined_card_1
+  properties: {role: outlined-card}
+  type: ColumnPanel
 container:
   properties:
-    col_widths: '{"YNWHFJ":7,"WGDAVM":20,"PEZZNK":30,"OUUABF":30,"PLZMXG":30,"XWXSHS":30}'
+    col_widths: '{"YNWHFJ":7,"WGDAVM":20,"PEZZNK":30,"OUUABF":30}'
     spacing:
       padding: [null, null, 0, null]
   type: ColumnPanel
