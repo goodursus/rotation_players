@@ -25,32 +25,9 @@ def get_courts():
     tables.order_by("id", ascending = True)
   )  
 
-@anvil.server.callable
-def get_records_with_names_1():
-    # Создаем словарь кодов и имен
-    players_dict = {row['number_player']: row['name'] for row in app_tables.players.search()}
-    
-    # Загружаем записи и подставляем имя вместо кода
-    return [
-        {
-            "name_1": players_dict.get(row['player_id_1'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
-            "player_id_1": row['player_id_1'],
-            "name_2": players_dict.get(row['player_id_2'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
-            "player_id_2": row['player_id_2'],
-            "name_3": players_dict.get(row['player_id_3'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
-            "player_id_3": row['player_id_3'],
-            "name_4": players_dict.get(row['player_id_4'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
-            "player_id_4": row['player_id_4']
-        }
-        for row in app_tables.court.search()
-    ]  
-
 def get_game_status(value):
-    def get_game_status(value):
-#        emoji_map = {1: "🏆", -1: "😢", 0: "🛌"}
-        color_map = {1: "#d4edda", -1: "#cce5ff", 0: "#fff3cd"}  # Цвет фона
-#        return emoji_map.get(value, "❓"), color_map.get(value, "#ffffff")
-        return color_map.get(value, "#ffffff")
+  color_map = {1: "#d4edda", -1: "#cce5ff", 0: "#fff3cd"}  # Цвет фона
+  return color_map.get(value, "#ffffff")
 
 @anvil.server.callable
 def get_records_with_names():
@@ -58,7 +35,7 @@ def get_records_with_names():
     players_dict = {row['number_player']: row['name'] for row in app_tables.players.search()}
     
     # Загружаем записи и подставляем имя + другие данные
-    return [
+    records = [
         {
             "name_1": players_dict.get(row['player_id_1'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
             "player_id_1": row['player_id_1'],
@@ -70,8 +47,20 @@ def get_records_with_names():
             "player_id_4": row['player_id_4'],
             "id": row['id'],  # Дополнительные текстовые поля
             "game_id": row['game_id'],
-#            "status_emoji": get_game_status(row['status'])[0],
-            "bg_color": get_game_status(row['status'])
+            "bg_color_1": get_game_status(row['status_1']),
+            "status_1": row['status_1'],
+            "bg_color_2": get_game_status(row['status_2']),
+            "status_2": row['status_2'],
+            "bg_color_3": get_game_status(row['status_3']),
+            "status_3": row['status_3'],
+            "bg_color_4": get_game_status(row['status_4']),
+            "status_4": row['status_4'],
         }
         for row in app_tables.court.search()
     ]
+    # *** ОТЛАДОЧНЫЙ ВЫВОД ***
+    #for record in records:
+    #    print(f"Status: {record['status']}, Bg Color: {record['bg_color']}")
+    return records
+
+  

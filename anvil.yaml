@@ -16,13 +16,22 @@ db_schema:
       name: player_id_2
       type: number
     - admin_ui: {order: 4, width: 200}
-      name: status
+      name: status_1
       type: number
     - admin_ui: {order: 3.5, width: 200}
       name: player_id_3
       type: number
     - admin_ui: {order: 3.75, width: 200}
       name: player_id_4
+      type: number
+    - admin_ui: {order: 5, width: 200}
+      name: status_2
+      type: number
+    - admin_ui: {order: 6, width: 200}
+      name: status_3
+      type: number
+    - admin_ui: {order: 7, width: 200}
+      name: status_4
       type: number
     server: full
     title: court
