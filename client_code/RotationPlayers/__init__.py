@@ -14,5 +14,10 @@ class RotationPlayers(RotationPlayersTemplate):
     self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
 
   def edit_player_click(self, **event_args):
-    open_form(ListPlayers())
+#    open_form(ListPlayers())
+    ListPlayers()
+
+  def link_players_click(self, **event_args):
+    """This method is called when the link is clicked"""
+    open_form('RotationPlayers.ListPlayers')
      
