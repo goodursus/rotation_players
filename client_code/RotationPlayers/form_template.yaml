@@ -22,26 +22,17 @@ components:
   properties: {text: List of players today}
   type: Label
 - components:
-  - event_bindings: {click: add_player_click}
+  - event_bindings: {click: edit_player_click}
     layout_properties: {grid_position: 'YOBFXC,SGTBRW'}
-    name: add_player
-    properties: {text: Add player}
+    name: edit_player_list_button
+    properties: {role: elevated-button, text: Players}
     type: Button
-  - components:
-    - name: repeating_panel_1
-      properties: {item_template: RotationPlayers.RowTemplate1}
-      type: RepeatingPanel
-    layout_properties: {grid_position: 'UVPPXS,MZBXYR'}
-    name: data_grid_1
-    properties:
-      columns:
-      - {data_key: name, expand: false, id: TDWDBN, title: Player name, width: 117.19998168945312}
-    type: DataGrid
   layout_properties: {slot: left-nav}
   name: column_panel_1
   properties: {}
   type: ColumnPanel
 container:
+  data_bindings: []
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate
 is_package: true

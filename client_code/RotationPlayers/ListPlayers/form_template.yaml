@@ -1,7 +1,7 @@
 components:
 - components:
   - components:
-    - name: repeating_panel_1
+    - name: repeating_panel_player
       properties: {item_template: RotationPlayers.RowTemplate1}
       type: RepeatingPanel
     layout_properties: {grid_position: 'IYSYWT,WNNFHC EKFECG,TUWPOD'}
@@ -15,7 +15,7 @@ components:
   - event_bindings: {click: add_player_click}
     layout_properties: {grid_position: 'IYSYWT,WNNFHC VVFMNH,OQOHDP'}
     name: add_player
-    properties: {text: Add player}
+    properties: {role: elevated-button, text: Add player}
     type: Button
   layout_properties: {slot: default}
   name: content_panel
@@ -29,7 +29,13 @@ components:
   name: label_1
   properties: {text: List of players today}
   type: Label
-- layout_properties: {slot: left-nav}
+- components:
+  - event_bindings: {click: home_button_click}
+    layout_properties: {grid_position: 'DVWCEO,RPHEFN'}
+    name: home_button
+    properties: {role: elevated-button, text: Home}
+    type: Button
+  layout_properties: {slot: left-nav}
   name: column_panel_1
   properties: {}
   type: ColumnPanel
