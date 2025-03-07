@@ -10,6 +10,9 @@ unique_ids:
     RotationPlayers.ListPlayers: '1741160237535641791439755.6399'
     RotationPlayers.RowTemplate1: '1740898968637185911636560.65524'
     RotationPlayers.RowTemplate2: '17409892836497864179646.728253'
+    Session: '1741332357459333722168540.2147'
+    Session.EditSession: '1741333211738688374163221.253'
+    Session.RowTemplate3: '1741332445292236086773672.72702'
   modules: {}
   scripts: {}
   server_modules:

@@ -1,0 +1,63 @@
+components:
+- layout_properties: {grid_position: 'QNXODK,YVYRPN'}
+  name: label_1
+  properties: {text: Number of Session}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''session_id'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'QNXODK,FENSNV'}
+  name: id
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'YDUAFI,ZTQBPV'}
+  name: label_2
+  properties: {text: Date of Session}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''data_session'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'YDUAFI,WSNKMY'}
+  name: text_box_2
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'RSHFFN,CWHTPJ'}
+  name: label_3
+  properties: {text: Number of Players}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''number_players'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'RSHFFN,HEMYUB'}
+  name: text_box_3
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'ZDOBGP,TMUCZO'}
+  name: label_4
+  properties: {text: Number of Courts}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''number_courts'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'ZDOBGP,OLQBHN'}
+  name: text_box_4
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'MFGVHN,AHWHFG'}
+  name: label_5
+  properties: {text: Session Duration}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''session_duration'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'MFGVHN,PJDWDS'}
+  name: text_box_5
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'EBEHTG,LYVXZH'}
+  name: label_6
+  properties: {text: Game Duration}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''game_duration'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'EBEHTG,QDCIMM'}
+  name: text_box_6
+  properties: {}
+  type: TextBox
+container: {type: ColumnPanel}
+is_package: true

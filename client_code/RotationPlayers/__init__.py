@@ -20,4 +20,7 @@ class RotationPlayers(RotationPlayersTemplate):
   def link_players_click(self, **event_args):
     """This method is called when the link is clicked"""
     open_form('RotationPlayers.ListPlayers')
+
+  def link_session_click(self, **event_args):
+    open_form('Session')
      

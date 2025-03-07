@@ -3,34 +3,34 @@ db_schema:
   court:
     client: full
     columns:
-    - admin_ui: {order: 0, width: 200}
+    - admin_ui: {width: 200}
       name: id
       type: number
-    - admin_ui: {order: 1, width: 200}
+    - admin_ui: {width: 200}
       name: game_id
       type: number
-    - admin_ui: {order: 2, width: 200}
+    - admin_ui: {width: 200}
       name: player_id_1
       type: number
-    - admin_ui: {order: 3, width: 200}
+    - admin_ui: {width: 200}
       name: player_id_2
       type: number
-    - admin_ui: {order: 4, width: 200}
-      name: status_1
-      type: number
-    - admin_ui: {order: 3.5, width: 200}
+    - admin_ui: {width: 200}
       name: player_id_3
       type: number
-    - admin_ui: {order: 3.75, width: 200}
+    - admin_ui: {width: 200}
       name: player_id_4
       type: number
-    - admin_ui: {order: 5, width: 200}
+    - admin_ui: {width: 200}
+      name: status_1
+      type: number
+    - admin_ui: {width: 200}
       name: status_2
       type: number
-    - admin_ui: {order: 6, width: 200}
+    - admin_ui: {width: 200}
       name: status_3
       type: number
-    - admin_ui: {order: 7, width: 200}
+    - admin_ui: {width: 200}
       name: status_4
       type: number
     server: full
@@ -38,14 +38,37 @@ db_schema:
   players:
     client: full
     columns:
-    - admin_ui: {order: 0, width: 200}
+    - admin_ui: {width: 200}
       name: number_player
       type: number
-    - admin_ui: {order: 1, width: 200}
+    - admin_ui: {width: 200}
       name: name
       type: string
     server: full
     title: players
+  session:
+    client: none
+    columns:
+    - admin_ui: {width: 200}
+      name: session_id
+      type: number
+    - admin_ui: {width: 200}
+      name: data_session
+      type: date
+    - admin_ui: {width: 200}
+      name: number_players
+      type: number
+    - admin_ui: {order: 3, width: 200}
+      name: number_courts
+      type: number
+    - admin_ui: {width: 200}
+      name: session_duration
+      type: number
+    - admin_ui: {width: 200}
+      name: game_duration
+      type: number
+    server: full
+    title: session
 dependencies: []
 name: RotationPlayers
 package_name: RotationPlayers
