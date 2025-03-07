@@ -63,4 +63,8 @@ def get_records_with_names():
     #    print(f"Status: {record['status']}, Bg Color: {record['bg_color']}")
     return records
 
+@anvil.server.callable
+def add_session(session_data):
+  if session_data.get('session_id') and session_data.get('data_session'):
+      app_tables.movies.add_row(**session_data)
   
