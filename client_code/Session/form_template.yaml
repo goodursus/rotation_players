@@ -11,7 +11,7 @@ components:
     - {data_key: session_id, expand: false, id: HNACWO, title: Session number, width: 75.5999755859375}
     - {data_key: data_session, id: WNSVYW, title: Data}
     - {data_key: number_players, id: KCLDWB, title: Players}
-    - {data_key: number_games, id: WXFIYR, title: Courts}
+    - {data_key: number_courts, id: WXFIYR, title: Courts}
     - {data_key: session_duration, id: LBCTTL, title: Session duration}
     - {data_key: game_duration, id: GLEAAH, title: Game duration}
   type: DataGrid
@@ -21,9 +21,9 @@ components:
   properties: {role: elevated-button, text: Add session}
   type: Button
 - event_bindings: {click: home_session_click}
-  layout_properties: {grid_position: 'PVGKOB,DOJUOG'}
+  layout_properties: {full_width_row: false, grid_position: 'PVGKOB,DOJUOG'}
   name: home_session
-  properties: {align: center, role: selected, text: Home}
+  properties: {align: center, background: '', icon: 'fa:home', role: selected, text: Home}
   type: Link
 container: {type: ColumnPanel}
 is_package: true

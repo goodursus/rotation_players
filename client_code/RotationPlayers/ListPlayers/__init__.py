@@ -45,13 +45,6 @@ class ListPlayers(ListPlayersTemplate):
       # refresh the Data Grid
       self.repeating_panel_player.items = app_tables.players.search()
 
-  def home_button_click(self, **event_args):
-    #print(RotationPlayers)  # Должно вывести <class 'MainForm.MainForm'>
-    #print(type(RotationPlayers))  # Должно быть <class 'type'>
-    #open_form(RotationPlayers()) 
-    item = {}
-    RotationPlayers(item=item)
-
   def link_1_click(self, **event_args):
     """This method is called when the link is clicked"""
     open_form('RotationPlayers')

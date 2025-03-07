@@ -47,7 +47,7 @@ db_schema:
     server: full
     title: players
   session:
-    client: none
+    client: full
     columns:
     - admin_ui: {width: 200}
       name: session_id
