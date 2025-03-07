@@ -2,6 +2,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
+from datetime import datetime
 
 @anvil.server.callable
 def add_player(player_data):
@@ -66,5 +67,5 @@ def get_records_with_names():
 @anvil.server.callable
 def add_session(session_data):
   if session_data.get('session_id') and session_data.get('data_session'):
-      app_tables.movies.add_row(**session_data)
-  
+      app_tables.session.add_row(**session_data)
+
