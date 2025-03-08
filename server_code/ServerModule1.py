@@ -66,6 +66,6 @@ def get_records_with_names():
 
 @anvil.server.callable
 def add_session(session_data):
-  if session_data.get('session_id') and session_data.get('data_session'):
+  if session_data.get('session_id') and session_data.get('data_session') and session_data.get('number_players'):
       app_tables.session.add_row(**session_data)
 

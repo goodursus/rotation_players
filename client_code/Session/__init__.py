@@ -16,6 +16,14 @@ class Session(SessionTemplate):
 
   def add_session_button_click(self, **event_args):
     item = {}
+    last_record = app_tables.session.search(tables.order_by("session_id", ascending=False))
+    next_id = (last_record[0]['session_id'] + 1) if last_record else 1  # Если нет записей, то ID = 1
+    current_date = datetime.now().date()
+    #item.setdefault('session_id', next_id)
+    #item.setdefault('data_session', current_date)
+    item['session_id'] = next_id
+    item['data_session'] = current_date
+    
     editing_form = EditSession(item=item)
 
     # if the user clicks OK on the alert
