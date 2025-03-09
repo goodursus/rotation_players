@@ -18,3 +18,5 @@ class RowTemplate1(RowTemplate1Template):
 
   def delete_row_click(self, **event_args):
     self.parent.raise_event('x-delete-player', player = self.item)
+
+  

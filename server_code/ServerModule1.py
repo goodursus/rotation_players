@@ -69,3 +69,11 @@ def add_session(session_data):
   if session_data.get('session_id') and session_data.get('data_session') and session_data.get('number_players'):
       app_tables.session.add_row(**session_data)
 
+@anvil.server.callable
+def update_session(session, session_data):
+  if session_data['session_id'] and session_data['data_session'] and session_data['number_players'] and session_data['number_courts']:
+    session.update(**session_data)
+
+@anvil.server.callable
+def delete_session(session):
+    session.delete()    

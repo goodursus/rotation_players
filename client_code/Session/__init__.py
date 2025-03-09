@@ -13,7 +13,10 @@ class Session(SessionTemplate):
     self.init_components(**properties)
 
     self.repeating_panel_session.items = app_tables.session.search()
-
+    #add this line to set the event handler
+    self.repeating_panel_session.add_event_handler('x-edit-session', self.edit_session)
+    self.repeating_panel_session.add_event_handler('x-delete-session', self.delete_session) 
+  
   def add_session_button_click(self, **event_args):
     item = {}
     last_record = app_tables.session.search(tables.order_by("session_id", ascending=False))
@@ -35,3 +38,21 @@ class Session(SessionTemplate):
 
   def home_session_click(self, **event_args):
     open_form('RotationPlayers')
+
+  def edit_session(self, session, **event_args):
+    #movie is the row from the Data Table
+    item = dict(session)
+    editing_form = EditSession(item=item)
+  
+    #if the user clicks OK on the alert
+    if alert(content = editing_form, large=True):
+      #pass in the Data Table row and the updated info
+      anvil.server.call('update_session', session, item)
+      #refresh the Data Grid
+      self.repeating_panel_session.items = app_tables.session.search()
+
+  def delete_session(self, session, **event_args):
+    if confirm(f"Do you really want to delete the session {session['session_id']} at {session['data_session']}?"):
+      anvil.server.call('delete_session', session)
+      #refresh the Data Grid
+      self.repeating_panel_session.items = app_tables.session.search()
