@@ -1,0 +1,19 @@
+components:
+- components:
+  - name: repeating_panel_1
+    properties: {item_template: Session.SessionPlayers.RowTemplateSessionPlayer}
+    type: RepeatingPanel
+  layout_properties: {grid_position: 'CAPBJX,RGFQKR'}
+  name: data_grid_1
+  properties:
+    columns:
+    - {data_key: player_number, id: REZOPQ, title: Player_number}
+    - {data_key: name, id: RGNWKZ, title: Name}
+  type: DataGrid
+- event_bindings: {click: add_player_click}
+  layout_properties: {grid_position: 'RTBDZS,GSEGQF'}
+  name: add_player
+  properties: {role: elevated-button, text: Add player}
+  type: Button
+container: {type: ColumnPanel}
+is_package: true

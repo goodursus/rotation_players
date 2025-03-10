@@ -8,8 +8,9 @@ components:
     name: data_grid_1
     properties:
       columns:
-      - {data_key: number_player, id: SIFCLV, title: Player number}
-      - {data_key: name, id: TDWDBN, title: Player name}
+      - {data_key: name, id: QENGYJ, title: Name}
+      - {data_key: phone, id: IIBOEG, title: Phone}
+      - {data_key: email, id: RFDBXZ, title: eMail}
       - {data_key: column_1, id: RNAOGK, title: ''}
     type: DataGrid
   - event_bindings: {click: add_player_click}

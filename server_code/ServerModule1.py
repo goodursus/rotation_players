@@ -6,12 +6,12 @@ from datetime import datetime
 
 @anvil.server.callable
 def add_player(player_data):
-  if player_data.get('number_player') and player_data.get('name'):
+  if player_data.get('name'):
       app_tables.players.add_row(**player_data)
 
 @anvil.server.callable
 def update_player(player, player_data):
-  if player_data['number_player'] and player_data['name']:
+  if player_data['name']:
     player.update(**player_data)
 
 @anvil.server.callable
@@ -76,4 +76,9 @@ def update_session(session, session_data):
 
 @anvil.server.callable
 def delete_session(session):
-    session.delete()    
+    session.delete() 
+
+@anvil.server.callable
+def add_s_player(s_player_data):
+  if s_player_data.get('player_number') and s_player_data.get('name'):
+      app_tables.s_players.add_row(**s_player_data)  

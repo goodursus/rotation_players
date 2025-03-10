@@ -39,13 +39,28 @@ db_schema:
     client: full
     columns:
     - admin_ui: {width: 200}
-      name: number_player
-      type: number
-    - admin_ui: {width: 200}
       name: name
+      type: string
+    - admin_ui: {order: 3, width: 200}
+      name: email
+      type: string
+    - admin_ui: {order: 2, width: 200}
+      name: phone
       type: string
     server: full
     title: players
+  s_players:
+    client: full
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: player_number
+      type: number
+    - admin_ui: {order: 1, width: 200}
+      name: name
+      target: players
+      type: link_single
+    server: full
+    title: s_players
   session:
     client: full
     columns:
@@ -82,5 +97,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: RotationPlayers, type: form}
+startup: {module: Session.SessionPlayers, type: form}
 startup_form: null
