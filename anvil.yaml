@@ -41,24 +41,23 @@ db_schema:
     - admin_ui: {width: 200}
       name: name
       type: string
-    - admin_ui: {order: 3, width: 200}
-      name: email
-      type: string
-    - admin_ui: {order: 2, width: 200}
+    - admin_ui: {width: 200}
       name: phone
+      type: string
+    - admin_ui: {width: 200}
+      name: email
       type: string
     server: full
     title: players
   s_players:
     client: full
     columns:
-    - admin_ui: {order: 0, width: 200}
+    - admin_ui: {width: 200}
       name: player_number
       type: number
-    - admin_ui: {order: 1, width: 200}
+    - admin_ui: {width: 200}
       name: name
-      target: players
-      type: link_single
+      type: string
     server: full
     title: s_players
   session:
@@ -73,7 +72,7 @@ db_schema:
     - admin_ui: {width: 200}
       name: number_players
       type: number
-    - admin_ui: {order: 3, width: 200}
+    - admin_ui: {width: 200}
       name: number_courts
       type: number
     - admin_ui: {width: 200}

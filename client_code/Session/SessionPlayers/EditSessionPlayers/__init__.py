@@ -11,6 +11,11 @@ class EditSessionPlayers(EditSessionPlayersTemplate):
     self.init_components(**properties)
 
     self.list_players = [
-      (player['name'], player) for player in app_tables.players.search()
+#      (player['name'], player) for player in app_tables.players.search()
+      (player['name']) for player in app_tables.players.search()
     ]
     self.list_players_box.items = self.list_players
+
+  def list_players_box_change(self, **event_args):
+    """This method is called when an item is selected"""
+  #  self.item['name'] = self.list_players_box.selected_value
