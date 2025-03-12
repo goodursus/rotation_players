@@ -18,4 +18,7 @@ class RowTemplateSessionPlayer(RowTemplateSessionPlayerTemplate):
     # If yes, raise the 'x-delete-article' event on the parent 
     # (which is the articles_panel on Homepage)
 #    if confirm("Are you sure you want to delete {}?".format(self.item['name'])):
-    self.parent.raise_event('x-delete-s_player', player = self.item)
+    id_to_delete = self.item['player_number']  # id - первый элемент кортежа
+    row_to_delete = app_tables.s_players.get(player_number = id_to_delete)
+
+    self.parent.raise_event('x-delete-s_player', player = row_to_delete)
