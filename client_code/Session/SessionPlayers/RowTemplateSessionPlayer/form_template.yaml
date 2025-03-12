@@ -1,4 +1,14 @@
-components: []
+components:
+- components:
+  - event_bindings: {click: del_button_click}
+    layout_properties: {}
+    name: del_button
+    properties: {icon: 'fa:trash', text: ''}
+    type: Button
+  layout_properties: {column: CPMQSN}
+  name: flow_panel_1
+  properties: {}
+  type: FlowPanel
 container:
   data_bindings: []
   type: DataRowPanel

@@ -17,8 +17,9 @@ class SessionPlayers(SessionPlayersTemplate):
                 }
                 for row in app_tables.s_players.search()
             ]
-#    self.repeating_panel_1.items = app_tables.s_players.search()
-
+# Set an event handler on the RepeatingPanel (our 'articles_panel')
+    self.repeating_panel_1.set_event_handler('x-delete-s_player', self.delete_s_player)
+  
   def add_player_click(self, **event_args):
     #pass in an empty dictionary to MovieEdit
     item = {}
@@ -30,3 +31,12 @@ class SessionPlayers(SessionPlayersTemplate):
       anvil.server.call('add_s_player', item)
       #refresh the Data Grid
       self.repeating_panel_1.items = app_tables.s_players.search()
+
+  def delete_s_player(self, player, **event_args):
+    # Delete the article
+    anvil.server.call('delete_s_player', player)
+    # Refresh articles to remove the deleted article from the Homepage
+    self.refresh_players()
+
+  def refresh_players(self):
+      self.repeating_panel_1.items = app_tables.s_players.search()   

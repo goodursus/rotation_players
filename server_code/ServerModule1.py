@@ -82,3 +82,11 @@ def delete_session(session):
 def add_s_player(s_player_data):
   if s_player_data.get('player_number') and s_player_data.get('name'):
       app_tables.s_players.add_row(**s_player_data)  
+
+@anvil.server.callable
+def delete_s_player(player):
+  # check that the article being deleted exists in the Data Table
+#  if app_tables.s_players.has_row(player):
+  player.delete()
+#  else:
+#    raise Exception("Player does not exist") 

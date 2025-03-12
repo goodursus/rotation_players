@@ -15,7 +15,11 @@ class EditSessionPlayers(EditSessionPlayersTemplate):
       (player['name']) for player in app_tables.players.search()
     ]
     self.list_players_box.items = self.list_players
+    
+    last_record = app_tables.s_players.search(tables.order_by("player_number", ascending = False))
+    self.next_id = last_record[0]['player_number'] + 1 if last_record else 1
+    self.player_number_box.text = self.next_id
 
   def list_players_box_change(self, **event_args):
     """This method is called when an item is selected"""
-  #  self.item['name'] = self.list_players_box.selected_value
+    self.item['player_number'] = self.next_id

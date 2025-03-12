@@ -12,3 +12,10 @@ class RowTemplateSessionPlayer(RowTemplateSessionPlayerTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+
+  def del_button_click(self, **event_args):
+    # Get the user to confirm if they wish to delete the article
+    # If yes, raise the 'x-delete-article' event on the parent 
+    # (which is the articles_panel on Homepage)
+#    if confirm("Are you sure you want to delete {}?".format(self.item['name'])):
+    self.parent.raise_event('x-delete-s_player', player = self.item)
