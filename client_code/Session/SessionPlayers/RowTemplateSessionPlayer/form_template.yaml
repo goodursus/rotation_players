@@ -1,5 +1,10 @@
 components:
 - components:
+  - event_bindings: {click: edit_s_player_button_click}
+    layout_properties: {}
+    name: edit_s_player_button
+    properties: {icon: 'fa:edit', role: null, text: ''}
+    type: Button
   - event_bindings: {click: del_button_click}
     layout_properties: {}
     name: del_button

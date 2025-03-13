@@ -85,8 +85,16 @@ def add_s_player(s_player_data):
 
 @anvil.server.callable
 def delete_s_player(player):
-  # check that the article being deleted exists in the Data Table
-#  if app_tables.s_players.has_row(player):
   player.delete()
-#  else:
-#    raise Exception("Player does not exist") 
+
+  # Получаем все оставшиеся строки, сортируя по id
+  all_rows = sorted(app_tables.s_players.search(), key=lambda row: row['player_number'])
+
+  # Перенумеровываем id
+  for new_id, row in enumerate(all_rows, start = 1):
+    row['player_number'] = new_id  # Присваиваем новый порядковый номер
+
+@anvil.server.callable
+def update_s_player(player, player_data):
+  if player_data['player_number'] and player_data['name']:
+    player.update(**player_data)
