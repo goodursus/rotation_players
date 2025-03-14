@@ -7,7 +7,7 @@ components:
   - {code: 'self.item[''player_number'']', property: text, writeback: true}
   layout_properties: {grid_position: 'TTDTZL,MYRYHZ'}
   name: player_number_box
-  properties: {type: number}
+  properties: {enabled: false, type: number}
   type: TextBox
 - layout_properties: {grid_position: 'IKMHGJ,FRKTNP'}
   name: label_2
