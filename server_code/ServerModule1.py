@@ -33,7 +33,7 @@ def get_game_status(value):
 @anvil.server.callable
 def get_records_with_names():
     # Создаем словарь кодов и имен
-    players_dict = {row['number_player']: row['name'] for row in app_tables.players.search()}
+    players_dict = {row['player_number']: row['name'] for row in app_tables.s_players.search()}
     
     # Загружаем записи и подставляем имя + другие данные
     records = [

@@ -55,3 +55,7 @@ class SessionPlayers(SessionPlayersTemplate):
       anvil.server.call('update_s_player', player, item)
       #refresh the Data Grid
       self.repeating_panel_1.items = app_tables.s_players.search()
+
+  def home_session_players_click(self, **event_args):
+    """This method is called when the link is clicked"""
+    open_form('RotationPlayers')

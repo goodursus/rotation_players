@@ -96,5 +96,5 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-startup: {module: Session.SessionPlayers, type: form}
+startup: {module: RotationPlayers, type: form}
 startup_form: null
