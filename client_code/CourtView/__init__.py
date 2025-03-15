@@ -11,7 +11,11 @@ class CourtView(CourtViewTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-#    self.list_s_players = [
-#          (player['name']) for player in app_tables.s_players.search()
-#        ]
-#    self.drop_down_1.items = self.list_s_players
+  def drop_down_1_change(self, **event_args):
+      """Обработчик изменения выбора в выпадающем списке."""
+      # Триггерим обновление всех выпадающих списков
+      sender = event_args['sender']
+      selected_name = sender.selected_value
+  
+      self.parent.raise_event('x-refresh-dropdowns', selected_name = selected_name)
+

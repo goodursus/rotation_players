@@ -18,7 +18,7 @@ class RotationPlayers(RotationPlayersTemplate):
     self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
 
     # Словарь для отслеживания выбранных имен по всем выпадающим спискам
-    self.selected_players = {}  # Ключ: (card_index, dropdown_id), Значение: выбранное имя
+    self.selected_players = []# Ключ: (card_index, dropdown_id), Значение: выбранное имя
     
     # Получаем Repeating Panel
     self.repeating_panel = self.repeating_panel_2
@@ -43,16 +43,22 @@ class RotationPlayers(RotationPlayersTemplate):
     open_form('Session.SessionPlayers')
      
   def initialize_dropdowns(self):
-      """Инициализация выпадающих списков для всех карточек."""
-      for card_index, card in enumerate(self.repeating_panel.items):
-          for dropdown_id, dropdown in enumerate(card['dropdowns']):
-              dropdown.items = self.get_available_players(card_index, dropdown_id)
-              dropdown.set_event_handler('change', self.on_dropdown_change)
+    """Инициализация выпадающих списков для всех карточек."""
+    for card_index, card_data in enumerate(self.repeating_panel.items):
+      # Получаем ссылку на карточку (компоненту outlined_card)
+      card = self.repeating_panel.get_components()[card_index]
+      self.list_s_players = [
+            (player['name']) for player in app_tables.s_players.search()
+          ]
+      card.drop_down_1.items = self.get_available_players(card_index)
+      card.drop_down_2.items = self.get_available_players(card_index)
+      card.drop_down_3.items = self.get_available_players(card_index)
+      card.drop_down_4.items = self.get_available_players(card_index)
 
-  def get_available_players(self, card_index, dropdown_id):
+  def get_available_players(self, card_index):
       """Получить список доступных имен для конкретного выпадающего списка."""
       selected_names = set(self.selected_players.values())
-      return [player for player in self.all_players if player not in selected_names]
+      return [player for player in self.list_s_players if player not in selected_names]
 
   def on_dropdown_change(self, sender, **event_args):
       """Обработчик изменения выбора в выпадающем списке."""
@@ -77,8 +83,17 @@ class RotationPlayers(RotationPlayersTemplate):
       # Триггерим обновление всех выпадающих списков
       self.repeating_panel.raise_event('x-refresh-dropdowns')
 
-  def refresh_dropdowns(self, **event_args):
+  def refresh_dropdowns(self, selected_name, **event_args):
       """Обновление всех выпадающих списков в Repeating Panel."""
-      for card_index, card in enumerate(self.repeating_panel.items):
-          for dropdown_id, dropdown in enumerate(card['dropdowns']):
-            dropdown.items = self.get_available_players(card_index, dropdown_id)
+      # Удаляем текущее выбранное имя из общего списка
+      self.selected_players.append(selected_name)
+      if selected_name:
+          self.list_s_players.remove(selected_name)
+
+      for card_index, card_data in enumerate(self.repeating_panel.items):
+        # Получаем ссылку на карточку (компоненту outlined_card)
+        card = self.repeating_panel.get_components()[card_index]
+        card.drop_down_1.items = self.get_available_players(card_index)
+        card.drop_down_2.items = self.get_available_players(card_index)
+        card.drop_down_3.items = self.get_available_players(card_index)
+        card.drop_down_4.items = self.get_available_players(card_index)
