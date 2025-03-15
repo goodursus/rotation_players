@@ -11,7 +11,7 @@ class CourtView(CourtViewTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    self.list_s_players = [
-          (player['name']) for player in app_tables.s_players.search()
-        ]
-    self.drop_down_1.items = self.list_s_players
+#    self.list_s_players = [
+#          (player['name']) for player in app_tables.s_players.search()
+#        ]
+#    self.drop_down_1.items = self.list_s_players
