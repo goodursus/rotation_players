@@ -10,12 +10,22 @@ class CourtView(CourtViewTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    self.selected_name = {}
+    self.old_name      = {}
+    self.old_name['old_name_1'] = self.drop_down_1.selected_value
+    self.old_name['old_name_2'] = self.drop_down_2.selected_value
+    self.old_name['old_name_3'] = self.drop_down_3.selected_value
+    self.old_name['old_name_4'] = self.drop_down_4.selected_value
 
   def drop_down_1_change(self, **event_args):
-      """Обработчик изменения выбора в выпадающем списке."""
-      # Триггерим обновление всех выпадающих списков
-      sender = event_args['sender']
-      selected_name = sender.selected_value
-  
-      self.parent.raise_event('x-refresh-dropdowns', selected_name = selected_name)
+    sender = event_args['sender']
+    self.selected_name['new_name_1'] = sender.selected_value
+
+    self.parent.raise_event('x-refresh-dropdowns', selected_name = self.selected_name)
+
+  def drop_down_2_change(self, **event_args):
+    sender = event_args['sender']
+    self.selected_name['new_name_2'] = sender.selected_value
+
+    self.parent.raise_event('x-refresh-dropdowns', selected_name = self.selected_name)
 

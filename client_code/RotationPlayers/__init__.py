@@ -18,7 +18,7 @@ class RotationPlayers(RotationPlayersTemplate):
     self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
 
     # Словарь для отслеживания выбранных имен по всем выпадающим спискам
-    self.selected_players = []# Ключ: (card_index, dropdown_id), Значение: выбранное имя
+    self.selected_players = {}# Ключ: (card_index, dropdown_id), Значение: выбранное имя
     
     # Получаем Repeating Panel
     self.repeating_panel = self.repeating_panel_2
@@ -59,29 +59,6 @@ class RotationPlayers(RotationPlayersTemplate):
       """Получить список доступных имен для конкретного выпадающего списка."""
       selected_names = set(self.selected_players.values())
       return [player for player in self.list_s_players if player not in selected_names]
-
-  def on_dropdown_change(self, sender, **event_args):
-      """Обработчик изменения выбора в выпадающем списке."""
-      card_index = event_args['item']['index']
-      dropdown_id = event_args['dropdown_id']
-      selected_name = sender.selected_value
-
-      # Удаляем предыдущее выбранное имя из словаря
-      key = (card_index, dropdown_id)
-      if key in self.selected_players:
-          previously_selected = self.selected_players[key]
-          if previously_selected:
-              self.all_players.append(previously_selected)
-
-      # Обновляем словарь выбранных имен
-      self.selected_players[key] = selected_name
-
-      # Удаляем текущее выбранное имя из общего списка
-      if selected_name:
-          self.all_players.remove(selected_name)
-
-      # Триггерим обновление всех выпадающих списков
-      self.repeating_panel.raise_event('x-refresh-dropdowns')
 
   def refresh_dropdowns(self, selected_name, **event_args):
       """Обновление всех выпадающих списков в Repeating Panel."""

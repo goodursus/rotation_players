@@ -36,6 +36,7 @@ components:
       type: DropDown
     - data_bindings:
       - {code: 'self.item[''name_2'']', property: selected_value, writeback: false}
+      event_bindings: {change: drop_down_2_change}
       layout_properties: {grid_position: 'YVUXGL,RTEBPV'}
       name: drop_down_2
       properties: {include_placeholder: true, placeholder: choose name}
