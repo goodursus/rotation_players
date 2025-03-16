@@ -29,3 +29,6 @@ class CourtView(CourtViewTemplate):
 
     self.parent.raise_event('x-refresh-dropdowns', selected_name = self.selected_name)
 
+  def add_court_button_click(self, **event_args):
+    self.parent.raise_event('x-add-court')
+

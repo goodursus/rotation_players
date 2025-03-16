@@ -98,3 +98,9 @@ def delete_s_player(player):
 def update_s_player(player, player_data):
   if player_data['player_number'] and player_data['name']:
     player.update(**player_data)
+
+@anvil.server.callable
+def add_court(court_data):
+  if court_data.get('id') and court_data.get('game_id'):
+      app_tables.court.add_row(**court_data)  
+    
