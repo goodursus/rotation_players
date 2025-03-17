@@ -33,6 +33,10 @@ class CourtView(CourtViewTemplate):
     self.parent.raise_event('x-add-court')
 
   def save_court_button_click(self, **event_args):
+    self.item['name_1'] = self.drop_down_1.selected_value
+    self.item['name_2'] = self.drop_down_2.selected_value
+    self.item['name_3'] = self.drop_down_3.selected_value
+    self.item['name_4'] = self.drop_down_4.selected_value
     self.parent.raise_event('x-save-court', court = self.item)
 
   def del_court_button_click(self, **event_args):
