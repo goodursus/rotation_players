@@ -32,3 +32,9 @@ class CourtView(CourtViewTemplate):
   def add_court_button_click(self, **event_args):
     self.parent.raise_event('x-add-court')
 
+  def save_court_button_click(self, **event_args):
+    self.parent.raise_event('x-save-court', court = self.item)
+
+  def del_court_button_click(self, **event_args):
+    self.parent.raise_event('x-del-court', court = self.item)
+

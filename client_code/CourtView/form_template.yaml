@@ -2,7 +2,7 @@ components:
 - components:
   - data_bindings:
     - {code: 'self.item[''id'']', property: text, writeback: false}
-    layout_properties: {grid_position: 'ZHFSWZ,FKTPTZ QJIMVQ,LNQDAS'}
+    layout_properties: {grid_position: 'GSWMCT,HRQFIF ZHFSWZ,FKTPTZ'}
     name: number_court
     properties:
       align: center
@@ -15,16 +15,6 @@ components:
         margin: [null, null, 4, null]
         padding: [0, null, 0, null]
     type: Label
-  - components:
-    - event_bindings: {click: add_court_button_click}
-      layout_properties: {}
-      name: add_court_button
-      properties: {font_size: 22, icon: 'fa:address-card', text: ''}
-      type: Button
-    layout_properties: {grid_position: 'ZHFSWZ,FKTPTZ KABCRT,LHJBUL'}
-    name: flow_panel_1
-    properties: {}
-    type: FlowPanel
   - components:
     - data_bindings:
       - {code: 'self.item[''name_1'']', property: selected_value, writeback: false}
@@ -45,10 +35,45 @@ components:
       type: DropDown
     data_bindings:
     - {code: 'self.item[''bg_color_3'']', property: background, writeback: false}
-    layout_properties: {grid_position: 'ZHFSWZ,MVNKTC YWUYLK,PTQERV'}
+    layout_properties: {grid_position: 'GSWMCT,HRQFIF ZHFSWZ,MVNKTC YWUYLK,PTQERV'}
     name: outlined_card_2
     properties: {role: outlined-card}
     type: ColumnPanel
+  - components:
+    - event_bindings: {click: add_court_button_click}
+      layout_properties: {}
+      name: add_court_button
+      properties:
+        font_size: 18
+        icon: fa:address-card
+        spacing:
+          padding: [null, null, null, 8]
+        text: ''
+      type: Button
+    - event_bindings: {click: save_court_button_click}
+      layout_properties: {}
+      name: save_court_button
+      properties:
+        font_size: 18
+        icon: fa:save
+        spacing:
+          padding: [null, null, null, 9]
+        text: ''
+      type: Button
+    - event_bindings: {click: del_court_button_click}
+      layout_properties: {}
+      name: del_court_button
+      properties:
+        font_size: 18
+        icon: fa:trash
+        spacing:
+          padding: [null, null, null, 11]
+        text: ''
+      type: Button
+    layout_properties: {grid_position: 'GSWMCT,LXZGMZ'}
+    name: flow_panel_1
+    properties: {}
+    type: FlowPanel
   - components:
     - data_bindings:
       - {code: 'self.item[''name_3'']', property: selected_value, writeback: false}
@@ -64,13 +89,13 @@ components:
       type: DropDown
     data_bindings:
     - {code: 'self.item[''bg_color_1'']', property: background, writeback: false}
-    layout_properties: {grid_position: 'ZHFSWZ,MVNKTC PJIKWS,CMZRJR'}
+    layout_properties: {grid_position: 'GSWMCT,HRQFIF ZHFSWZ,MVNKTC PJIKWS,CMZRJR'}
     name: outlined_card_1
     properties: {background: '', role: outlined-card}
     type: ColumnPanel
-  layout_properties: {grid_position: 'LXKPIK,MCXGGW'}
+  layout_properties: {grid_position: 'KFTIWH,LBNPOC'}
   name: outlined_card_3
-  properties: {border: '3px solid #4CAF50', col_widths: '{"FKTPTZ":15,"MVNKTC":45}', role: outlined-card}
+  properties: {border: '3px solid #4CAF50', col_widths: '{"FKTPTZ":15,"MVNKTC":45,"HRQFIF":55,"LXZGMZ":5}', role: outlined-card}
   type: ColumnPanel
 container:
   properties:
