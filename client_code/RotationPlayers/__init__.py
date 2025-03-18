@@ -15,7 +15,8 @@ class RotationPlayers(RotationPlayersTemplate):
     rows = list(app_tables.court.search())
     self.repeating_panel = self.repeating_panel_2
     # Словарь для отслеживания выбранных имен по всем выпадающим спискам
-    self.selected_players = {}# Ключ: (card_index, dropdown_id), Значение: выбранное имя
+#    self.selected_players = {}# Ключ: (card_index, dropdown_id), Значение: выбранное имя
+    self.selected_players = []# Ключ: (card_index, dropdown_id), Значение: выбранное имя
 
     # Загрузка данных из таблицы соответствия
     correspondence_table = app_tables.s_players.search()
@@ -42,7 +43,8 @@ class RotationPlayers(RotationPlayersTemplate):
     
     # Инициализация выпадающих списков
     self.initialize_dropdowns()
-
+    qqq = 1
+      
   def edit_player_click(self, **event_args):
 #    open_form(ListPlayers())
     ListPlayers()
@@ -60,12 +62,15 @@ class RotationPlayers(RotationPlayersTemplate):
      
   def initialize_dropdowns(self):
     """Инициализация выпадающих списков для всех карточек."""
+    self.list_s_players = [
+          (player['name']) for player in app_tables.s_players.search()
+        ]
+#    self.selected_players = [
+#          (player['name_' + str(i + 1)]) for i in range(4) for card_index, player in enumerate(self.repeating_panel.items)
+#        ]
     for card_index, card_data in enumerate(self.repeating_panel.items):
       # Получаем ссылку на карточку (компоненту outlined_card)
       card = self.repeating_panel.get_components()[card_index]
-      self.list_s_players = [
-            (player['name']) for player in app_tables.s_players.search()
-          ]
       card.drop_down_1.items = self.get_available_players(card_index)
       card.drop_down_2.items = self.get_available_players(card_index)
       card.drop_down_3.items = self.get_available_players(card_index)
@@ -73,15 +78,12 @@ class RotationPlayers(RotationPlayersTemplate):
 
   def get_available_players(self, card_index):
       """Получить список доступных имен для конкретного выпадающего списка."""
-      selected_names = set(self.selected_players.values())
-      return [player for player in self.list_s_players if player not in selected_names]
+#      selected_names = set(self.selected_players.values())
+      selected_names = [sel_name for sel_name in self.selected_players if sel_name != 'Not attached']
+ #     return [player for player in self.list_s_players if player not in selected_names]
+      return [player for player in self.list_s_players if player != 'Ursus']
 
   def refresh_dropdowns(self, selected_name, **event_args):
-      """Обновление всех выпадающих списков в Repeating Panel."""
-      # Удаляем текущее выбранное имя из общего списка
-#      self.selected_players.append(selected_name)
-#      if selected_name:
-#          self.list_s_players.remove(selected_name)
 
       for card_index, card_data in enumerate(self.repeating_panel.items):
         # Получаем ссылку на карточку (компоненту outlined_card)
@@ -93,20 +95,14 @@ class RotationPlayers(RotationPlayersTemplate):
 
   def add_court(self, item, **event_args):
 #    item = {}
+      
     rows = list(app_tables.court.search())
     # Проверка, пуста ли таблица
     if rows:
+      item = self.empty_court()
       last_court = app_tables.court.search(tables.order_by("id", ascending = False))
       last_id = last_court[0]['id']
       item['id'] = last_id + 1
-#    else:
-#      item['id'] = 1
-      
-#    item['game_id'] = 1
-#    item['player_id_1'] = 0 
-#    item['player_id_2'] = 0 
-#    item['player_id_3'] = 0 
-#    item['player_id_4'] = 0 
 
     # refresh the Data Grid
     anvil.server.call("add_court", item)

@@ -21,7 +21,8 @@ components:
     properties: {}
     type: Label
   - components:
-    - layout_properties: {grid_position: 'EMNCBD,JVFFRJ'}
+    - data_bindings: []
+      layout_properties: {grid_position: 'EMNCBD,JVFFRJ'}
       name: repeating_panel_2
       properties: {item_template: CourtView}
       type: RepeatingPanel

@@ -38,13 +38,13 @@ def get_records_with_names():
     # Загружаем записи и подставляем имя + другие данные
     records = [
         {
-            "name_1": players_dict.get(row['player_id_1'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
+            "name_1": players_dict.get(row['player_id_1'], "Not attached"),  # Если код отсутствует, ставим "Неизвестно"
             "player_id_1": row['player_id_1'],
-            "name_2": players_dict.get(row['player_id_2'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
+            "name_2": players_dict.get(row['player_id_2'], "Not attached"),  # Если код отсутствует, ставим "Неизвестно"
             "player_id_2": row['player_id_2'],
-            "name_3": players_dict.get(row['player_id_3'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
+            "name_3": players_dict.get(row['player_id_3'], "Not attached"),  # Если код отсутствует, ставим "Неизвестно"
             "player_id_3": row['player_id_3'],
-            "name_4": players_dict.get(row['player_id_4'], "Неизвестно"),  # Если код отсутствует, ставим "Неизвестно"
+            "name_4": players_dict.get(row['player_id_4'], "Not attached"),  # Если код отсутствует, ставим "Неизвестно"
             "player_id_4": row['player_id_4'],
             "id": row['id'],  # Дополнительные текстовые поля
             "game_id": row['game_id'],

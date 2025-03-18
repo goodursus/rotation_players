@@ -10,13 +10,7 @@ class CourtView(CourtViewTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.selected_name = {}
-    self.old_name      = {}
-    self.old_name['old_name_1'] = self.drop_down_1.selected_value
-    self.old_name['old_name_2'] = self.drop_down_2.selected_value
-    self.old_name['old_name_3'] = self.drop_down_3.selected_value
-    self.old_name['old_name_4'] = self.drop_down_4.selected_value
-
+    qqq = 1
   def drop_down_1_change(self, **event_args):
     sender = event_args['sender']
     self.selected_name['new_name_1'] = sender.selected_value
@@ -30,7 +24,7 @@ class CourtView(CourtViewTemplate):
     self.parent.raise_event('x-refresh-dropdowns', selected_name = self.selected_name)
 
   def add_court_button_click(self, **event_args):
-    self.parent.raise_event('x-add-court')
+    self.parent.raise_event('x-add-court', item = {})
 
   def save_court_button_click(self, **event_args):
     self.item['name_1'] = self.drop_down_1.selected_value
