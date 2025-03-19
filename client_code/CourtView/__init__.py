@@ -10,18 +10,18 @@ class CourtView(CourtViewTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    qqq = 1
+
   def drop_down_1_change(self, **event_args):
     sender = event_args['sender']
     self.selected_name['new_name_1'] = sender.selected_value
 
-    self.parent.raise_event('x-refresh-dropdowns', selected_name = self.selected_name)
+    self.parent.raise_event('x-refresh-dropdowns')
 
   def drop_down_2_change(self, **event_args):
     sender = event_args['sender']
     self.selected_name['new_name_2'] = sender.selected_value
 
-    self.parent.raise_event('x-refresh-dropdowns', selected_name = self.selected_name)
+    self.parent.raise_event('x-refresh-dropdowns')
 
   def add_court_button_click(self, **event_args):
     self.parent.raise_event('x-add-court', item = {})

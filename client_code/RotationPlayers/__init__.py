@@ -16,7 +16,7 @@ class RotationPlayers(RotationPlayersTemplate):
     self.repeating_panel = self.repeating_panel_2
     # Словарь для отслеживания выбранных имен по всем выпадающим спискам
 #    self.selected_players = {}# Ключ: (card_index, dropdown_id), Значение: выбранное имя
-    self.selected_players = []# Ключ: (card_index, dropdown_id), Значение: выбранное имя
+#   self.selected_players = []# Ключ: (card_index, dropdown_id), Значение: выбранное имя
 
     # Загрузка данных из таблицы соответствия
     correspondence_table = app_tables.s_players.search()
@@ -41,9 +41,12 @@ class RotationPlayers(RotationPlayersTemplate):
     self.repeating_panel.set_event_handler('x-save-court', self.save_court) 
     self.repeating_panel.set_event_handler('x-del-court', self.del_court) 
     
+    # Полный список всех имен
+    self.all_names = [row['name'] for row in app_tables.s_players.search()]
+    # Словарь для отслеживания выбранных имен
+    self.selected_names = {}
     # Инициализация выпадающих списков
     self.initialize_dropdowns()
-    qqq = 1
       
   def edit_player_click(self, **event_args):
 #    open_form(ListPlayers())
@@ -61,38 +64,69 @@ class RotationPlayers(RotationPlayersTemplate):
     open_form('Session.SessionPlayers')
      
   def initialize_dropdowns(self):
-    """Инициализация выпадающих списков для всех карточек."""
-    self.list_s_players = [
-          (player['name']) for player in app_tables.s_players.search()
-        ]
-#    self.selected_players = [
-#          (player['name_' + str(i + 1)]) for i in range(4) for card_index, player in enumerate(self.repeating_panel.items)
-#        ]
-    for card_index, card_data in enumerate(self.repeating_panel.items):
-      # Получаем ссылку на карточку (компоненту outlined_card)
-      card = self.repeating_panel.get_components()[card_index]
-      card.drop_down_1.items = self.get_available_players(card_index)
-      card.drop_down_2.items = self.get_available_players(card_index)
-      card.drop_down_3.items = self.get_available_players(card_index)
-      card.drop_down_4.items = self.get_available_players(card_index)
-
-  def get_available_players(self, card_index):
-      """Получить список доступных имен для конкретного выпадающего списка."""
-#      selected_names = set(self.selected_players.values())
-      selected_names = [sel_name for sel_name in self.selected_players if sel_name != 'Not attached']
- #     return [player for player in self.list_s_players if player not in selected_names]
-      return [player for player in self.list_s_players if player != 'Ursus']
-
-  def refresh_dropdowns(self, selected_name, **event_args):
-
-      for card_index, card_data in enumerate(self.repeating_panel.items):
-        # Получаем ссылку на карточку (компоненту outlined_card)
-        card = self.repeating_panel.get_components()[card_index]
-        card.drop_down_1.items = self.get_available_players(card_index)
-        card.drop_down_2.items = self.get_available_players(card_index)
-        card.drop_down_3.items = self.get_available_players(card_index)
-        card.drop_down_4.items = self.get_available_players(card_index)
-
+      """Инициализация выпадающих списков для всех карточек."""
+      # Получаем компоненты карточек
+      card_components = self.repeating_panel.get_components()
+      
+      for card_index, card in enumerate(card_components):
+          # Явное обращение к каждому выпадающему списку
+          dropdown_names = ['name_1', 'name_2', 'name_3', 'name_4']
+          for dropdown_name in dropdown_names:
+              dropdown = card.get_component(dropdown_name)
+              dropdown.items = self.get_available_names(card_index, dropdown_name)
+              dropdown.set_event_handler('change', self.on_dropdown_change)
+              
+  def get_available_names(self, card_index, dropdown_name):
+    """Получить список доступных имен для конкретного выпадающего списка."""
+    selected_names_set = set(self.selected_names.values())
+    
+    # Если текущий выпадающий список уже имеет выбранное значение, добавляем его обратно
+    key = (card_index, dropdown_name)
+    if key in self.selected_names:
+        selected_value = self.selected_names[key]
+        return [name for name in self.all_names if name not in selected_names_set or name == selected_value]
+    
+    # В противном случае исключаем все выбранные имена
+    return [name for name in self.all_names if name not in selected_names_set]
+    
+  def on_dropdown_change(self, sender, **event_args):
+      """Обработчик изменения выбора в выпадающем списке."""
+      # Получаем индекс карточки через родительский компонент
+      card = sender.parent
+      card_index = self.repeating_panel.get_components().index(card)
+      
+      dropdown_name = sender.name  # Имя выпадающего списка (например, 'name_1')
+      selected_name = sender.selected_value
+  
+      # Удаляем предыдущее выбранное имя из словаря
+      key = (card_index, dropdown_name)
+      if key in self.selected_names:
+          previously_selected = self.selected_names[key]
+          if previously_selected:
+              # Возвращаем ранее выбранное имя в общий пул
+              self.all_names.append(previously_selected)
+  
+      # Обновляем словарь выбранных имен
+      self.selected_names[key] = selected_name
+  
+      # Удаляем текущее выбранное имя из общего пула
+      if selected_name:
+          self.all_names.remove(selected_name)
+  
+      # Обновляем все выпадающие списки
+      self.refresh_dropdowns()
+  
+  def refresh_dropdowns(self):
+      """Обновление всех выпадающих списков в Repeating Panel."""
+      # Получаем компоненты карточек
+      card_components = self.repeating_panel.get_components()
+      
+      for card_index, card in enumerate(card_components):
+          dropdown_names = ['name_1', 'name_2', 'name_3', 'name_4']
+          for dropdown_name in dropdown_names:
+              dropdown = card.get_component(dropdown_name)
+              dropdown.items = self.get_available_names(card_index, dropdown_name)
+          
   def add_court(self, item, **event_args):
 #    item = {}
       
