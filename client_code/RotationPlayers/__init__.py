@@ -43,11 +43,16 @@ class RotationPlayers(RotationPlayersTemplate):
     
     # Полный список всех имен
     self.all_names = [row['name'] for row in app_tables.s_players.search()]
-    # Словарь для отслеживания выбранных имен
-    self.selected_names = {}
-    # Инициализация выпадающих списков
-    self.initialize_dropdowns()
-      
+    
+    # Инициализация данных для Repeating Panel
+    self.repeating_panel.items = [
+        {'name_1': None, 'name_2': None, 'name_3': None, 'name_4': None}
+        for _ in range(5)  # Пример: 5 карточек
+    ]    
+    # Передача all_names в каждую карточку
+    for card in self.repeating_panel.get_components():
+        card.all_names = self.all_names
+          
   def edit_player_click(self, **event_args):
 #    open_form(ListPlayers())
     ListPlayers()

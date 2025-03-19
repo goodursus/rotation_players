@@ -12,11 +12,46 @@ class CourtView(CourtViewTemplate):
     self.init_components(**properties)
 
   def drop_down_1_change(self, **event_args):
-    sender = event_args['sender']
-    self.selected_name['new_name_1'] = sender.selected_value
 
     self.parent.raise_event('x-refresh-dropdowns')
 
+    # Убедитесь, что all_names передано
+    if not hasattr(self, 'all_names'):
+        raise ValueError("Список all_names не передан в CourtView")
+    
+    # Инициализация выпадающих списков
+    self.drop_down_1.items = self.get_available_names('name_1')
+    self.drop_down_2.items = self.get_available_names('name_2')
+    self.drop_down_3.items = self.get_available_names('name_3')
+    self.drop_down_4.items = self.get_available_names('name_4')
+    
+    # Установка обработчиков событий
+    self.drop_down_1.set_event_handler('change', lambda **e: self.on_dropdown_change('name_1'))
+    self.drop_down_2.set_event_handler('change', lambda **e: self.on_dropdown_change('name_2'))
+    self.drop_down_3.set_event_handler('change', lambda **e: self.on_dropdown_change('name_3'))
+    self.drop_down_4.set_event_handler('change', lambda **e: self.on_dropdown_change('name_4'))
+
+  def get_available_names(self, dropdown_name):
+    """Получить список доступных имен для конкретного выпадающего списка."""
+    selected_names_set = set(self.item.values())  # Все выбранные имена в карточке
+    return [
+        name for name in self.all_names
+        if name not in selected_names_set or name == self.item[dropdown_name]
+    ]
+
+  def on_dropdown_change(self, dropdown_name):
+    """Обработчик изменения выбора в выпадающем списке."""
+    selected_value = getattr(self, f"drop_down_{dropdown_name[-1]}").selected_value
+    self.item[dropdown_name] = selected_value
+    self.refresh_dropdowns()
+
+  def refresh_dropdowns(self):
+      """Обновление доступных значений для всех выпадающих списков."""
+      self.drop_down_1.items = self.get_available_names('name_1')
+      self.drop_down_2.items = self.get_available_names('name_2')
+      self.drop_down_3.items = self.get_available_names('name_3')
+      self.drop_down_4.items = self.get_available_names('name_4')
+      
   def drop_down_2_change(self, **event_args):
     sender = event_args['sender']
     self.selected_name['new_name_2'] = sender.selected_value
