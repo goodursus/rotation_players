@@ -34,9 +34,9 @@ class RotationPlayers(RotationPlayersTemplate):
       self.last_game = last_record[0]['game_id']
       self.current_game_box.text = self.last_game
 
-    self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
+#    self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
 
-    self.repeating_panel.set_event_handler('x-refresh-dropdowns', self.refresh_dropdowns)
+#    self.repeating_panel.set_event_handler('x-refresh-dropdowns', self.refresh_dropdowns)
     self.repeating_panel.set_event_handler('x-add-court', self.add_court) 
     self.repeating_panel.set_event_handler('x-save-court', self.save_court) 
     self.repeating_panel.set_event_handler('x-del-court', self.del_court) 
@@ -44,15 +44,13 @@ class RotationPlayers(RotationPlayersTemplate):
     # Полный список всех имен
     self.all_names = [row['name'] for row in app_tables.s_players.search()]
     
-    # Инициализация данных для Repeating Panel
-    self.repeating_panel.items = [
-        {'name_1': None, 'name_2': None, 'name_3': None, 'name_4': None}
-        for _ in range(5)  # Пример: 5 карточек
-    ]    
-    # Передача all_names в каждую карточку
-    for card in self.repeating_panel.get_components():
-        card.all_names = self.all_names
+    self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
           
+    # Передача all_names в каждую карточку
+    card_components = self.repeating_panel.get_components()
+    for card in card_components:
+        card.set_all_names(self.all_names)  # Передаем список имен через метод
+         
   def edit_player_click(self, **event_args):
 #    open_form(ListPlayers())
     ListPlayers()
@@ -68,70 +66,6 @@ class RotationPlayers(RotationPlayersTemplate):
     """This method is called when the link is clicked"""
     open_form('Session.SessionPlayers')
      
-  def initialize_dropdowns(self):
-      """Инициализация выпадающих списков для всех карточек."""
-      # Получаем компоненты карточек
-      card_components = self.repeating_panel.get_components()
-      
-      for card_index, card in enumerate(card_components):
-          # Явное обращение к каждому выпадающему списку
-          dropdown_names = ['name_1', 'name_2', 'name_3', 'name_4']
-          for dropdown_name in dropdown_names:
-              dropdown = card.get_component(dropdown_name)
-              dropdown.items = self.get_available_names(card_index, dropdown_name)
-              dropdown.set_event_handler('change', self.on_dropdown_change)
-              
-  def get_available_names(self, card_index, dropdown_name):
-    """Получить список доступных имен для конкретного выпадающего списка."""
-    selected_names_set = set(self.selected_names.values())
-    
-    # Если текущий выпадающий список уже имеет выбранное значение, добавляем его обратно
-    key = (card_index, dropdown_name)
-    if key in self.selected_names:
-        selected_value = self.selected_names[key]
-        return [name for name in self.all_names if name not in selected_names_set or name == selected_value]
-    
-    # В противном случае исключаем все выбранные имена
-    return [name for name in self.all_names if name not in selected_names_set]
-    
-  def on_dropdown_change(self, sender, **event_args):
-      """Обработчик изменения выбора в выпадающем списке."""
-      # Получаем индекс карточки через родительский компонент
-      card = sender.parent
-      card_index = self.repeating_panel.get_components().index(card)
-      
-      dropdown_name = sender.name  # Имя выпадающего списка (например, 'name_1')
-      selected_name = sender.selected_value
-  
-      # Удаляем предыдущее выбранное имя из словаря
-      key = (card_index, dropdown_name)
-      if key in self.selected_names:
-          previously_selected = self.selected_names[key]
-          if previously_selected:
-              # Возвращаем ранее выбранное имя в общий пул
-              self.all_names.append(previously_selected)
-  
-      # Обновляем словарь выбранных имен
-      self.selected_names[key] = selected_name
-  
-      # Удаляем текущее выбранное имя из общего пула
-      if selected_name:
-          self.all_names.remove(selected_name)
-  
-      # Обновляем все выпадающие списки
-      self.refresh_dropdowns()
-  
-  def refresh_dropdowns(self):
-      """Обновление всех выпадающих списков в Repeating Panel."""
-      # Получаем компоненты карточек
-      card_components = self.repeating_panel.get_components()
-      
-      for card_index, card in enumerate(card_components):
-          dropdown_names = ['name_1', 'name_2', 'name_3', 'name_4']
-          for dropdown_name in dropdown_names:
-              dropdown = card.get_component(dropdown_name)
-              dropdown.items = self.get_available_names(card_index, dropdown_name)
-          
   def add_court(self, item, **event_args):
 #    item = {}
       
