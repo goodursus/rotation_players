@@ -34,9 +34,6 @@ class RotationPlayers(RotationPlayersTemplate):
       self.last_game = last_record[0]['game_id']
       self.current_game_box.text = self.last_game
 
-#    self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
-
-#    self.repeating_panel.set_event_handler('x-refresh-dropdowns', self.refresh_dropdowns)
     self.repeating_panel.set_event_handler('x-add-court', self.add_court) 
     self.repeating_panel.set_event_handler('x-save-court', self.save_court) 
     self.repeating_panel.set_event_handler('x-del-court', self.del_court) 
@@ -80,7 +77,8 @@ class RotationPlayers(RotationPlayersTemplate):
     # refresh the Data Grid
     anvil.server.call("add_court", item)
     self.repeating_panel.items = anvil.server.call('get_records_with_names')
-    self.initialize_dropdowns()
+#    self.initialize_dropdowns()
+    self.set_list_name()
 
   def del_court(self, court, **event_args):
     # Получение уникального идентификатора из словаря
@@ -89,24 +87,23 @@ class RotationPlayers(RotationPlayersTemplate):
     row_to_delete = app_tables.court.get(id = row_id)
     row_to_delete.delete()
     self.repeating_panel.items = anvil.server.call('get_records_with_names')
-    self.initialize_dropdowns()
+    self.set_list_name()
 
   def save_court(self, court, **event_args):
-    # Получение уникального идентификатора из словаря
-    row_id = court['id']
-    # Поиск строки в таблице
-    row_to_edit = app_tables.court.get(id = row_id)
-
-    row_to_edit['player_id_1'] = self.name_to_code[court['name_1']] 
-    row_to_edit['player_id_2'] = self.name_to_code[court['name_2']] 
-    row_to_edit['player_id_3'] = self.name_to_code[court['name_3']] 
-    row_to_edit['player_id_4'] = self.name_to_code[court['name_4']] 
-
-    row_to_edit.update()
-    
-    self.repeating_panel.items = anvil.server.call('get_records_with_names')
-    self.initialize_dropdowns()
-
+      """Сохранение данных о кортах в таблицу."""
+      for card_index, card in enumerate(self.repeating_panel.items):
+          court_id = card['id']
+          players = {
+              'player_id_1': self.name_to_code[card['name_1']], 
+              'player_id_2': self.name_to_code[card['name_2']], 
+              'player_id_3': self.name_to_code[card['name_3']], 
+              'player_id_4': self.name_to_code[card['name_4']], 
+          }
+          # Обновление записи в таблице court
+          court_row = app_tables.court.get(id=court_id)
+          if court_row:
+              court_row.update(**players)
+  
   def get_color_status(self, value):
     color_map = {1: "#d4edda", -1: "#cce5ff", 0: "#fff3cd"}  # Цвет фона
     return color_map.get(value, "#ffffff")
@@ -134,3 +131,8 @@ class RotationPlayers(RotationPlayersTemplate):
     }
     return records
 
+  def set_list_name(self):
+      # Передача all_names в каждую карточку
+    card_components = self.repeating_panel.get_components()
+    for card in card_components:
+        card.set_all_names(self.all_names)  # Передаем список имен через метод

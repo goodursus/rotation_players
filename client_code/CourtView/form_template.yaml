@@ -22,6 +22,7 @@ components:
       layout_properties: {grid_position: 'YVUXGL,MZGSWG'}
       name: drop_down_1
       properties:
+        font_size: 18
         include_placeholder: true
         items: []
         placeholder: choose name
@@ -31,13 +32,17 @@ components:
       event_bindings: {change: drop_down_2_change}
       layout_properties: {grid_position: 'YVUXGL,RTEBPV'}
       name: drop_down_2
-      properties: {include_placeholder: true, placeholder: choose name}
+      properties: {font_size: 18, include_placeholder: true, placeholder: choose name}
       type: DropDown
+    - layout_properties: {grid_position: 'YVUXGL,HYPNEM'}
+      name: score_3
+      properties: {font_size: 18}
+      type: TextBox
     data_bindings:
-    - {code: 'self.item[''bg_color_3'']', property: background, writeback: false}
+    - {code: 'self.item[''bg_color_1'']', property: background, writeback: false}
     layout_properties: {grid_position: 'GSWMCT,HRQFIF ZHFSWZ,MVNKTC YWUYLK,PTQERV'}
     name: outlined_card_2
-    properties: {role: outlined-card}
+    properties: {col_widths: '{"MZGSWG":25,"RTEBPV":25,"HYPNEM":10}', role: outlined-card}
     type: ColumnPanel
   - components:
     - event_bindings: {click: add_court_button_click}
@@ -47,7 +52,7 @@ components:
         font_size: 18
         icon: fa:address-card
         spacing:
-          padding: [null, null, null, 8]
+          padding: [null, 12, null, 8]
         text: ''
       type: Button
     - event_bindings: {click: save_court_button_click}
@@ -57,7 +62,7 @@ components:
         font_size: 18
         icon: fa:save
         spacing:
-          padding: [null, null, null, 9]
+          padding: [null, 11, null, 11]
         text: ''
       type: Button
     - event_bindings: {click: del_court_button_click}
@@ -67,7 +72,7 @@ components:
         font_size: 18
         icon: fa:trash
         spacing:
-          padding: [null, null, null, 11]
+          padding: [null, 10, null, 11]
         text: ''
       type: Button
     layout_properties: {grid_position: 'GSWMCT,LXZGMZ'}
@@ -79,19 +84,24 @@ components:
       - {code: 'self.item[''name_3'']', property: selected_value, writeback: false}
       layout_properties: {grid_position: 'FYWSDV,OJGVXO'}
       name: drop_down_3
-      properties: {include_placeholder: true, placeholder: choose name}
+      properties: {font_size: 18, include_placeholder: true, placeholder: choose name}
       type: DropDown
     - data_bindings:
       - {code: 'self.item[''name_4'']', property: selected_value, writeback: false}
       layout_properties: {grid_position: 'FYWSDV,FLTQGB'}
       name: drop_down_4
-      properties: {include_placeholder: true, placeholder: choose name}
+      properties: {font_size: 18, include_placeholder: true, placeholder: choose name}
       type: DropDown
+    - event_bindings: {change: score_change}
+      layout_properties: {grid_position: 'FYWSDV,UNCQWH'}
+      name: score_1
+      properties: {}
+      type: TextBox
     data_bindings:
-    - {code: 'self.item[''bg_color_1'']', property: background, writeback: false}
+    - {code: 'self.item[''bg_color_3'']', property: background, writeback: false}
     layout_properties: {grid_position: 'GSWMCT,HRQFIF ZHFSWZ,MVNKTC PJIKWS,CMZRJR'}
     name: outlined_card_1
-    properties: {background: '', role: outlined-card}
+    properties: {background: '', col_widths: '{"OJGVXO":25,"FLTQGB":25,"UNCQWH":10}', role: outlined-card}
     type: ColumnPanel
   layout_properties: {grid_position: 'KFTIWH,LBNPOC'}
   name: outlined_card_3

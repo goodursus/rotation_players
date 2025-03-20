@@ -31,8 +31,8 @@ class CourtView(CourtViewTemplate):
       self.drop_down_3.set_event_handler('change', lambda **e: self.on_dropdown_change('name_3'))
       self.drop_down_4.set_event_handler('change', lambda **e: self.on_dropdown_change('name_4'))
 
-  def drop_down_1_change(self, **event_args):
-    self.parent.raise_event('x-refresh-dropdowns')
+#  def drop_down_1_change(self, **event_args):
+#    self.parent.raise_event('x-refresh-dropdowns')
 
   def get_available_names(self, dropdown_name):
     """Получить список доступных имен для конкретного выпадающего списка."""
@@ -52,6 +52,7 @@ class CourtView(CourtViewTemplate):
     
     selected_value = getattr(self, f"drop_down_{dropdown_name[-1]}").selected_value
     self.item[dropdown_name] = selected_value
+    self.save_court_button.background = '#FFCCCC'  # Светло-красный цвет
     self.refresh_dropdowns()
 
   def refresh_dropdowns(self):
@@ -64,22 +65,26 @@ class CourtView(CourtViewTemplate):
     self.drop_down_3.items = self.get_available_names('name_3')
     self.drop_down_4.items = self.get_available_names('name_4')   
     
-  def drop_down_2_change(self, **event_args):
-    sender = event_args['sender']
-    self.selected_name['new_name_2'] = sender.selected_value
+#  def drop_down_2_change(self, **event_args):
+#    sender = event_args['sender']
+#    self.selected_name['new_name_2'] = sender.selected_value
 
-    self.parent.raise_event('x-refresh-dropdowns')
+#    self.parent.raise_event('x-refresh-dropdowns')
 
   def add_court_button_click(self, **event_args):
     self.parent.raise_event('x-add-court', item = {})
+#    self.refresh_dropdowns()
 
   def save_court_button_click(self, **event_args):
-    self.item['name_1'] = self.drop_down_1.selected_value
-    self.item['name_2'] = self.drop_down_2.selected_value
-    self.item['name_3'] = self.drop_down_3.selected_value
-    self.item['name_4'] = self.drop_down_4.selected_value
     self.parent.raise_event('x-save-court', court = self.item)
+    # Возвращаем кнопке исходный цвет
+    self.save_court_button.background = None  # Цвет по умолчанию
+    self.refresh_dropdowns()
 
   def del_court_button_click(self, **event_args):
     self.parent.raise_event('x-del-court', court = self.item)
+
+  def score_change(self, **event_args):
+    """This method is called when the text in this text box is edited"""
+    pass
 
