@@ -139,16 +139,29 @@ class RotationPlayers(RotationPlayersTemplate):
         card.set_all_names(self.all_names)  # Передаем список имен через метод
 
   def lottery_click(self, **event_args):
-      last_record = app_tables.session.search(tables.order_by("session_id", ascending = False))
-      last_session = last_record[0]['session_id']
-      current_session = app_tables.session.get(session_id=last_session)
-      session = dict(current_session)
-      for i in range(session['number_courts']):
-        item = self.empty_court()
-        item['id'] = i + 1
-        anvil.server.call("add_court", item)
-        
-      self.repeating_panel.items = anvil.server.call('get_records_with_names')
-      self.set_list_name()
+    # Запрос подтверждения у пользователя
+    user_response = confirm(
+        "Вы уверены, что хотите удалить все записи?",
+        title="Подтверждение удаления",
+        buttons=["Да", "Нет"]
+    )
+    if user_response == "Да":
+        # Поиск всех строк в таблице
+        rows = app_tables.court.search()
+        # Удаление каждой строки
+        for row in rows:
+            row.delete()
+
+        last_record = app_tables.session.search(tables.order_by("session_id", ascending = False))
+        last_session = last_record[0]['session_id']
+        current_session = app_tables.session.get(session_id=last_session)
+        session = dict(current_session)
+        for i in range(session['number_courts']):
+          item = self.empty_court()
+          item['id'] = i + 1
+          anvil.server.call("add_court", item)
+          
+        self.repeating_panel.items = anvil.server.call('get_records_with_names')
+        self.set_list_name()
 
       
