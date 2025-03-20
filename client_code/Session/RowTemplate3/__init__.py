@@ -5,7 +5,6 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
-
 class RowTemplate3(RowTemplate3Template):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
@@ -13,7 +12,7 @@ class RowTemplate3(RowTemplate3Template):
 
     # Any code you write here will run before the form opens.
 
-  def edir_row_click(self, **event_args):
+  def edit_row_click(self, **event_args):
     self.parent.raise_event('x-edit-session', session = self.item)
 
   def delete_row_click(self, **event_args):

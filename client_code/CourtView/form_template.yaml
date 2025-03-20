@@ -18,7 +18,7 @@ components:
   - components:
     - data_bindings:
       - {code: 'self.item[''name_1'']', property: selected_value, writeback: false}
-      event_bindings: {change: drop_down_1_change}
+      event_bindings: {}
       layout_properties: {grid_position: 'YVUXGL,MZGSWG'}
       name: drop_down_1
       properties:
@@ -29,13 +29,15 @@ components:
       type: DropDown
     - data_bindings:
       - {code: 'self.item[''name_2'']', property: selected_value, writeback: false}
-      event_bindings: {change: drop_down_2_change}
+      event_bindings: {}
       layout_properties: {grid_position: 'YVUXGL,RTEBPV'}
       name: drop_down_2
       properties: {font_size: 18, include_placeholder: true, placeholder: choose name}
       type: DropDown
-    - layout_properties: {grid_position: 'YVUXGL,HYPNEM'}
-      name: score_3
+    - data_bindings:
+      - {code: 'self.item[''score_1'']', property: text, writeback: false}
+      layout_properties: {grid_position: 'YVUXGL,HYPNEM'}
+      name: score_1
       properties: {font_size: 18}
       type: TextBox
     data_bindings:
@@ -92,9 +94,11 @@ components:
       name: drop_down_4
       properties: {font_size: 18, include_placeholder: true, placeholder: choose name}
       type: DropDown
-    - event_bindings: {change: score_change}
+    - data_bindings:
+      - {code: 'self.item[''score_3'']', property: text, writeback: false}
+      event_bindings: {change: score_change}
       layout_properties: {grid_position: 'FYWSDV,UNCQWH'}
-      name: score_1
+      name: score_3
       properties: {}
       type: TextBox
     data_bindings:

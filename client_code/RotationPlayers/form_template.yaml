@@ -43,18 +43,8 @@ components:
   properties: {text: Players on courts}
   type: Label
 - components:
-  - event_bindings: {click: link_session_click}
-    layout_properties: {grid_position: 'YRTKXA,CZUDDD'}
-    name: link_session
-    properties: {align: center, border: '3px solid #4CAF50', role: selected, text: Session}
-    type: Link
-  - event_bindings: {click: link_s_players_click}
-    layout_properties: {grid_position: 'FGIHBN,WRSFLP'}
-    name: link_s_players
-    properties: {border: '3px solid #4CAF50', role: selected, text: Session Players}
-    type: Link
   - event_bindings: {click: link_players_click}
-    layout_properties: {grid_position: 'POXGNB,GZLATE'}
+    layout_properties: {grid_position: 'RQCCUG,ZCVHUH'}
     name: link_players
     properties:
       align: center
@@ -62,12 +52,28 @@ components:
       col_spacing: small
       role: selected
       spacing:
-        margin: [17, null, null, null]
-        padding: [10, null, 1, null]
+        margin: ['0', null, null, null]
+        padding: ['4', null, '4', null]
       spacing_above: small
       spacing_below: small
       text: All players
     type: Link
+  - event_bindings: {click: link_session_click}
+    layout_properties: {grid_position: 'PYXHGL,NWYVPW'}
+    name: link_session
+    properties: {align: center, border: '3px solid #4CAF50', role: selected, text: Session}
+    type: Link
+  - components: []
+    event_bindings: {click: link_s_players_click}
+    layout_properties: {grid_position: 'NSHBRP,VXYGGP'}
+    name: link_s_players
+    properties: {border: '3px solid #4CAF50', role: selected, text: Session Players}
+    type: Link
+  - event_bindings: {click: lottery_click}
+    layout_properties: {grid_position: 'MCBAQB,QHCPWY'}
+    name: lottery
+    properties: {role: elevated-button, text: Lottery}
+    type: Button
   layout_properties: {slot: left-nav}
   name: column_panel_1
   properties: {col_spacing: small}

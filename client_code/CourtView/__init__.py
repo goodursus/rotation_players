@@ -86,5 +86,9 @@ class CourtView(CourtViewTemplate):
 
   def score_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
-    pass
+    self.item['score_1'] = self.score_1.text
+    self.item['score_3'] = self.score_3.text
+    self.parent.raise_event('x-save-court', court = self.item)
+    self.refresh_dropdowns()
+    
 

@@ -1,13 +1,22 @@
 components:
 - components:
-  - event_bindings: {click: edir_row_click}
+  - event_bindings: {click: edit_row_click}
     layout_properties: {}
-    name: edir_row
-    properties: {icon: 'fa:pencil', text: ''}
+    name: edit_row
+    properties:
+      icon: fa:pencil
+      spacing:
+        padding: [null, null, null, 6]
+      text: ''
     type: Button
   - event_bindings: {click: delete_row_click}
+    layout_properties: {}
     name: delete_row
-    properties: {icon: 'fa:trash-o', text: ''}
+    properties:
+      icon: fa:trash-o
+      spacing:
+        padding: [null, 18, null, 0]
+      text: ''
     type: Button
   layout_properties: {column: SXSMZH}
   name: flow_panel_1

@@ -11,4 +11,8 @@ class EditSession(EditSessionTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
+  def date_picker_session_change(self, **event_args):
+    """This method is called when the selected date changes"""
+    self.item['data_session'] = self.date_picker_session.date
+
     

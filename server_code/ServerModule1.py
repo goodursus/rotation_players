@@ -30,6 +30,13 @@ def get_game_status(value):
   color_map = {1: "#d4edda", -1: "#cce5ff", 0: "#fff3cd"}  # Цвет фона
   return color_map.get(value, "#ffffff")
 
+def get_score(value):
+  if value < 0:
+    score = 0
+  else:
+    score = value
+  return score 
+
 @anvil.server.callable
 def get_records_with_names():
     # Создаем словарь кодов и имен
@@ -56,6 +63,8 @@ def get_records_with_names():
             "status_3": row['status_3'],
             "bg_color_4": get_game_status(row['status_4']),
             "status_4": row['status_4'],
+            "score_1": get_score(row['status_1']),
+            "score_3": get_score(row['status_3'])
         }
         for row in app_tables.court.search()
     ]

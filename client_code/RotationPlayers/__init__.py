@@ -64,8 +64,6 @@ class RotationPlayers(RotationPlayersTemplate):
     open_form('Session.SessionPlayers')
      
   def add_court(self, item, **event_args):
-#    item = {}
-      
     rows = list(app_tables.court.search())
     # Проверка, пуста ли таблица
     if rows:
@@ -77,7 +75,6 @@ class RotationPlayers(RotationPlayersTemplate):
     # refresh the Data Grid
     anvil.server.call("add_court", item)
     self.repeating_panel.items = anvil.server.call('get_records_with_names')
-#    self.initialize_dropdowns()
     self.set_list_name()
 
   def del_court(self, court, **event_args):
@@ -98,9 +95,13 @@ class RotationPlayers(RotationPlayersTemplate):
               'player_id_2': self.name_to_code[card['name_2']], 
               'player_id_3': self.name_to_code[card['name_3']], 
               'player_id_4': self.name_to_code[card['name_4']], 
+              'status_1': int(card['score_1']),
+              'status_2': int(card['score_1']),
+              'status_3': int(card['score_3']),
+              'status_4': int(card['score_3']),
           }
           # Обновление записи в таблице court
-          court_row = app_tables.court.get(id=court_id)
+          court_row = app_tables.court.get(id = court_id)
           if court_row:
               court_row.update(**players)
   
@@ -136,3 +137,18 @@ class RotationPlayers(RotationPlayersTemplate):
     card_components = self.repeating_panel.get_components()
     for card in card_components:
         card.set_all_names(self.all_names)  # Передаем список имен через метод
+
+  def lottery_click(self, **event_args):
+      last_record = app_tables.session.search(tables.order_by("session_id", ascending = False))
+      last_session = last_record[0]['session_id']
+      current_session = app_tables.session.get(session_id=last_session)
+      session = dict(current_session)
+      for i in range(session['number_courts']):
+        item = self.empty_court()
+        item['id'] = i + 1
+        anvil.server.call("add_court", item)
+        
+      self.repeating_panel.items = anvil.server.call('get_records_with_names')
+      self.set_list_name()
+
+      

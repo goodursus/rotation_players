@@ -42,7 +42,7 @@ class Session(SessionTemplate):
   def edit_session(self, session, **event_args):
     #movie is the row from the Data Table
     item = dict(session)
-    editing_form = EditSession(item=item)
+    editing_form = EditSession(item = item)
   
     #if the user clicks OK on the alert
     if alert(content = editing_form, large=True):
