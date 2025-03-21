@@ -30,9 +30,10 @@ class Session(SessionTemplate):
       item['session_id'] = next_id
       item['data_session'] = datetime.now().date()
 
-    players = dict(app_tables.s_players.search())
-    item['number_players'] = len(players)
-    item['number_courts']  = 
+    players = list(app_tables.s_players.search())
+    player_count = len(players)
+    item['number_players'] = player_count
+    item['number_courts']  = (player_count + 3) // 4
     editing_form = EditSession(item=item)
 
     # if the user clicks OK on the alert
