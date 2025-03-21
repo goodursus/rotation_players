@@ -138,11 +138,11 @@ class RotationPlayers(RotationPlayersTemplate):
   def lottery_click(self, **event_args):
     # Запрос подтверждения у пользователя
     user_response = confirm(
-        "Вы уверены, что хотите удалить все записи?",
-        title="Подтверждение удаления",
-        buttons=["Да", "Нет"]
+        "Are you sure you want to delete all court records",
+        title="Confirm Delete",
+        buttons=["Yes", "No"]
     )
-    if user_response == "Да":
+    if user_response == "Yes":
         # Поиск всех строк в таблице
         rows = app_tables.court.search()
         # Удаление каждой строки
