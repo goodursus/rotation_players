@@ -14,9 +14,6 @@ class RotationPlayers(RotationPlayersTemplate):
     # Запрос данных из таблицы
     rows = list(app_tables.court.search())
     self.repeating_panel = self.repeating_panel_2
-    # Словарь для отслеживания выбранных имен по всем выпадающим спискам
-#    self.selected_players = {}# Ключ: (card_index, dropdown_id), Значение: выбранное имя
-#   self.selected_players = []# Ключ: (card_index, dropdown_id), Значение: выбранное имя
 
     # Загрузка данных из таблицы соответствия
     correspondence_table = app_tables.s_players.search()
