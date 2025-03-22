@@ -8,9 +8,10 @@ components:
     name: data_grid_1
     properties:
       columns:
+      - {data_key: player_id, expand: false, id: IIJPRM, title: ID, width: 67.79998779296875}
       - {data_key: name, id: QENGYJ, title: Name}
-      - {data_key: phone, id: IIBOEG, title: Phone}
-      - {data_key: email, id: RFDBXZ, title: eMail}
+      - {data_key: phone, expand: false, id: IIBOEG, title: Phone, width: 143.20001220703125}
+      - {data_key: email, expand: false, id: RFDBXZ, title: eMail, width: 202}
       - {data_key: column_1, id: RNAOGK, title: ''}
     type: DataGrid
   - event_bindings: {click: add_player_click}

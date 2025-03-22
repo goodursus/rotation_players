@@ -16,14 +16,16 @@ class EditSessionPlayers(EditSessionPlayersTemplate):
     ]
     self.list_players_box.items = self.list_players
         
-    if self.player_number_box.text is None:
-      last_record = app_tables.s_players.search(tables.order_by("player_number", ascending = False))
-      self.next_id = last_record[0]['player_number'] + 1 if last_record else 1
-      self.player_number_box.text = self.next_id
-    else:  
-#      self.item = item
-      self.next_id = self.player_number_box.text
+#    if self.player_number_box.text is None:
+#      last_record = app_tables.s_players.search(tables.order_by("player_number", ascending = False))
+#      self.next_id = last_record[0]['player_number'] + 1 if last_record else 1
+#      self.player_number_box.text = self.next_id
+#    else:  
+#      self.next_id = self.player_number_box.text
       
   def list_players_box_change(self, **event_args):
     """This method is called when an item is selected"""
-    self.item['player_number'] = self.next_id
+    selected = self.list_players_box.selected_value
+    rows = app_tables.players.search(name = selected)
+    self.item['player_number'] = rows[0]['player_id'] 
+    self.player_number_box.text = rows[0]['player_id']

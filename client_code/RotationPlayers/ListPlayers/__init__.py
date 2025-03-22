@@ -18,6 +18,15 @@ class ListPlayers(ListPlayersTemplate):
 
   def add_player_click(self, **event_args):
     item = {}
+    rows = list(app_tables.players.search())
+    if not rows:
+      # Если таблица пустая, создаем одну пустую запись
+      item['player_id'] = 1
+    else:
+      last_record = app_tables.players.search(tables.order_by("player_id", ascending = False))
+      next_id = (last_record[0]['player_id'] + 1) if last_record else 1  # Если нет записей, то ID = 1
+      item['player_id'] = next_id
+    
     editing_form = EditPlayer(item=item)
 
     # if the user clicks OK on the alert

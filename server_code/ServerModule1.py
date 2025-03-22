@@ -96,12 +96,12 @@ def add_s_player(s_player_data):
 def delete_s_player(player):
   player.delete()
 
-  # Получаем все оставшиеся строки, сортируя по id
-  all_rows = sorted(app_tables.s_players.search(), key=lambda row: row['player_number'])
+#  # Получаем все оставшиеся строки, сортируя по id
+#  all_rows = sorted(app_tables.s_players.search(), key=lambda row: row['player_number'])
 
-  # Перенумеровываем id
-  for new_id, row in enumerate(all_rows, start = 1):
-    row['player_number'] = new_id  # Присваиваем новый порядковый номер
+#  # Перенумеровываем id
+#  for new_id, row in enumerate(all_rows, start = 1):
+#    row['player_number'] = new_id  # Присваиваем новый порядковый номер
 
 @anvil.server.callable
 def update_s_player(player, player_data):
