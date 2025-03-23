@@ -168,7 +168,6 @@ class RotationPlayers(RotationPlayersTemplate):
  
       # Обновление полей name_1, name_2, name_3, name_4 в существующем списке
         self.update_repeating_panel_items(cards_data)
-#        self.fill_repeating_panel(cards_data)
          
         # Передача данных в каждую карточку
         card_components = self.repeating_panel.get_components()
@@ -185,7 +184,10 @@ class RotationPlayers(RotationPlayersTemplate):
         item['name_1'] = card[0] if len(card) > 0 else None
         item['name_2'] = card[1] if len(card) > 1 else None
         item['name_3'] = card[2] if len(card) > 2 else None
-        item['name_4'] = card[3] if len(card) > 3 else None    
+        item['name_4'] = card[3] if len(card) > 3 else None 
+    
+        if len(card) < 4:
+          item['bg_rest'] = 'red' 
 
       # Обновляем выпадающие списки вручную
     card_components = self.repeating_panel.get_components()
@@ -195,16 +197,4 @@ class RotationPlayers(RotationPlayersTemplate):
         card.drop_down_3.selected_value = current_items[i]['name_3']
         card.drop_down_4.selected_value = current_items[i]['name_4']
           
-  def fill_repeating_panel(self, cards_data):
-      # Заполнение Repeating Panel
-    self.repeating_panel.items = [
-        {
-            'court_id': i + 1,
-            'name_1': card[0] if len(card) > 0 else None,
-            'name_2': card[1] if len(card) > 1 else None,
-            'name_3': card[2] if len(card) > 2 else None,
-            'name_4': card[3] if len(card) > 3 else None,
-        }
-        for i, card in enumerate(cards_data)
-    ]
 

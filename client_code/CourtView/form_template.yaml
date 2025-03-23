@@ -107,6 +107,8 @@ components:
     name: outlined_card_1
     properties: {background: '', col_widths: '{"OJGVXO":25,"FLTQGB":25,"UNCQWH":10}', role: outlined-card}
     type: ColumnPanel
+  data_bindings:
+  - {code: 'self.item[''bg_rest'']', property: background, writeback: false}
   layout_properties: {grid_position: 'KFTIWH,LBNPOC'}
   name: outlined_card_3
   properties: {border: '3px solid #4CAF50', col_widths: '{"FKTPTZ":15,"MVNKTC":45,"HRQFIF":55,"LXZGMZ":5}', role: outlined-card}
