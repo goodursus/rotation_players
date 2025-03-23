@@ -176,17 +176,25 @@ class RotationPlayers(RotationPlayersTemplate):
             card.set_all_names(names)  # Передаем полный список имен
 
   def update_repeating_panel_items(self, cards_data):
-      """Обновление полей name_1, name_2, name_3, name_4 в существующем списке self.repeating_panel.items."""
-      for i, card in enumerate(cards_data):
-          # Получаем текущий элемент items
-          item = self.repeating_panel.items[i]
-          
-          # Обновляем только поля name_1, name_2, name_3, name_4
-          item['name_1'] = card[0] if len(card) > 0 else None
-          item['name_2'] = card[1] if len(card) > 1 else None
-          item['name_3'] = card[2] if len(card) > 2 else None
-          item['name_4'] = card[3] if len(card) > 3 else None     
+    current_items = self.repeating_panel.items
+    for i, card in enumerate(cards_data):
+        # Получаем текущий элемент items
+        item = current_items[i]
+        
+        # Обновляем только поля name_1, name_2, name_3, name_4
+        item['name_1'] = card[0] if len(card) > 0 else None
+        item['name_2'] = card[1] if len(card) > 1 else None
+        item['name_3'] = card[2] if len(card) > 2 else None
+        item['name_4'] = card[3] if len(card) > 3 else None    
 
+      # Обновляем выпадающие списки вручную
+    card_components = self.repeating_panel.get_components()
+    for i, card in enumerate(card_components):
+        card.drop_down_1.selected_value = current_items[i]['name_1']
+        card.drop_down_2.selected_value = current_items[i]['name_2']
+        card.drop_down_3.selected_value = current_items[i]['name_3']
+        card.drop_down_4.selected_value = current_items[i]['name_4']
+          
   def fill_repeating_panel(self, cards_data):
       # Заполнение Repeating Panel
     self.repeating_panel.items = [
