@@ -118,13 +118,13 @@ class RotationPlayers(RotationPlayersTemplate):
         "player_id_4": 0,
         "id": 1,  # Дополнительные текстовые поля
         "game_id": 1,
-#        "bg_color_1": get_color_status(-1),
+#        "bg_color_1": self.get_color_status(-1),
         "status_1": -1,
-#        "bg_color_2": get_color_status(-1),
+#        "bg_color_2": self.get_color_status(-1),
         "status_2": -1,
-#        "bg_color_3": get_color_status(-1),
+#        "bg_color_3": self.get_color_status(-1),
         "status_3": -1,
-#        "bg_color_4": get_color_status(-1),
+#        "bg_color_4": self.get_color_status(-1),
         "status_4": -1,
     }
     return records
@@ -165,21 +165,38 @@ class RotationPlayers(RotationPlayersTemplate):
         player_count = len(shuffled_names)  
         courts_count = (player_count + 3) // 4
         cards_data = [shuffled_names[i * 4:(i + 1) * 4] for i in range(courts_count)]
-       # Заполнение Repeating Panel
-        self.repeating_panel.items = [
-            {
-                'id': i + 1,
-                'name_1': card[0] if len(card) > 0 else None,
-                'name_2': card[1] if len(card) > 1 else None,
-                'name_3': card[2] if len(card) > 2 else None,
-                'name_4': card[3] if len(card) > 3 else None,
-            }
-            for i, card in enumerate(cards_data)
-        ]
-        
+ 
+      # Обновление полей name_1, name_2, name_3, name_4 в существующем списке
+        self.update_repeating_panel_items(cards_data)
+#        self.fill_repeating_panel(cards_data)
+         
         # Передача данных в каждую карточку
         card_components = self.repeating_panel.get_components()
         for card in card_components:
             card.set_all_names(names)  # Передаем полный список имен
-      
-      
+
+  def update_repeating_panel_items(self, cards_data):
+      """Обновление полей name_1, name_2, name_3, name_4 в существующем списке self.repeating_panel.items."""
+      for i, card in enumerate(cards_data):
+          # Получаем текущий элемент items
+          item = self.repeating_panel.items[i]
+          
+          # Обновляем только поля name_1, name_2, name_3, name_4
+          item['name_1'] = card[0] if len(card) > 0 else None
+          item['name_2'] = card[1] if len(card) > 1 else None
+          item['name_3'] = card[2] if len(card) > 2 else None
+          item['name_4'] = card[3] if len(card) > 3 else None     
+
+  def fill_repeating_panel(self, cards_data):
+      # Заполнение Repeating Panel
+    self.repeating_panel.items = [
+        {
+            'court_id': i + 1,
+            'name_1': card[0] if len(card) > 0 else None,
+            'name_2': card[1] if len(card) > 1 else None,
+            'name_3': card[2] if len(card) > 2 else None,
+            'name_4': card[3] if len(card) > 3 else None,
+        }
+        for i, card in enumerate(cards_data)
+    ]
+
