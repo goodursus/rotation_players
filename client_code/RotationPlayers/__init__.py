@@ -189,12 +189,31 @@ class RotationPlayers(RotationPlayersTemplate):
         if len(card) < 4:
           item['bg_rest'] = 'red' 
 
+    for card_index, card in enumerate(self.repeating_panel.items):
+        court_id = card['id']
+        players = {
+            'player_id_1': self.name_to_code[card['name_1']], 
+            'player_id_2': self.name_to_code[card['name_2']], 
+            'player_id_3': self.name_to_code[card['name_3']], 
+            'player_id_4': self.name_to_code[card['name_4']], 
+#            'status_1': -1,
+#            'status_2': -1,
+#            'status_3': -1,
+#            'status_4': -1,
+        }
+        # Обновление записи в таблице court
+        court_row = app_tables.court.get(id = court_id)
+        if court_row:
+            court_row.update(**players)
+    
+    self.repeating_panel.items = anvil.server.call('get_records_with_names')
+    
       # Обновляем выпадающие списки вручную
-    card_components = self.repeating_panel.get_components()
-    for i, card in enumerate(card_components):
-        card.drop_down_1.selected_value = current_items[i]['name_1']
-        card.drop_down_2.selected_value = current_items[i]['name_2']
-        card.drop_down_3.selected_value = current_items[i]['name_3']
-        card.drop_down_4.selected_value = current_items[i]['name_4']
-          
-
+#    card_components = self.repeating_panel.get_components()
+#    for i, card in enumerate(card_components):
+#        card.drop_down_1.selected_value = current_items[i]['name_1']
+#        card.drop_down_2.selected_value = current_items[i]['name_2']
+#        card.drop_down_3.selected_value = current_items[i]['name_3']
+#        card.drop_down_4.selected_value = current_items[i]['name_4']
+        
+ 
