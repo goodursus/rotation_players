@@ -189,22 +189,29 @@ class RotationPlayers(RotationPlayersTemplate):
         if len(card) < 4:
           item['bg_rest_court'] = '#FFCCCC' 
 
+#     all_player_ids = []
     for card_index, card in enumerate(self.repeating_panel.items):
         court_id = card['id']
-        players = {
-            'player_id_1': self.name_to_code[card['name_1']], 
-            'player_id_2': self.name_to_code[card['name_2']], 
-            'player_id_3': self.name_to_code[card['name_3']], 
-            'player_id_4': self.name_to_code[card['name_4']], 
-#            'status_1': -1,
-#            'status_2': -1,
-#            'status_3': -1,
-#            'status_4': -1,
-        }
+        player_ids = {}
+        for i in range(1, 5):
+          key = 'player_id_' + str(i)
+          value = self.name_to_code[card['name_' + str(i)]]
+          
+          if value is not None:
+              player_ids[key] = value
+    
+#        all_player_ids.append(player_ids)
+
+#        players = {
+#            'player_id_1': self.name_to_code[card['name_1']] if card['name_1'] is not None, 
+#            'player_id_2': self.name_to_code[card['name_2']], 
+#            'player_id_3': self.name_to_code[card['name_3']], 
+#            'player_id_4': self.name_to_code[card['name_4']], 
+#        }
         # Обновление записи в таблице court
         court_row = app_tables.court.get(id = court_id)
         if court_row:
-            court_row.update(**players)
+            court_row.update(**player_ids)
     
     self.repeating_panel.items = anvil.server.call('get_records_with_names')
     
