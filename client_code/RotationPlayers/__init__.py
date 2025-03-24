@@ -12,6 +12,7 @@ class RotationPlayers(RotationPlayersTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
+    self.not_full_court = 0
     # Запрос данных из таблицы
     rows = list(app_tables.court.search())
     self.repeating_panel = self.repeating_panel_2
@@ -187,7 +188,7 @@ class RotationPlayers(RotationPlayersTemplate):
         item['name_4'] = card[3] if len(card) > 3 else None 
     
         if len(card) < 4:
-          item['bg_rest_court'] = '#FFCCCC' 
+          self.not_full_court = i
 
 #     all_player_ids = []
     for card_index, card in enumerate(self.repeating_panel.items):
@@ -215,6 +216,9 @@ class RotationPlayers(RotationPlayersTemplate):
       # Обновляем выпадающие списки вручную
     card_components = self.repeating_panel.get_components()
     for i, card in enumerate(card_components):
+      if self.not_full_court == i:          
+          card.outlined_card_3.background = '#FFCCCC' 
+
       qqq = 1
 #        card.drop_down_1.selected_value = current_items[i]['name_1']
 #        card.drop_down_2.selected_value = current_items[i]['name_2']
