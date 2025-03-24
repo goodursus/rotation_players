@@ -187,7 +187,7 @@ class RotationPlayers(RotationPlayersTemplate):
         item['name_4'] = card[3] if len(card) > 3 else None 
     
         if len(card) < 4:
-          item['bg_rest'] = 'red' 
+          item['bg_rest_court'] = '#FFCCCC' 
 
     for card_index, card in enumerate(self.repeating_panel.items):
         court_id = card['id']
@@ -209,8 +209,9 @@ class RotationPlayers(RotationPlayersTemplate):
     self.repeating_panel.items = anvil.server.call('get_records_with_names')
     
       # Обновляем выпадающие списки вручную
-#    card_components = self.repeating_panel.get_components()
-#    for i, card in enumerate(card_components):
+    card_components = self.repeating_panel.get_components()
+    for i, card in enumerate(card_components):
+      qqq = 1
 #        card.drop_down_1.selected_value = current_items[i]['name_1']
 #        card.drop_down_2.selected_value = current_items[i]['name_2']
 #        card.drop_down_3.selected_value = current_items[i]['name_3']
