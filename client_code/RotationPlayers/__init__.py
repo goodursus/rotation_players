@@ -195,12 +195,9 @@ class RotationPlayers(RotationPlayersTemplate):
         player_ids = {}
         for i in range(1, 5):
           key = 'player_id_' + str(i)
-          value = self.name_to_code[card['name_' + str(i)]]
-          
-          if value is not None:
-              player_ids[key] = value
-    
-#        all_player_ids.append(player_ids)
+          if card['name_' + str(i)] is not None:
+            value = self.name_to_code[card['name_' + str(i)]]
+            player_ids[key] = value
 
 #        players = {
 #            'player_id_1': self.name_to_code[card['name_1']] if card['name_1'] is not None, 
