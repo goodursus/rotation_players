@@ -6,13 +6,17 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 from .ListPlayers import ListPlayers
 import random
+from datetime import timedelta
 
 class RotationPlayers(RotationPlayersTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-
-    self.not_full_court = 0
+    
+    # Поиск не полного корта для отдыха
+    self.not_full_court = self.find_rest_courty()
+    self.mark_rest_court()  
+    
     # Запрос данных из таблицы
     rows = list(app_tables.court.search())
     self.repeating_panel = self.repeating_panel_2
@@ -45,7 +49,27 @@ class RotationPlayers(RotationPlayersTemplate):
     card_components = self.repeating_panel.get_components()
     for card in card_components:
         card.set_all_names(self.all_names)  # Передаем список имен через метод
-         
+
+    # Инициализация переменных
+    self.total_time = timedelta(minutes = 1)  # Общий временной интервал (например, 5 минут)
+    self.elapsed_time = timedelta(seconds = 0)  # Прошедшее время
+    self.timer_running = False  # Флаг состояния таймера
+
+    # Настройка таймера
+    self.timer_component.interval = 1  # Интервал обновления в секундах
+    self.timer_component.enabled = False  # Таймер изначально выключен
+
+    # Привязка обработчика к событию 'tick'
+    self.timer_component.set_event_handler('tick', self.timer_tick)
+
+    # Установка обработчиков событий
+    self.button_start.set_event_handler('click', self.start_timer)
+    self.button_stop.set_event_handler('click', self.stop_timer)
+
+    # Начальные значения меток
+    self.label_elapsed_time.text = "00:00:00"
+    self.label_remaining_time.text = f"{str(self.total_time)}"
+  
   def edit_player_click(self, **event_args):
 #    open_form(ListPlayers())
     ListPlayers()
@@ -213,16 +237,70 @@ class RotationPlayers(RotationPlayersTemplate):
     
     self.repeating_panel.items = anvil.server.call('get_records_with_names')
     
-      # Обновляем выпадающие списки вручную
-    card_components = self.repeating_panel.get_components()
+    self.mark_rest_court()
+    
+    
+  def mark_rest_court(self):
+    # Обновляем выпадающие списки вручную
+    card_components = self.repeating_panel_2.get_components()
     for i, card in enumerate(card_components):
       if self.not_full_court == i:          
           card.outlined_card_3.background = '#FFCCCC' 
 
-      qqq = 1
-#        card.drop_down_1.selected_value = current_items[i]['name_1']
-#        card.drop_down_2.selected_value = current_items[i]['name_2']
-#        card.drop_down_3.selected_value = current_items[i]['name_3']
-#        card.drop_down_4.selected_value = current_items[i]['name_4']
-        
+    self.repeating_panel_2.raise_event('x-refresh')
+  
+  ##############################################################
+  # Timer
+  def start_timer(self, **event_args):
+    """Запуск таймера."""
+    if not self.timer_running:
+        self.timer_running = True
+        self.timer_component.enabled = True  # Включение таймера
+
+  def button_reset_click(self, **event_args):
+    """Сброс таймера."""
+    self.elapsed_time = timedelta(seconds=0)
+    self.label_elapsed_time.text = "00:00:00"
+    self.label_remaining_time.text = f"{str(self.total_time)}"
+
+  def stop_timer(self, **event_args):
+    """Остановка таймера."""
+    if self.timer_running:
+        self.timer_running = False
+        self.timer_component.enabled = False  # Выключение таймера
  
+  def timer_tick(self, **event_args):
+    """Обработчик события таймера (вызывается каждую секунду)."""
+    if self.timer_running and self.elapsed_time < self.total_time:
+        # Увеличиваем прошедшее время на 1 секунду
+        self.elapsed_time += timedelta(seconds=1)
+
+        # Обновляем метки
+        self.label_elapsed_time.text = f"{str(self.elapsed_time)}"
+        remaining_time = self.total_time - self.elapsed_time
+        self.label_remaining_time.text = f"{str(remaining_time)}"
+
+        # Если время истекло, останавливаем таймер
+        if self.elapsed_time >= self.total_time:
+            self.stop_timer()
+            self.label_remaining_time.text = "Finished!"
+    else:
+        self.stop_timer()
+
+  def find_rest_courty(self):
+      """Поиск записей, где хотя бы одно из полей name_1, name_2, name_3, name_4 равно None."""
+      # Получаем все записи из таблицы
+      rows = app_tables.court.search(game_id = 1)
+      
+      # Фильтруем записи, где хотя бы одно из полей равно None
+      null_records = [
+          row for row in rows
+          if row['player_id_1'] == 0 or
+            row['player_id_2'] == 0 or
+            row['player_id_3'] == 0 or
+            row['player_id_4'] == 0
+      ]
+      for record in null_records:
+            null_record = (record['id'])
+
+      return null_record

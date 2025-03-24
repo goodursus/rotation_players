@@ -6,20 +6,43 @@ components:
     type: Label
   - layout_properties: {grid_position: 'LRSVYV,NXYPKJ'}
     name: current_game_box
-    properties: {font_size: 24}
+    properties: {align: center, bold: true, font_size: 48}
     type: TextBox
-  - layout_properties: {grid_position: 'LRSVYV,AKAJWD'}
+  - event_bindings: {}
+    layout_properties: {grid_position: 'LRSVYV,LTHMDR VTFUYO,XRGJHJ'}
+    name: button_start
+    properties: {font_size: 18, icon: 'fa:hourglass-start', icon_align: left, role: elevated-button, text: ''}
+    type: Button
+  - event_bindings: {}
+    layout_properties: {grid_position: 'LRSVYV,LTHMDR JAPJKB,QYQBHH'}
+    name: button_stop
+    properties: {font_size: 18, icon: 'fa:stop-circle', icon_align: left, role: elevated-button, text: ''}
+    type: Button
+  - event_bindings: {click: button_reset_click}
+    layout_properties: {grid_position: 'LRSVYV,LTHMDR FUTXOL,TDNWDH'}
+    name: button_reset
+    properties: {icon: 'fa:refresh', role: outlined-button, text: ''}
+    type: Button
+  - layout_properties: {grid_position: 'LRSVYV,JGJCOY CJQPWQ,JWFRCX'}
     name: label_3
-    properties: {}
+    properties: {text: 'Passed:'}
     type: Label
-  - layout_properties: {grid_position: 'LRSVYV,TZVGBR'}
+  - layout_properties: {grid_position: 'LRSVYV,JGJCOY KWFVGZ,TFXJQR'}
+    name: label_elapsed_time
+    properties: {align: center, bold: true, font_size: 48}
+    type: Label
+  - layout_properties: {grid_position: 'LRSVYV,NANJJP TQYUMH,COQECW'}
     name: label_4
-    properties: {}
+    properties: {text: 'Left:'}
     type: Label
-  - layout_properties: {grid_position: 'LRSVYV,NANJJP'}
-    name: label_5
-    properties: {}
+  - layout_properties: {grid_position: 'LRSVYV,NANJJP UPWBGW,VQNAME'}
+    name: label_remaining_time
+    properties: {align: center, bold: true, font_size: 48, text: ''}
     type: Label
+  - layout_properties: {grid_position: 'LRSVYV,ESSQDN'}
+    name: timer_component
+    properties: {interval: 1}
+    type: Timer
   - components:
     - data_bindings: []
       layout_properties: {grid_position: 'EMNCBD,JVFFRJ'}
@@ -32,7 +55,7 @@ components:
     type: ColumnPanel
   layout_properties: {slot: default}
   name: content_panel
-  properties: {col_widths: '{"UIGTPQ":45,"SFTYJA":10,"NXYPKJ":5,"AKAJWD":21,"TZVGBR":12,"NANJJP":12}'}
+  properties: {col_widths: '{"UIGTPQ":45,"SFTYJA":6,"NXYPKJ":9,"NANJJP":20,"LTHMDR":10,"JGJCOY":15}'}
   type: ColumnPanel
 - layout_properties: {slot: nav-right}
   name: navbar_links
