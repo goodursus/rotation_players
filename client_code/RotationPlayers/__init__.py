@@ -31,7 +31,7 @@ class RotationPlayers(RotationPlayersTemplate):
     # Если таблица пустая, создаем одну пустую запись
       empty_record = self.empty_court()
 #      self.add_court(empty_record)
-      anvil.server.call("add_zero_court", empty_record)
+      anvil.server.call("add_court", empty_record)
     else:
       last_record = app_tables.court.search(tables.order_by("game_id", ascending = False))
       self.last_game = last_record[0]['game_id']

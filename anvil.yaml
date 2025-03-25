@@ -35,6 +35,41 @@ db_schema:
       type: number
     server: full
     title: court
+  courts:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: id
+      type: number
+    - admin_ui: {order: 1, width: 200}
+      name: game_id
+      type: number
+    - admin_ui: {order: 2, width: 200}
+      name: player_id_1
+      type: number
+    - admin_ui: {order: 3, width: 200}
+      name: player_id_2
+      type: number
+    - admin_ui: {order: 4, width: 200}
+      name: player_id_3
+      type: number
+    - admin_ui: {order: 5, width: 200}
+      name: player_id_4
+      type: number
+    - admin_ui: {order: 6, width: 200}
+      name: status_1
+      type: number
+    - admin_ui: {order: 7, width: 200}
+      name: status_2
+      type: number
+    - admin_ui: {order: 8, width: 200}
+      name: status_3
+      type: number
+    - admin_ui: {order: 9, width: 200}
+      name: status_4
+      type: number
+    server: full
+    title: courts
   players:
     client: full
     columns:
