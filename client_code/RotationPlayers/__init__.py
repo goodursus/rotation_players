@@ -5,8 +5,8 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 from .ListPlayers import ListPlayers
-import random
-from datetime import timedelta
+#import random
+#from datetime import timedelta
 
 class RotationPlayers(RotationPlayersTemplate):
   def __init__(self, **properties):
