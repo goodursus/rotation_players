@@ -112,4 +112,8 @@ def update_s_player(player, player_data):
 def add_court(court_data):
   if court_data.get('id') and court_data.get('game_id'):
       app_tables.court.add_row(**court_data)  
-    
+
+@anvil.server.callable
+def add_zero_court(court_data):
+  app_tables.court.add_row(**court_data)  
+  

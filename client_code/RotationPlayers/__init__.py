@@ -43,7 +43,7 @@ class RotationPlayers(RotationPlayersTemplate):
     # Полный список всех имен
     self.all_names = [row['name'] for row in app_tables.s_players.search()]
     
-    self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
+#    self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
           
     # Передача all_names в каждую карточку
     card_components = self.repeating_panel.get_components()
@@ -93,11 +93,13 @@ class RotationPlayers(RotationPlayersTemplate):
       last_court = app_tables.court.search(tables.order_by("id", ascending = False))
       last_id = last_court[0]['id']
       item['id'] = last_id + 1
-
-    # refresh the Data Grid
-    anvil.server.call("add_court", item)
-    self.repeating_panel.items = anvil.server.call('get_records_with_names')
-    self.set_list_name()
+  
+      # refresh the Data Grid
+      anvil.server.call("add_court", item)
+      self.repeating_panel.items = anvil.server.call('get_records_with_names')
+      self.set_list_name()
+    else:
+      anvil.server.call("add_zero_court", item)
 
   def del_court(self, court, **event_args):
     # Получение уникального идентификатора из словаря
@@ -300,7 +302,10 @@ class RotationPlayers(RotationPlayersTemplate):
             row['player_id_3'] == 0 or
             row['player_id_4'] == 0
       ]
-      for record in null_records:
-            null_record = (record['id'])
+      if len(null_records) > 0:
+        for record in null_records:
+          null_record = (record['id'])
+      else:
+        null_record = 0
 
       return null_record
