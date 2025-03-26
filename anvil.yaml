@@ -136,3 +136,4 @@ services:
   source: /runtime/services/tables.yml
 startup: {module: RotationPlayers, type: form}
 startup_form: null
+uplink_visible: true
