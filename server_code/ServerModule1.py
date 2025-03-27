@@ -22,7 +22,7 @@ def delete_player(player):
 @anvil.server.callable
 def get_courts():
   # Get a list of articles from the Data Table, sorted by 'created' column, in descending order
-  return app_tables.court.search(
+  return app_tables.courts.search(
     tables.order_by("id", ascending = True)
   )  
 
@@ -66,7 +66,7 @@ def get_records_with_names():
             "score_1": get_score(row['status_1']),
             "score_3": get_score(row['status_3'])
         }
-        for row in app_tables.court.search()
+        for row in app_tables.courts.search()
     ]
     # *** ОТЛАДОЧНЫЙ ВЫВОД ***
     #for record in records:
@@ -115,5 +115,5 @@ def add_court(court_data):
 
 @anvil.server.callable
 def add_zero_court(court_data):
-  app_tables.court.add_row(**court_data)  
+  app_tables.courts.add_row(**court_data)  
   

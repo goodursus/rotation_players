@@ -14,11 +14,11 @@ class RotationPlayers(RotationPlayersTemplate):
     self.init_components(**properties)
     
     # Поиск не полного корта для отдыха
-    self.not_full_court = self.find_rest_courty()
-    self.mark_rest_court()  
+#    self.not_full_court = self.find_rest_courty()
+#    self.mark_rest_court()  
     
     # Запрос данных из таблицы
-    rows = list(app_tables.court.search())
+    rows = list(app_tables.courts.search())
     self.repeating_panel = self.repeating_panel_2
 
     # Загрузка данных из таблицы соответствия
@@ -33,9 +33,12 @@ class RotationPlayers(RotationPlayersTemplate):
 #      self.add_court(empty_record)
       anvil.server.call("add_court", empty_record)
     else:
-      last_record = app_tables.court.search(tables.order_by("game_id", ascending = False))
+      last_record = app_tables.courts.search(tables.order_by("game_id", ascending = False))
       self.last_game = last_record[0]['game_id']
       self.current_game_box.text = self.last_game
+      # Поиск не полного корта для отдыха
+      self.not_full_court = self.find_rest_courty()
+      self.mark_rest_court()  
 
     self.repeating_panel.set_event_handler('x-add-court', self.add_court) 
     self.repeating_panel.set_event_handler('x-save-court', self.save_court) 
@@ -44,7 +47,7 @@ class RotationPlayers(RotationPlayersTemplate):
     # Полный список всех имен
     self.all_names = [row['name'] for row in app_tables.s_players.search()]
     
-#    self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
+    self.repeating_panel_2.items = anvil.server.call('get_records_with_names')
           
     # Передача all_names в каждую карточку
     card_components = self.repeating_panel.get_components()
@@ -87,11 +90,11 @@ class RotationPlayers(RotationPlayersTemplate):
     open_form('Session.SessionPlayers')
      
   def add_court(self, item, **event_args):
-    rows = list(app_tables.court.search())
+    rows = list(app_tables.courts.search())
     # Проверка, пуста ли таблица
     if rows:
       item = self.empty_court()
-      last_court = app_tables.court.search(tables.order_by("id", ascending = False))
+      last_court = app_tables.courts.search(tables.order_by("id", ascending = False))
       last_id = last_court[0]['id']
       item['id'] = last_id + 1
   
@@ -106,7 +109,7 @@ class RotationPlayers(RotationPlayersTemplate):
     # Получение уникального идентификатора из словаря
     row_id = court['id']
     # Поиск строки в таблице
-    row_to_delete = app_tables.court.get(id = row_id)
+    row_to_delete = app_tables.courts.get(id = row_id)
     row_to_delete.delete()
     self.repeating_panel.items = anvil.server.call('get_records_with_names')
     self.set_list_name()
@@ -126,7 +129,7 @@ class RotationPlayers(RotationPlayersTemplate):
               'status_4': int(card['score_3']),
           }
           # Обновление записи в таблице court
-          court_row = app_tables.court.get(id = court_id)
+          court_row = app_tables.courts.get(id = court_id)
           if court_row:
               court_row.update(**players)
   
@@ -172,7 +175,7 @@ class RotationPlayers(RotationPlayersTemplate):
     )
     if user_response == "Yes":
         # Поиск всех строк в таблице
-        rows = app_tables.court.search()
+        rows = app_tables.courts.search()
         # Удаление каждой строки
         for row in rows:
             row.delete()
@@ -234,7 +237,7 @@ class RotationPlayers(RotationPlayersTemplate):
 #            'player_id_4': self.name_to_code[card['name_4']], 
 #        }
         # Обновление записи в таблице court
-        court_row = app_tables.court.get(id = court_id)
+        court_row = app_tables.courts.get(id = court_id)
         if court_row:
             court_row.update(**player_ids)
     
@@ -293,7 +296,7 @@ class RotationPlayers(RotationPlayersTemplate):
   def find_rest_courty(self):
       """Поиск записей, где хотя бы одно из полей name_1, name_2, name_3, name_4 равно None."""
       # Получаем все записи из таблицы
-      rows = app_tables.court.search(game_id = 1)
+      rows = app_tables.courts.search(game_id = 1)
       
       # Фильтруем записи, где хотя бы одно из полей равно None
       null_records = [
