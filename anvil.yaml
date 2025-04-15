@@ -134,9 +134,6 @@ services:
 - client_config: {}
   server_config: {}
   source: /runtime/services/tables.yml
-- client_config: {}
-  server_config: {file_table: files}
-  source: /runtime/services/anvil/files.yml
 startup: {module: RotationPlayers, type: form}
 startup_form: null
 uplink_visible: true
