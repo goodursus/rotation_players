@@ -97,14 +97,15 @@ components:
     name: lottery
     properties: {role: elevated-button, text: Lottery}
     type: Button
+  - event_bindings: {click: copy_data_btn_click}
+    layout_properties: {grid_position: 'OCRBOB,JCYWID'}
+    name: copy_data_btn
+    properties: {text: Data download}
+    type: Button
   layout_properties: {slot: left-nav}
   name: column_panel_1
   properties: {col_spacing: small}
   type: ColumnPanel
-- layout_properties: {slot: top-left-btn}
-  name: button_1
-  properties: {text: button_1}
-  type: Button
 container:
   data_bindings: []
   properties: {html: '@theme:standard-page.html'}
