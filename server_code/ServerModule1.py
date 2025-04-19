@@ -1,24 +1,10 @@
+import anvil.google.auth, anvil.google.drive, anvil.google.mail
+from anvil.google.drive import app_files
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 from datetime import datetime
-import os
-
-# ✅ Загружаем dotenv только при локальном запуске
-if os.getenv("ANVIL_APP_SERVER"):
-    try:
-        from dotenv import load_dotenv
-        load_dotenv()
-    except ImportError:
-        print("⚠️ python-dotenv не установлен. Пропускаем загрузку .env.")
-
-# ✅ Подключение к Uplink
-uplink_key = os.getenv("UPLINK_KEY")
-if uplink_key:
-    anvil.server.connect(uplink_key)
-else:
-    print("❌ Не найден UPLINK_KEY в переменных окружения или .env")
 
 @anvil.server.callable
 def add_player(player_data):
@@ -138,21 +124,3 @@ def is_local_server():
     return bool(os.getenv("ANVIL_APP_SERVER"))
 
 
-@anvil.server.callable
-def copy_cloud_to_local():
-    if not os.getenv("ANVIL_APP_SERVER"):
-        raise RuntimeError("Копирование разрешено только при локальном запуске.")
-
-    from anvil.tables import app_tables, tables
-
-    table_names = ["players", "games", "courts"]  # ← замени на свои
-
-    for name in table_names:
-        cloud_table = tables.get_table(name, app_id="your-app-id")  # ← укажи свой cloud app_id
-        local_table = tables.get_table(name)  # по умолчанию — локальная таблица
-
-        for row in local_table.search():
-            row.delete()
-
-        for row in cloud_table.search():
-            local_table.add_row(**row.to_dict())
