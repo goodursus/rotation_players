@@ -204,7 +204,6 @@ def copy_cloud_to_local():
                             clean_row[col] = value
 
                     table.add_row(**clean_row)
+                    
 
             print(f"✅ {table_name}: Loading {reader.line_num - 1} rows")
-
-            

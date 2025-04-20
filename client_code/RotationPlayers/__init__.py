@@ -329,6 +329,7 @@ class RotationPlayers(RotationPlayersTemplate):
       return null_record
 
   def copy_data_btn_click(self, **event_args):
+    
     try:
         anvil.server.call('copy_cloud_to_local')
         alert("✅ Data successfully copied from cloud to local tables")
