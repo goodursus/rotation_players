@@ -134,6 +134,9 @@ services:
 - client_config: {}
   server_config: {auto_create_missing_columns: true}
   source: /runtime/services/tables.yml
+- client_config: {}
+  server_config: {}
+  source: /runtime/services/google.yml
 startup: {module: RotationPlayers, type: form}
 startup_form: null
 uplink_visible: true

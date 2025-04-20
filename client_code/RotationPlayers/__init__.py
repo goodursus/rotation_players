@@ -1,5 +1,7 @@
 from ._anvil_designer import RotationPlayersTemplate
 from anvil import *
+import anvil.google.auth, anvil.google.drive
+from anvil.google.drive import app_files
 import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
@@ -75,18 +77,12 @@ class RotationPlayers(RotationPlayersTemplate):
     self.label_remaining_time.text = f"{str(self.total_time)}"
 
     # Проверка у сервера, локальный ли запуск
-#    try:
-    print (str(anvil.server.call('is_local_server')))
-    if not anvil.server.call('is_local_server'):
-        print ("Running on cloud server")
-        self.copy_data_btn.visible = True
-    else:
-        print ("Running on local server")
-               
-#    except Exception as e:
-#        # Если что-то пошло не так (например, нет соединения), скроем кнопку
-#        print ("Wrong server. Running on local server")
-#        self.copy_data_btn.visible = False
+    try:
+        if not anvil.server.call('is_local_server'):
+            self.copy_data_btn.visible = False
+    except Exception as e:
+        # Если что-то пошло не так (например, нет соединения), скроем кнопку
+        self.copy_data_btn.visible = False
   
   def edit_player_click(self, **event_args):
 #    open_form(ListPlayers())
@@ -329,11 +325,8 @@ class RotationPlayers(RotationPlayersTemplate):
       return null_record
 
   def copy_data_btn_click(self, **event_args):
-    
     try:
         anvil.server.call('copy_cloud_to_local')
-        alert("✅ Data successfully copied from cloud to local tables")
+        alert("✅ Данные успешно скопированы из облака в локальные таблицы.")
     except Exception as e:
-        alert(f"❌ Error while copying: {e}")
-
-
+        alert(f"❌ Ошибка при копировании: {e}")
