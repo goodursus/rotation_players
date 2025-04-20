@@ -334,3 +334,5 @@ class RotationPlayers(RotationPlayersTemplate):
         alert("✅ Data successfully copied from cloud to local tables")
     except Exception as e:
         alert(f"❌ Error while copying: {e}")
+
+

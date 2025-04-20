@@ -147,7 +147,6 @@ def is_local_server():
       
   return bool(anvil_app_server_flag)
 
-
 @anvil.server.callable
 def copy_cloud_to_local():
     
@@ -207,3 +206,5 @@ def copy_cloud_to_local():
                     table.add_row(**clean_row)
 
             print(f"✅ {table_name}: Loading {reader.line_num - 1} rows")
+
+            
