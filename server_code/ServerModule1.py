@@ -3,22 +3,26 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 from datetime import datetime
-import os
+#import os
+#from dotenv import load_dotenv
+#import csv
+from datetime import datetime
 
-# ✅ Загружаем dotenv только при локальном запуске
-if os.getenv("ANVIL_APP_SERVER"):
-    try:
-        from dotenv import load_dotenv
-        load_dotenv()
-    except ImportError:
-        print("⚠️ python-dotenv не установлен. Пропускаем загрузку .env.")
+try:
+    from dotenv import load_dotenv
+    import os
+    import csv
+    from datetime import datetime
 
-# ✅ Подключение к Uplink
-uplink_key = os.getenv("UPLINK_KEY")
-if uplink_key:
-    anvil.server.connect(uplink_key)
-else:
-    print("❌ Не найден UPLINK_KEY в переменных окружения или .env")
+    load_dotenv()
+
+    anvil_app_server_flag = os.getenv("ANVIL_APP_SERVER", "False")
+    print("ANVIL_APP_SERVER =", anvil_app_server_flag)
+
+except (ImportError, ModuleNotFoundError):
+    # we're likely in Anvil cloud
+    app_server_flag = "cloud"
+    print("Running in Anvil Cloud")
 
 @anvil.server.callable
 def add_player(player_data):
@@ -135,24 +139,71 @@ def add_zero_court(court_data):
 
 @anvil.server.callable
 def is_local_server():
-    return bool(os.getenv("ANVIL_APP_SERVER"))
+      
+  if anvil_app_server_flag == "False":
+      print("✅ LOCAL")
+  else:
+      print("☁️ CLOUD")    
+      
+  return bool(anvil_app_server_flag)
 
 
 @anvil.server.callable
 def copy_cloud_to_local():
-    if not os.getenv("ANVIL_APP_SERVER"):
-        raise RuntimeError("Копирование разрешено только при локальном запуске.")
+    
+    folder = "data-backup"
+    
+    for filename in os.listdir(folder):
+        if filename.endswith(".csv"):
+            table_name = filename[:-4]  # без ".csv"
+            csv_path = os.path.join(folder, filename)
 
-    from anvil.tables import app_tables, tables
+            if not hasattr(app_tables, table_name):
+                print(f"⚠️ Table '{table_name}' not find — skeep")
+                continue
 
-    table_names = ["players", "games", "courts"]  # ← замени на свои
+            table = getattr(app_tables, table_name)
+            print(f"🔄 Loading in table: {table_name}")
 
-    for name in table_names:
-        cloud_table = tables.get_table(name, app_id="your-app-id")  # ← укажи свой cloud app_id
-        local_table = tables.get_table(name)  # по умолчанию — локальная таблица
+            # Получаем типы колонок
+            col_types = {
+                col["name"]: col["type"]
+                for col in table.list_columns()
+            }
 
-        for row in local_table.search():
-            row.delete()
+            # Очищаем таблицу
+            for row in table.search():
+                row.delete()
 
-        for row in cloud_table.search():
-            local_table.add_row(**row.to_dict())
+            with open(csv_path, newline='', encoding='utf-8') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    clean_row = {}
+                    for col, value in row.items():
+                        if col == "ID":
+                            continue  # Anvil сам управляет ID
+
+                        if col not in col_types:
+                            continue  # защита от лишнего столбца
+
+                        if value == "":
+                            clean_row[col] = None
+                        elif col_types[col] == "number":
+                            clean_row[col] = float(value) if '.' in value else int(value)
+                        elif col_types[col] == "boolean":
+                            clean_row[col] = value.strip().lower() in ['true', '1', 'yes']
+                        elif col_types[col] == "date":
+                            for fmt in ("%Y-%m-%d", "%d.%m.%Y", "%m/%d/%Y"):
+                                try:
+                                    clean_row[col] = datetime.strptime(value, fmt).date()
+                                    break
+                                except ValueError:
+                                    continue
+                            else:
+                                raise ValueError(f"Unexepted date format: {value}")
+                        else:
+                            clean_row[col] = value
+
+                    table.add_row(**clean_row)
+
+            print(f"✅ {table_name}: Loading {reader.line_num - 1} rows")

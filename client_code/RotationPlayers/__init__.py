@@ -75,12 +75,18 @@ class RotationPlayers(RotationPlayersTemplate):
     self.label_remaining_time.text = f"{str(self.total_time)}"
 
     # Проверка у сервера, локальный ли запуск
-    try:
-        if not anvil.server.call('is_local_server'):
-            self.copy_data_btn.visible = False
-    except Exception as e:
-        # Если что-то пошло не так (например, нет соединения), скроем кнопку
-        self.copy_data_btn.visible = False
+#    try:
+    print (str(anvil.server.call('is_local_server')))
+    if not anvil.server.call('is_local_server'):
+        print ("Running on cloud server")
+        self.copy_data_btn.visible = True
+    else:
+        print ("Running on local server")
+               
+#    except Exception as e:
+#        # Если что-то пошло не так (например, нет соединения), скроем кнопку
+#        print ("Wrong server. Running on local server")
+#        self.copy_data_btn.visible = False
   
   def edit_player_click(self, **event_args):
 #    open_form(ListPlayers())
@@ -325,6 +331,6 @@ class RotationPlayers(RotationPlayersTemplate):
   def copy_data_btn_click(self, **event_args):
     try:
         anvil.server.call('copy_cloud_to_local')
-        alert("✅ Данные успешно скопированы из облака в локальные таблицы.")
+        alert("✅ Data successfully copied from cloud to local tables")
     except Exception as e:
-        alert(f"❌ Ошибка при копировании: {e}")
+        alert(f"❌ Error while copying: {e}")
