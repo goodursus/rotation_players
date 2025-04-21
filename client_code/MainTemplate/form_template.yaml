@@ -1,8 +1,4 @@
 components:
-- layout_properties: {slot: default}
-  name: content_panel
-  properties: {}
-  type: ColumnPanel
 - layout_properties: {slot: nav-right}
   name: navbar_links
   properties: {}
@@ -38,4 +34,8 @@ container:
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate
 is_package: true
-slots: {}
+slots:
+  slot_1:
+    index: 2
+    set_layout_properties: {slot: default}
+    target: {name: '', type: container}
