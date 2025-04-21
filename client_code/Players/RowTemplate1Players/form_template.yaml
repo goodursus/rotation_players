@@ -8,9 +8,13 @@ components:
     name: delete_row
     properties: {icon: 'fa:trash', text: ''}
     type: Button
-  layout_properties: {column: RNAOGK}
+  layout_properties: {column: OWVJLM}
   name: flow_panel_1
-  properties: {}
+  properties:
+    align: center
+    spacing:
+      margin: [null, null, null, 0]
+    vertical_align: middle
   type: FlowPanel
 container: {type: DataRowPanel}
 is_package: true
