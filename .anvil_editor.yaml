@@ -4,6 +4,7 @@ unique_ids:
     theme.css: 6X5CJ7UQMDQZ5P4CGZETJ25226EVXB32
   forms:
     CourtView: '1741160551929755962118269.2662'
+    MainTemplate: '1745228884840787332189596.4847'
     RotationPlayers: D2TCEOQNGTXMVFP5F2WI67NP5YMMRRPW
     RotationPlayers.EditCourt: '1741513161755857830967358.7017'
     RotationPlayers.EditPlayer: '1740899736366190282002388.42975'
@@ -18,8 +19,7 @@ unique_ids:
     Session.SessionPlayers.EditSessionPlayers: '1741594515484538663138294.8948'
     Session.SessionPlayers.RowTemplateSessionPlayer: '1741593351757404223821366.07916'
   modules: {}
-  scripts:
-    import_csv: QYMGNRCY72IOFHOMU4CGR5JPSAZT4ZZT
+  scripts: {}
   server_modules:
     ServerModule1: '1740899511159694885097819.3915'
     __init__: LXN7KN46XGBPWBI5LM6CC3UPSYDXQY25
