@@ -1,7 +1,5 @@
 components_by_slot:
   slot_1:
-components:
-- components:
   - components:
     - name: repeating_panel_player
       properties: {item_template: RotationPlayers.RowTemplate1}
