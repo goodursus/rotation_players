@@ -123,13 +123,15 @@ db_schema:
     title: session
 dependencies: []
 name: RotationPlayers
+native_deps: null
 package_name: RotationPlayers
 renamed: true
 runtime_options:
   client_version: '3'
+  legacy_features: {__dict__: true, bootstrap3: true, class_names: true, root_container: true}
   server_spec: {base: python310-minimal}
   server_version: python3-sandbox
-  version: 2
+  version: 3
 services:
 - client_config: {}
   server_config: {auto_create_missing_columns: true}

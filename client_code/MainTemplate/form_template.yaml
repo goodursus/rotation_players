@@ -8,7 +8,8 @@ components:
   properties: {}
   type: FlowPanel
 - components:
-  - layout_properties: {grid_position: 'YSQCIV,TNFXXH'}
+  - event_bindings: {click: link_players_click}
+    layout_properties: {grid_position: 'YSQCIV,TNFXXH'}
     name: link_players
     properties: {text: Players}
     type: Link
@@ -20,12 +21,13 @@ components:
     name: link_s_players
     properties: {text: Session players}
     type: Link
-  - layout_properties: {grid_position: 'LLJCSD,VPFCPP'}
-    name: link_1
+  - event_bindings: {click: link_courts_click}
+    layout_properties: {grid_position: 'LLJCSD,VPFCPP'}
+    name: link_courts
     properties: {text: Courts}
     type: Link
   - layout_properties: {grid_position: 'KNRVUK,HHGKXQ'}
-    name: link_2
+    name: link_rulles
     properties: {text: Rulles}
     type: Link
   layout_properties: {slot: left-nav}
@@ -36,3 +38,4 @@ container:
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate
 is_package: true
+slots: {}
