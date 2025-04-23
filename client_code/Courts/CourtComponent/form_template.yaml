@@ -1,0 +1,73 @@
+components:
+- components:
+  - layout_properties: {grid_position: 'LRSVYV,SFTYJA'}
+    name: label_2
+    properties: {font_size: 18, text: Current Game, visible: true}
+    type: Label
+  - layout_properties: {grid_position: 'LRSVYV,NXYPKJ'}
+    name: current_game_box
+    properties: {align: center, bold: true, font_size: 48}
+    type: TextBox
+  - event_bindings: {}
+    layout_properties: {grid_position: 'LRSVYV,LTHMDR VTFUYO,XRGJHJ'}
+    name: button_start
+    properties: {font_size: 18, icon: 'fa:hourglass-start', icon_align: left, role: elevated-button, text: ''}
+    type: Button
+  - event_bindings: {}
+    layout_properties: {grid_position: 'LRSVYV,LTHMDR JAPJKB,QYQBHH'}
+    name: button_stop
+    properties: {font_size: 18, icon: 'fa:stop-circle', icon_align: left, role: elevated-button, text: ''}
+    type: Button
+  - event_bindings: {click: button_reset_click}
+    layout_properties: {grid_position: 'LRSVYV,LTHMDR FUTXOL,TDNWDH'}
+    name: button_reset
+    properties: {icon: 'fa:refresh', role: outlined-button, text: ''}
+    type: Button
+  - layout_properties: {grid_position: 'LRSVYV,JGJCOY CJQPWQ,JWFRCX'}
+    name: label_3
+    properties: {text: 'Passed:'}
+    type: Label
+  - layout_properties: {grid_position: 'LRSVYV,JGJCOY KWFVGZ,TFXJQR'}
+    name: label_elapsed_time
+    properties: {align: center, bold: true, font_size: 48}
+    type: Label
+  - layout_properties: {grid_position: 'LRSVYV,NANJJP TQYUMH,COQECW'}
+    name: label_4
+    properties: {text: 'Left:'}
+    type: Label
+  - layout_properties: {grid_position: 'LRSVYV,NANJJP UPWBGW,VQNAME'}
+    name: label_remaining_time
+    properties: {align: center, bold: true, font_size: 48, text: ''}
+    type: Label
+  - layout_properties: {grid_position: 'LRSVYV,ESSQDN'}
+    name: timer_component
+    properties: {interval: 1}
+    type: Timer
+  - components:
+    - data_bindings: []
+      layout_properties: {grid_position: 'EMNCBD,JVFFRJ'}
+      name: repeating_panel_2
+      properties: {item_template: CourtView}
+      type: RepeatingPanel
+    layout_properties: {grid_position: 'CCUNUP,UIGTPQ'}
+    name: column_panel_2
+    properties: {}
+    type: ColumnPanel
+  layout_properties: {slot: default}
+  name: content_panel
+  properties: {col_widths: '{"UIGTPQ":45,"SFTYJA":6,"NXYPKJ":9,"NANJJP":20,"LTHMDR":10,"JGJCOY":15}'}
+  type: ColumnPanel
+- layout_properties: {slot: nav-right}
+  name: navbar_links
+  properties: {}
+  type: FlowPanel
+- layout_properties: {slot: title}
+  name: label_1
+  properties: {text: Players on courts}
+  type: Label
+container:
+  data_bindings: []
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+custom_component: true
+is_package: true

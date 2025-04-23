@@ -1,8 +1,8 @@
 components_by_slot:
   slot_1:
   - layout_properties: {}
-    name: label_1
-    properties: {text: Test}
-    type: Label
+    name: court_component_1
+    properties: {}
+    type: form:Courts.CourtComponent
 is_package: true
 layout: {type: 'form:MainTemplate'}
