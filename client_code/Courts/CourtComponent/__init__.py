@@ -24,72 +24,69 @@ class CourtComponent(CourtComponentTemplate):
     #rows = list(app_tables.courts.search())
     #self.repeating_panel = self.repeating_panel_2
     try:
-        rows = list(app_tables.courts.search())
-        self.repeating_panel.items = rows
-    except Exception as e:
-        print("Пропущено в режиме дизайна или при ошибке доступа к таблице:", e)
-      
+      rows = list(app_tables.courts.search())
+      self.repeating_panel.items = rows
+
     # Загрузка данных из таблицы соответствия
-    try:
       correspondence_table = app_tables.s_players.search()
       # Создание словаря соответствия
       self.name_to_code = {
         row["name"]: row["player_number"] for row in correspondence_table
       }
-    except Exception as e:
-        print("Пропущено в режиме дизайна или при ошибке доступа к таблице:", e)
 
     # Проверка, пуста ли таблица
-    if not rows:
-      # Если таблица пустая, создаем одну пустую запись
-      empty_record = self.empty_court()
-      #      self.add_court(empty_record)
-      anvil.server.call("add_court", empty_record)
-    else:
-      last_record = app_tables.courts.search(
-        tables.order_by("game_id", ascending=False)
-      )
-      self.last_game = last_record[0]["game_id"]
-      self.current_game_box.text = self.last_game
-      # Поиск не полного корта для отдыха
-      self.not_full_court = self.find_rest_courty()
-      self.mark_rest_court()
+      if not rows:
+        # Если таблица пустая, создаем одну пустую запись
+        empty_record = self.empty_court()
+        #      self.add_court(empty_record)
+        anvil.server.call("add_court", empty_record)
+      else:
+        last_record = app_tables.courts.search(
+          tables.order_by("game_id", ascending=False)
+        )
+        self.last_game = last_record[0]["game_id"]
+        self.current_game_box.text = self.last_game
+        # Поиск не полного корта для отдыха
+        self.not_full_court = self.find_rest_courty()
+        self.mark_rest_court()
 
-    self.repeating_panel.set_event_handler("x-add-court", self.add_court)
-    self.repeating_panel.set_event_handler("x-save-court", self.save_court)
-    self.repeating_panel.set_event_handler("x-del-court", self.del_court)
+      # Полный список всех имен
+      self.all_names = [row["name"] for row in app_tables.s_players.search()]
+  
+      self.repeating_panel_2.items = anvil.server.call("get_records_with_names")
 
-    # Полный список всех имен
-    self.all_names = [row["name"] for row in app_tables.s_players.search()]
-
-    self.repeating_panel_2.items = anvil.server.call("get_records_with_names")
-
-    # Передача all_names в каждую карточку
-    card_components = self.repeating_panel.get_components()
-    for card in card_components:
-      card.set_all_names(self.all_names)  # Передаем список имен через метод
-
-    # Инициализация переменных
-    self.total_time = timedelta(
-      minutes=1
-    )  # Общий временной интервал (например, 5 минут)
-    self.elapsed_time = timedelta(seconds=0)  # Прошедшее время
-    self.timer_running = False  # Флаг состояния таймера
-
-    # Настройка таймера
-    self.timer_component.interval = 1  # Интервал обновления в секундах
-    self.timer_component.enabled = False  # Таймер изначально выключен
-
-    # Привязка обработчика к событию 'tick'
-    self.timer_component.set_event_handler("tick", self.timer_tick)
-
-    # Установка обработчиков событий
-    self.button_start.set_event_handler("click", self.start_timer)
-    self.button_stop.set_event_handler("click", self.stop_timer)
-
-    # Начальные значения меток
-    self.label_elapsed_time.text = "00:00:00"
-    self.label_remaining_time.text = f"{str(self.total_time)}"
+      self.repeating_panel.set_event_handler("x-add-court", self.add_court)
+      self.repeating_panel.set_event_handler("x-save-court", self.save_court)
+      self.repeating_panel.set_event_handler("x-del-court", self.del_court)
+  
+      # Передача all_names в каждую карточку
+      card_components = self.repeating_panel.get_components()
+      for card in card_components:
+        card.set_all_names(self.all_names)  # Передаем список имен через метод
+  
+      # Инициализация переменных
+      self.total_time = timedelta(
+        minutes=1
+      )  # Общий временной интервал (например, 5 минут)
+      self.elapsed_time = timedelta(seconds=0)  # Прошедшее время
+      self.timer_running = False  # Флаг состояния таймера
+  
+      # Настройка таймера
+      self.timer_component.interval = 1  # Интервал обновления в секундах
+      self.timer_component.enabled = False  # Таймер изначально выключен
+  
+      # Привязка обработчика к событию 'tick'
+      self.timer_component.set_event_handler("tick", self.timer_tick)
+  
+      # Установка обработчиков событий
+      self.button_start.set_event_handler("click", self.start_timer)
+      self.button_stop.set_event_handler("click", self.stop_timer)
+  
+      # Начальные значения меток
+      self.label_elapsed_time.text = "00:00:00"
+      self.label_remaining_time.text = f"{str(self.total_time)}"
+    except Exception as e:
+      print("Пропущено в режиме дизайна или при ошибке доступа к таблице:", e)
 
   def edit_player_click(self, **event_args):
     #    open_form(ListPlayers())
