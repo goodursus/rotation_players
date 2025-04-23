@@ -21,10 +21,14 @@ class CourtComponent(CourtComponentTemplate):
     #    self.mark_rest_court()
 
     # Запрос данных из таблицы
-    if not anvil._utils.is_in_designer():
-      rows = list(app_tables.courts.search())
-      self.repeating_panel = self.repeating_panel_2
-
+    #rows = list(app_tables.courts.search())
+    #self.repeating_panel = self.repeating_panel_2
+    try:
+        rows = list(app_tables.courts.search())
+        self.repeating_panel.items = rows
+    except Exception as e:
+        print("Пропущено в режиме дизайна или при ошибке доступа к таблице:", e)
+      
     # Загрузка данных из таблицы соответствия
     correspondence_table = app_tables.s_players.search()
     # Создание словаря соответствия
