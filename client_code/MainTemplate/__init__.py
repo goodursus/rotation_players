@@ -1,4 +1,4 @@
-#from ._anvil_designer import MainTemplateTemplate
+from ._anvil_designer import MainTemplateTemplate
 #from ._anvil_designer import TokenBoxTemplate
 from anvil import *
 import anvil.server
