@@ -21,7 +21,7 @@ class CourtComponent(CourtComponentTemplate):
     #    self.mark_rest_court()
 
     # Запрос данных из таблицы
-    if not anvil.server.execution_context.is_in_design_mode():
+    if not anvil._utils.is_in_designer():
       rows = list(app_tables.courts.search())
       self.repeating_panel = self.repeating_panel_2
 
