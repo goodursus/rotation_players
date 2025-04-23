@@ -26,6 +26,11 @@ components:
     name: link_rulles
     properties: {text: Rulles}
     type: Link
+  - event_bindings: {click: copy_data_btn_click}
+    layout_properties: {grid_position: 'YDHFMF,QPSGBI'}
+    name: copy_data_btn
+    properties: {role: outlined-button, text: Data download}
+    type: Button
   layout_properties: {slot: left-nav}
   name: column_panel_1
   properties: {}
