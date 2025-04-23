@@ -30,11 +30,14 @@ class CourtComponent(CourtComponentTemplate):
         print("Пропущено в режиме дизайна или при ошибке доступа к таблице:", e)
       
     # Загрузка данных из таблицы соответствия
-    correspondence_table = app_tables.s_players.search()
-    # Создание словаря соответствия
-    self.name_to_code = {
-      row["name"]: row["player_number"] for row in correspondence_table
-    }
+    try:
+      correspondence_table = app_tables.s_players.search()
+      # Создание словаря соответствия
+      self.name_to_code = {
+        row["name"]: row["player_number"] for row in correspondence_table
+      }
+    except Exception as e:
+        print("Пропущено в режиме дизайна или при ошибке доступа к таблице:", e)
 
     # Проверка, пуста ли таблица
     if not rows:
