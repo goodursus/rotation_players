@@ -21,11 +21,9 @@ class CourtComponent(CourtComponentTemplate):
     #    self.mark_rest_court()
 
     # Запрос данных из таблицы
-    #rows = list(app_tables.courts.search())
-    #self.repeating_panel = self.repeating_panel_2
-#    try:
     rows = list(app_tables.courts.search())
-    self.repeating_panel.items = rows
+    self.repeating_panel = self.repeating_panel_2
+#    try:
 
   # Загрузка данных из таблицы соответствия
     correspondence_table = app_tables.s_players.search()
