@@ -5,7 +5,11 @@ components_by_slot:
       name: session_card
       properties: {role: outlined-card, visible: true}
       type: ColumnPanel
-    - components: []
+    - components:
+      - layout_properties: {grid_position: 'QJQZHS,WPSLIR'}
+        name: multi_select_dropdown_1
+        properties: {}
+        type: form:dep_w9k7g4ktaes38p:MultiSelectDropdown
       layout_properties: {grid_position: 'PDAWLK,BGFIMC'}
       name: s_player_card
       properties: {role: outlined-card}
