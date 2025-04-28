@@ -121,7 +121,10 @@ db_schema:
       type: number
     server: full
     title: session
-dependencies: []
+dependencies:
+- dep_id: dep_w9k7g4ktaes38p
+  resolution_hints: {app_id: 2WDT62VISAENBFUO, name: MultiSelectLib, package_name: MultiSelectLib}
+  version: {branch: master}
 name: RotationPlayers
 native_deps: null
 package_name: RotationPlayers
