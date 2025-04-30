@@ -16,3 +16,4 @@ class Courts(CourtsTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+    self.repeating_panel_player.items = app_tables.players.search()
