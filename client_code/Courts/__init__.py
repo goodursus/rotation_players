@@ -17,4 +17,4 @@ class Courts(CourtsTemplate):
 
     # Any code you write here will run before the form opens.
 #    self.repeating_panel_player.items = app_tables.players.search()
-    self.multi_select_dropdown_1.set_options([r['name'] for r in app_tables.players.search()])
+    self.multi_select_dropdown_1.set_options([r['name'] for r in app_tables.players.search()], 5)
