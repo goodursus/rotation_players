@@ -1046,3 +1046,64 @@ div.plot-container.plotly svg.main-svg {
 .anvil-spinner {
     --anvil-spinner-bg: %color:Surface Variant%;
 }
+
+.anvil-role-tag-display {
+  height: 40px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 4px;
+#  background-color: white;
+  background-color: rgba(29, 25, 43, 0.12)
+  display: flex;
+  align-items: center;
+  gap: 6px;  /*$=55>;LL>9$>FEBG? <564C >=>?>0<8 */
+}
+
+/*$!F<;L ">=>?>8"-B570$A 6O1D4==O<$7=4G5=<5< */
+.anvil-role-tag-button {
+  background-color: #e6f4ea;  
+  border: none;
+  border-radius: 12px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/*$'44?O5< ?>4G5@><24=85$C$F5>EB0$8$=06>4>C */
+.anvil-role-tag-button:hover {
+  text-decoration: none;
+  background-color: #d4edda;
+}
+
+/*$%B<?L$6K?444NI57>$E?<E:0 */
+.anvil-role-options-dropdown {
+/*  position: absolute; */             /* :$GB>5K$6A??K64;$?>65@E */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 2px;
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+}
+
+/* -?5<5=FK 2$2O?044NM5<$E?<E:5 */
+.anvil-role-option-item {
+  padding: 6px 12px;         /* >FAFG?$>B$=0G4;0 */
+  cursor: pointer;
+  text-decoration: none;     /*$C5<@45<$?>4G5D>864=<5 */
+}
+
+/* >4E65F>0$?@8$=46545=<8 */
+.anvil-role-option-item:hover {
+  text-decoration: none;     /*$G1<D05< ?>4G5@><24=85 */
+  background-color: #f1f1f1;
+}

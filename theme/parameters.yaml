@@ -331,3 +331,19 @@ roles:
   name: outlined-error
 - components: [TextBox, TextArea, DatePicker, DropDown]
   name: input-error
+- components: []
+  display_in_toolbox: true
+  name: tag-button
+  title: button
+- components: []
+  display_in_toolbox: true
+  name: options-dropdown
+  title: options-rp
+- components: []
+  display_in_toolbox: true
+  name: tag-display
+  title: tag-display
+- components: []
+  display_in_toolbox: true
+  name: option-item
+  title: link_
