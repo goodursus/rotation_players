@@ -251,7 +251,26 @@ def upload_players(file):
     else:
         raise ValueError("Unsupported file type. Please upload JSON or CSV.")
     
+    NUMERIC_FIELDS = ['player_id', 'level']  # список всех числовых полей
+
     for item in data:
-        item.pop('id', None)  # очистить id если есть
-        app_tables.players.add_row(**item)
-  
+        item.pop('id', None)  # убрать id если есть
+
+        for key in NUMERIC_FIELDS:
+            if key in item:
+                value = item[key]
+                if isinstance(value, str):
+                    value = value.strip()
+                    if value == '':
+                        item[key] = None  # если пустая строка
+                    else:
+                        try:
+                            item[key] = int(value)
+                        except ValueError:
+                            raise ValueError(f"Field {key} expected a number, got: {value}")
+
+        app_tables.players.add_row(**item)  
+
+@anvil.server.callable
+def get_all_players():
+    return list(app_tables.players.search())  

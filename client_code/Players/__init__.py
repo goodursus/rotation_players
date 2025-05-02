@@ -87,5 +87,8 @@ class Players(PlayersTemplate):
         alert("Upload complete!")
         self.refresh_data()
 
-
+  def refresh_data(self):
+      # Предположим, у вас есть компонент Data Grid с именем 'players_repeating_panel'
+      rows = anvil.server.call('get_all_players')
+      self.repeating_panel_player.items = rows
   
