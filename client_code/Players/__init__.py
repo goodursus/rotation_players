@@ -7,6 +7,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 from .PlayerEdit import PlayerEdit
+import json
 
 class Players(PlayersTemplate):
   def __init__(self, **properties):
@@ -16,6 +17,11 @@ class Players(PlayersTemplate):
     self.repeating_panel_player.items = app_tables.players.search()
     self.repeating_panel_player.add_event_handler("x-edit-player", self.edit_player)
     self.repeating_panel_player.add_event_handler("x-delete-player", self.delete_player)
+
+    self.download_dropdown.items = [
+    ("JSON file (.json)", "JSON"),
+    ("CSV file (.csv)", "CSV")
+    ]
 
   def player_add_click(self, **event_args):
     item = {}
@@ -54,5 +60,32 @@ class Players(PlayersTemplate):
       anvil.server.call("delete_player", player)
       # refresh the Data Grid
       self.repeating_panel_player.items = app_tables.players.search()
+
+  def download_dropdown_change(self, **event_args):
+    format = self.download_dropdown.selected_value  # 'JSON' или 'CSV'
+    if format:
+        file = anvil.server.call('download_players', format)
+        anvil.media.download(file)
+        # (по желанию) сбрасываем выбор после скачивания:
+        self.download_dropdown.selected_value = None
+
+  def delete_button_click(self, **event_args):
+    confirm_text = (
+        "⚠️ This will permanently delete ALL players from the database.\n\n"
+        "Are you absolutely sure you want to continue?"
+    )
+    if confirm(confirm_text, buttons=[("Yes, delete all", True), ("Cancel", False)]):
+        anvil.server.call('delete_all_players')
+        alert("✅ All players have been deleted.")
+        self.refresh_data()
+    else:
+        alert("Deletion cancelled.")
+
+  def file_loader_upload_change(self, file, **event_args):
+    if file:
+        anvil.server.call('upload_players', file)
+        alert("Upload complete!")
+        self.refresh_data()
+
 
   
