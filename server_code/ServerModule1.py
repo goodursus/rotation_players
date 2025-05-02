@@ -5,11 +5,9 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 from datetime import datetime
-
-#import os
-#from dotenv import load_dotenv
-#import csv
-from datetime import datetime
+import json
+import csv
+import io
 
 try:
     from dotenv import load_dotenv
@@ -211,3 +209,49 @@ def copy_cloud_to_local():
                     
 
             print(f"✅ {table_name}: Loading {reader.line_num - 1} rows")
+
+@anvil.server.callable
+def download_players(format):
+    rows = app_tables.players.search()
+    data = [dict(row) for row in rows]
+
+    if format == 'CSV':
+        output = io.StringIO()
+        if data:
+            writer = csv.DictWriter(output, fieldnames=data[0].keys())
+            writer.writeheader()
+            writer.writerows(data)
+        else:
+            output.write('')
+        content = output.getvalue().encode()
+        mime = 'text/csv'
+        name = 'players.csv'
+    else:
+        content = json.dumps(data, indent=2).encode()
+        mime = 'application/json'
+        name = 'players.json'
+
+    return anvil.BlobMedia(mime, content, name=name)
+
+@anvil.server.callable
+def delete_all_players():
+    rows = app_tables.players.search()
+    for row in rows:
+        row.delete()  
+
+@anvil.server.callable
+def upload_players(file):
+    content = file.get_bytes().decode()
+    
+    if file.content_type == 'application/json' or file.name.endswith('.json'):
+        data = json.loads(content)
+    elif file.content_type == 'text/csv' or file.name.endswith('.csv'):
+        reader = csv.DictReader(io.StringIO(content))
+        data = [row for row in reader]
+    else:
+        raise ValueError("Unsupported file type. Please upload JSON or CSV.")
+    
+    for item in data:
+        item.pop('id', None)  # очистить id если есть
+        app_tables.players.add_row(**item)
+  

@@ -17,6 +17,11 @@ class Players(PlayersTemplate):
     self.repeating_panel_player.add_event_handler("x-edit-player", self.edit_player)
     self.repeating_panel_player.add_event_handler("x-delete-player", self.delete_player)
 
+    self.download_dropdown.items = [
+    ("JSON file (.json)", "JSON"),
+    ("CSV file (.csv)", "CSV")
+    ]
+
   def player_add_click(self, **event_args):
     item = {}
     rows = list(app_tables.players.search())
@@ -55,4 +60,11 @@ class Players(PlayersTemplate):
       # refresh the Data Grid
       self.repeating_panel_player.items = app_tables.players.search()
 
+  def download_dropdown_change(self, **event_args):
+    format = self.download_dropdown.selected_value  # 'JSON' или 'CSV'
+    if format:
+        file = anvil.server.call('download_players', format)
+        anvil.media.download(file)
+        # (по желанию) сбрасываем выбор после скачивания:
+        self.download_dropdown.selected_value = None
   

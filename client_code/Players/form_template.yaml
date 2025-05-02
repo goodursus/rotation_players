@@ -23,6 +23,20 @@ components_by_slot:
       name: player_add
       properties: {text: Add player}
       type: Button
+    - data_bindings: []
+      event_bindings: {change: download_dropdown_change}
+      layout_properties: {grid_position: 'OQVKGA,YTTTWV'}
+      name: download_dropdown
+      properties: {appearance: outlined, label: Download}
+      type: form:dep_lin1x4oec0ytd:_Components.DropdownMenu
+    - layout_properties: {grid_position: 'OQVKGA,FXQRAY'}
+      name: upload_button
+      properties: {appearance: outlined, text: Upload}
+      type: form:dep_lin1x4oec0ytd:_Components.Button
+    - layout_properties: {grid_position: 'OQVKGA,FGOMUT'}
+      name: delete_button
+      properties: {appearance: outlined, text: Delete ALL}
+      type: form:dep_lin1x4oec0ytd:_Components.Button
     layout_properties: {}
     name: column_panel_1
     properties:
