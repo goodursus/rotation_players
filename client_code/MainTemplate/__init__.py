@@ -38,3 +38,7 @@ class MainTemplate(MainTemplateTemplate):
     except Exception as e:
         alert(f"❌ Ошибка при копировании: {e}")
 
+  def link_session_click(self, **event_args):
+    """This method is called when the link is clicked"""
+    open_form('Session')
+
