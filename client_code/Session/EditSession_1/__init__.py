@@ -1,4 +1,4 @@
-from ._anvil_designer import EditSessionTemplate
+from ._anvil_designer import EditSession_1Template
 from anvil import *
 import anvil.google.auth, anvil.google.drive
 from anvil.google.drive import app_files
@@ -8,7 +8,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 from datetime import datetime
 
-class EditSession(EditSessionTemplate):
+class EditSession_1(EditSession_1Template):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)

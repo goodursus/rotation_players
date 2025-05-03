@@ -1,7 +1,7 @@
 components:
 - layout_properties: {grid_position: 'QNXODK,YVYRPN'}
   name: label_1
-  properties: {text: Number of Session}
+  properties: {align: left, text: Number of Session}
   type: Label
 - data_bindings:
   - {code: 'self.item[''session_id'']', property: text, writeback: true}
