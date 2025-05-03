@@ -23,6 +23,9 @@ unique_ids:
     Session.SessionPlayers: '1741593323752527351317345.58795'
     Session.SessionPlayers.EditSessionPlayers: '1741594515484538663138294.8948'
     Session.SessionPlayers.RowTemplateSessionPlayer: '1741593351757404223821366.07916'
+    Sessions: '1746273949058515351303863.1208'
+    Sessions.EditSessions: '1746273996790641100563401.5275'
+    Sessions.RowTemplateEditSessions: '1746274140464101050940702.06677'
     Standart: '1745404771125351576538980.90967'
   modules: {}
   scripts: {}
