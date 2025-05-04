@@ -1,7 +1,12 @@
 components_by_slot:
   slot_1:
   - components:
-    - layout_properties: {grid_position: 'UBODYA,HEUFLB'}
+    - components:
+      - layout_properties: {grid_position: 'FGDJUP,PDNTBA'}
+        name: dropdown_menu_1
+        properties: {}
+        type: form:dep_lin1x4oec0ytd:_Components.DropdownMenu
+      layout_properties: {grid_position: 'UBODYA,HEUFLB'}
       name: session_card
       properties: {role: outlined-card, visible: true}
       type: ColumnPanel
