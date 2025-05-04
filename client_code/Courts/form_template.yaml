@@ -2,11 +2,6 @@ components_by_slot:
   slot_1:
   - components:
     - components:
-      - event_bindings: {change: session_dropdown_change}
-        layout_properties: {grid_position: 'YPGDWA,SRLNCT'}
-        name: session_dropdown
-        properties: {appearance: outlined, label: Choice session}
-        type: form:dep_lin1x4oec0ytd:_Components.DropdownMenu
       - layout_properties: {grid_position: 'CEHFOH,CKDGKA'}
         name: label_3
         properties: {text: 'Passed session:'}
