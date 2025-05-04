@@ -18,10 +18,6 @@ class Courts(CourtsTemplate):
     # Any code you write here will run before the form opens.
     self.refresh_sessions_dropdown()
 
-  def session_dropdown_change(self, **event_args):
-    """This method is called when an item is selected"""
-    pass
-
 def refresh_sessions_dropdown(self):
   items = anvil.server.call('get_session_dropdown_items')
   self.session_dropdown.items = items
