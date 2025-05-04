@@ -265,5 +265,8 @@ def get_session_dropdown_items():
       f"Players: {s['number_players']} | Courts: {s['number_courts']} | "
       f"Session duration: {s['session_duration']} min | Game duration: {s['game_duration']} min"
     )
-    items.append({'value': text, 'text': text})
-    return items
+    # (отображаемый текст, значение)
+    items.append((text, s))  # Если значение == текст
+#    items.append(text)  # Если значение == текст
+
+  return items

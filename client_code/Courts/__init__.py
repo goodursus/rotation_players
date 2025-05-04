@@ -16,14 +16,17 @@ class Courts(CourtsTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
-    self.refresh_sessions_dropdown()
+    self.refresh_dropdown_session()
 
-def session_dropdown_change(self, **event_args):
-  selected = self.session_dropdown.selected_value
-  if selected:
-    alert(f"You selected: {selected}")
+  def dropdown_session_change(self, **event_args):
+    selected = self.dropdown_session.selected_value
+    number_players = selected['number_players']
+    self.multi_select_dropdown_1.set_options([row['name'] for row in app_tables.players.search()], number_players)
 
-def refresh_sessions_dropdown(self):
-  items = anvil.server.call('get_session_dropdown_items')
-  self.session_dropdown.items = items
+#    if selected:
+#      alert(f"You selected: {selected}")
+  
+  def refresh_dropdown_session(self):
+    items = anvil.server.call('get_session_dropdown_items')
+    self.dropdown_session.items = items
 
