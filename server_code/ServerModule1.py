@@ -254,4 +254,16 @@ def upload_players(file):
     for item in data:
         item.pop('id', None)  # очистить id если есть
         app_tables.players.add_row(**item)
-  
+
+@anvil.server.callable
+def get_session_dropdown_items():
+  sessions = app_tables.session.search()
+  items = []
+  for s in sessions:
+    text = (
+      f"Session {s['session_id']} | Date: {s['data_session'].strftime('%Y-%m-%d')} | "
+      f"Players: {s['number_players']} | Courts: {s['number_courts']} | "
+      f"Session duration: {s['session_duration']} min | Game duration: {s['game_duration']} min"
+    )
+    items.append({'value': text, 'text': text})
+    return items
