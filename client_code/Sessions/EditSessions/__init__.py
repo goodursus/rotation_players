@@ -14,6 +14,9 @@ class EditSessions(EditSessionsTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
+    self.checkbox_open.checked    = self.item['open']
+    self.date_picker_session.date = self.item["data_session"]
+  
   def date_picker_session_change(self, **event_args):
     """This method is called when the selected date changes"""
     self.item["data_session"] = self.date_picker_session.date
@@ -22,3 +25,7 @@ class EditSessions(EditSessionsTemplate):
     """This method is called when the user presses Enter in this text box"""
     self.text_box_4.text  = (self.text_box_3.text + 3) // 4
     self.item['number_courts'] = self.text_box_4.text
+
+  def checkbox_open_change(self, **event_args):
+    """This method is called when the component is checked or unchecked"""
+    self.item['open'] = self.checkbox_open.checked

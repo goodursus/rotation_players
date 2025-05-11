@@ -14,6 +14,16 @@ class RowTemplateEditSessions(RowTemplateEditSessionsTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+    # Если значение поля is_active = True, подсветим строку
+    is_active = self.item['open']
+    if is_active:
+      self.label_check.text = "✅"
+      self.role = "highlight-row"  # Подсветим строку
+    else:
+      self.label_check.text = "☐"  # Или "☐", или "—"
+
+#    if self.item['open']:
+#      self.role = "highlight-row"
 
   def edit_row_click(self, **event_args):
     self.parent.raise_event("x-edit-session", session=self.item)

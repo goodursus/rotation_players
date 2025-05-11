@@ -15,6 +15,7 @@ components_by_slot:
       name: data_grid_1
       properties:
         columns:
+        - {data_key: '', id: WMNVTY, title: Open}
         - {data_key: session_id, expand: false, id: HNACWO, title: Session number, width: 75.5999755859375}
         - {data_key: data_session, id: WNSVYW, title: Data}
         - {data_key: number_players, id: KCLDWB, title: Players}
