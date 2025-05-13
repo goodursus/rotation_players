@@ -96,6 +96,9 @@ db_schema:
     - admin_ui: {width: 200}
       name: name
       type: string
+    - admin_ui: {order: -1, width: 200}
+      name: session_id
+      type: number
     server: full
     title: s_players
   session:
