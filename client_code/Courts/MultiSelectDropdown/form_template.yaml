@@ -1,0 +1,62 @@
+components:
+- components:
+  - data_bindings:
+    - {code: 'self.item[''role'']', property: role, writeback: false}
+    layout_properties: {grid_position: 'WVQALD,YJYECZ'}
+    name: label
+    properties: {role: '', text: Choice session players}
+    type: form:dep_lin1x4oec0ytd:_Components.Text
+  - layout_properties: {grid_position: 'WVQALD,QTPHAA'}
+    name: stats_label
+    properties: {text: ''}
+    type: form:dep_lin1x4oec0ytd:_Components.Text
+  - layout_properties: {grid_position: 'WVQALD,IIQFLH'}
+    name: limit_text
+    properties: {}
+    type: form:dep_lin1x4oec0ytd:_Components.Text
+  layout_properties: {grid_position: ',undefined'}
+  name: column_panel_1
+  properties: {col_spacing: small, col_widths: '{"YJYECZ":15,"QTPHAA":20,"IIQFLH":25}', spacing_above: none, spacing_below: none}
+  type: ColumnPanel
+- components:
+  - components:
+    - data_bindings: []
+      layout_properties: {width: 43.18182373046875}
+      name: dropdown_icon
+      properties: {align: center, background_color: '', icon: 'mi:arrow_drop_down', icon_size: 28}
+      type: form:dep_lin1x4oec0ytd:_Components.Text
+    - layout_properties: {expand: true, width: 832}
+      name: tag_display
+      properties:
+        align: left
+        gap: small
+        spacing:
+          margin: [null, 0, null, null]
+          padding: [null, '0', null, '0']
+        spacing_above: none
+        spacing_below: none
+        vertical_align: middle
+      type: FlowPanel
+    layout_properties: {slot: anvil-m3-link-slot}
+    name: flow_panel_1
+    properties: {gap: none, vertical_align: middle}
+    type: FlowPanel
+  data_bindings: []
+  event_bindings: {click: tag_clickable_area_click}
+  layout_properties: {grid_position: 'AEPWUG,OICQTN'}
+  name: tag_clickable_area
+  properties:
+    role: ''
+    spacing:
+      margin: [null, null, '0', null]
+      padding: [null, null, 0, '0']
+  type: form:dep_lin1x4oec0ytd:_Components.Link
+- layout_properties: {grid_position: 'GGIFKX,VUBLKB'}
+  name: options_rp
+  properties:
+    item_template: MultiSelectDropdown.OptionTemplate
+    margin: [null, null, '0', null]
+    visible: true
+  type: RepeatingPanel
+container: {type: ColumnPanel}
+is_package: true
