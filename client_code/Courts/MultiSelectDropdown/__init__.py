@@ -3,25 +3,25 @@ from anvil import *
 import anvil.server
 
 class MultiSelectDropdown(MultiSelectDropdownTemplate):
-  def __init__(self, **properties):
-    self.init_components(**properties)
-    self.selected_values = []
-    self.all_options = []
-    self.options_rp.role = 'options-dropdown'
-    self.tag_display.role = 'tag_display'
-    self.options_rp.set_event_handler("x-click", self.option_selected)
-    self.dropdown_area.visible = False
-    self.limit_text.text = ""
-
-  #        self.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
-
+    def __init__(self, **properties):
+      self.init_components(**properties)
+      self.selected_values = []
+      self.all_options = []
+      self.options_rp.role = 'options-dropdown'
+      self.tag_display.role = 'tag_display'
+      self.options_rp.set_event_handler("x-click", self.option_selected)
+      self.dropdown_area.visible = False
+      self.limit_text.text = ""
+  
+    #        self.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
+  
     def set_options(self, options, limit):
       self.all_options = options
       self.selection_limit = limit
       self.update_options()
-
-  def update_options(self):
-    self.options_rp.items = [o for o in self.all_options if o not in self.selected_values]
+  
+    def update_options(self):
+      self.options_rp.items = [o for o in self.all_options if o not in self.selected_values]
 
     def update_stats(self):
       total = len(self.all_options)  # Общее кол-во игроков
@@ -29,20 +29,20 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       limit = self.selection_limit
       self.stats_label.text = f"All players: {total} / Selected: {selected} / Limit: {limit}"
 
-  def option_selected(self, item, **event_args):
-    if item in self.selected_values:
-      return
-
-      if len(self.selected_values) >= self.selection_limit:
-        # Блокируем выбор
-        alert(f"Limit reached: {self.selection_limit} players.")
+    def option_selected(self, item, **event_args):
+      if item in self.selected_values:
         return
-
-        self.selected_values.append(item)
-    self.update_tags()
-    self.update_options()
-    self.update_stats()
-    self.dropdown_area.visible = False
+  
+        if len(self.selected_values) >= self.selection_limit:
+          # Блокируем выбор
+          alert(f"Limit reached: {self.selection_limit} players.")
+          return
+  
+          self.selected_values.append(item)
+      self.update_tags()
+      self.update_options()
+      self.update_stats()
+      self.dropdown_area.visible = False
 
     def update_tags(self):
       # Очищаем область отображения
@@ -58,17 +58,17 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
         button.set_event_handler("click", self.remove_tag)
         self.tag_display.add_component(button)
 
-  def remove_tag(self, sender, **event_args):
-    val = sender.tag.value
-    if val in self.selected_values:
-      self.selected_values.remove(val)
-      self.update_tags()
-      self.update_options()  # Обновляем список выбора
-
-      self.update_stats()
-
+    def remove_tag(self, sender, **event_args):
+      val = sender.tag.value
+      if val in self.selected_values:
+        self.selected_values.remove(val)
+        self.update_tags()
+        self.update_options()  # Обновляем список выбора
+  
+        self.update_stats()
+  
     def toggle_dropdown(self, **event_args):
       self.dropdown_area.visible = not self.dropdown_area.visible
-
-  def tag_clickable_area_click(self, **event_args):
-    self.toggle_dropdown()
+  
+    def tag_clickable_area_click(self, **event_args):
+      self.toggle_dropdown()

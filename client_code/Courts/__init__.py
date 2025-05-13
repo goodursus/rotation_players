@@ -8,7 +8,7 @@ import anvil.tables as tables
 from anvil.google.drive import app_files
 import anvil.tables.query as q
 from anvil.tables import app_tables
-
+from .MultiSelectDropdown import MultiSelectDropdown
 
 class Courts(CourtsTemplate):
   def __init__(self, **properties):
@@ -21,7 +21,7 @@ class Courts(CourtsTemplate):
   def dropdown_session_change(self, **event_args):
     selected = self.dropdown_session.selected_value
     number_players = selected['number_players']
-    self.multi_select_dropdown_1.set_options([row['name'] for row in app_tables.players.search()], number_players)
+    MultiSelectDropdown.set_options([row['name'] for row in app_tables.players.search()], number_players)
 
 #    if selected:
 #      alert(f"You selected: {selected}")
