@@ -61,5 +61,5 @@ components:
   properties: {}
   type: ColumnPanel
 container: {type: ColumnPanel}
-custom_component: true
+custom_component: false
 is_package: true
