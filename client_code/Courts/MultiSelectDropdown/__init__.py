@@ -16,6 +16,7 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
     #        self.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
   
     def set_options(self, options, limit):
+      def set_options(self, options, limit):
       self.all_options = options
       self.selection_limit = limit
       self.update_options()
