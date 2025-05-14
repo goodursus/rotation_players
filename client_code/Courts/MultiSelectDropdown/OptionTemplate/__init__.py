@@ -7,7 +7,7 @@ class OptionTemplate(OptionTemplateTemplate):
   def __init__(self, **properties):
     self.init_components(**properties)
     self.link_1.text = self.item  # Отображаем текст элемента
-    self.link_1.role = 'option-item'  
+#    self.link_1.role = 'option-item'  
   #        self.parent.link_1.set_event_handler("click", self.item_clicked)
 
   #    def item_clicked(self, **event_args):

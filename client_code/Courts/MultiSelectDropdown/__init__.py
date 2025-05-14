@@ -8,12 +8,12 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       self.selected_values = []
       self.all_options = []
  #     self.options_rp.role = 'options-dropdown'
-      self.tag_display.role = 'tag_display'
+ #     self.tag_display.role = 'tag_display'
       self.options_rp.set_event_handler("x-click", self.option_selected)
       self.dropdown_area.visible = True
       self.limit_text.text = ""
   
-    #        self.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
+#      self.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
   
     def set_options(self, options, limit):
       self.all_options = options
@@ -73,4 +73,5 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       self.dropdown_area.visible = True
       
     def tag_clickable_area_click(self, **event_args):
+      self.update_options()
       self.toggle_dropdown()

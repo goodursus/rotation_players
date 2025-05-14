@@ -74,7 +74,7 @@ class CourtComponent(CourtComponentTemplate):
     self.timer_component.enabled = False  # Таймер изначально выключен
 
     # Привязка обработчика к событию 'tick'
-    self.timer_component.set_event_handler("tick", self.timer_tick)
+#    self.timer_component.set_event_handler("tick", self.timer_tick)
 
     # Установка обработчиков событий
     self.button_start.set_event_handler("click", self.start_timer)
