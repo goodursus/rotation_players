@@ -13,5 +13,6 @@ class OptionTemplate(OptionTemplateTemplate):
   #    def item_clicked(self, **event_args):
   #        self.parent.raise_event("x-select", item=self.item)
 
-    def link_1_click(self, **event_args):
-      self.parent.raise_event("x-click", item=self.item)
+  def link_1_click(self, **event_args):
+    self.parent.raise_event("x-click", item=self.item)
+

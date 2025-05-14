@@ -17,11 +17,13 @@ class Courts(CourtsTemplate):
 
     # Any code you write here will run before the form opens.
     self.refresh_dropdown_session()
+    # Создаём экземпляр компонента
+    self.dropdown_component = MultiSelectDropdown()
 
   def dropdown_session_change(self, **event_args):
     selected = self.dropdown_session.selected_value
     number_players = selected['number_players']
-    MultiSelectDropdown.set_options([row['name'] for row in app_tables.players.search()], number_players)
+    self.dropdown_component.set_options([row['name'] for row in app_tables.players.search()], number_players)
 
 #    if selected:
 #      alert(f"You selected: {selected}")

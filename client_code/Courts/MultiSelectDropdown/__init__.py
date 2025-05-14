@@ -7,22 +7,22 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       self.init_components(**properties)
       self.selected_values = []
       self.all_options = []
-      self.options_rp.role = 'options-dropdown'
+ #     self.options_rp.role = 'options-dropdown'
       self.tag_display.role = 'tag_display'
       self.options_rp.set_event_handler("x-click", self.option_selected)
-      self.dropdown_area.visible = False
+      self.dropdown_area.visible = True
       self.limit_text.text = ""
   
     #        self.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
   
     def set_options(self, options, limit):
-      def set_options(self, options, limit):
       self.all_options = options
       self.selection_limit = limit
       self.update_options()
   
     def update_options(self):
       self.options_rp.items = [o for o in self.all_options if o not in self.selected_values]
+      qqq = 1
 
     def update_stats(self):
       total = len(self.all_options)  # Общее кол-во игроков
@@ -43,7 +43,7 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       self.update_tags()
       self.update_options()
       self.update_stats()
-      self.dropdown_area.visible = False
+#      self.dropdown_area.visible = False
 
     def update_tags(self):
       # Очищаем область отображения
@@ -69,7 +69,8 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
         self.update_stats()
   
     def toggle_dropdown(self, **event_args):
-      self.dropdown_area.visible = not self.dropdown_area.visible
-  
+#      self.dropdown_area.visible = not self.dropdown_area.visible
+      self.dropdown_area.visible = True
+      
     def tag_clickable_area_click(self, **event_args):
       self.toggle_dropdown()
