@@ -12,7 +12,7 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       self.options_rp.role = 'options-dropdown'
       self.tag_display.role = 'tag_display'
       self.options_rp.set_event_handler("x-click", self.option_selected)
-      self.dropdown_area.visible = True
+      self.dropdown_area.visible = False
       self.limit_text.text = ""
   
       #      self.set_options([row['name'] for row in app_tables.players.search()], 11)
@@ -25,8 +25,8 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
   
     def update_options(self):
       self.options_rp.items = [o for o in self.all_options if o not in self.selected_values]
-      print("options_rp.items is: ", self.options_rp.items)
-      print("options_rp.visible is: ", self.options_rp.visible)
+#      print("options_rp.items is: ", self.options_rp.items)
+#      print("options_rp.visible is: ", self.options_rp.visible)
 
 
     def update_stats(self):
@@ -39,12 +39,13 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       if item in self.selected_values:
         return
   
-        if len(self.selected_values) >= self.selection_limit:
-          # Блокируем выбор
-          alert(f"Limit reached: {self.selection_limit} players.")
-          return
+      if len(self.selected_values) >= self.selection_limit:
+        # Блокируем выбор
+        alert(f"Limit reached: {self.selection_limit} players.")
+        self.dropdown_area.visible = False
+        return
   
-          self.selected_values.append(item)
+      self.selected_values.append(item)
       self.update_tags()
       self.update_options()
       self.update_stats()
@@ -74,9 +75,8 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
         self.update_stats()
   
     def toggle_dropdown(self, **event_args):
-#      self.dropdown_area.visible = not self.dropdown_area.visible
-      self.dropdown_area.visible = True
+      self.dropdown_area.visible = not self.dropdown_area.visible
+#      self.dropdown_area.visible = True
       
     def tag_clickable_area_click(self, **event_args):
-      self.update_options()
       self.toggle_dropdown()

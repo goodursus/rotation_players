@@ -2,7 +2,7 @@ components:
 - event_bindings: {click: link_1_click}
   layout_properties: {grid_position: 'QUZXQM,PLWVNG'}
   name: link_1
-  properties: {}
+  properties: {underline: false}
   type: form:dep_lin1x4oec0ytd:_Components.Link
 container: {type: ColumnPanel}
 is_package: true

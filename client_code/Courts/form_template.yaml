@@ -40,7 +40,7 @@ components_by_slot:
       name: court_component_1
       properties: {}
       type: form:Courts.CourtComponent
-    event_bindings: {show: column_panel_1_show}
+    event_bindings: {}
     layout_properties: {}
     name: column_panel_1
     properties: {}
