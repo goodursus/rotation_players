@@ -15,15 +15,17 @@ class Courts(CourtsTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    # Any code you write here will run before the form opens.
-    self.refresh_dropdown_session()
     # Создаём экземпляр компонента
     self.dropdown_component = MultiSelectDropdown()
+
+    # Any code you write here will run before the form opens.
+    self.refresh_dropdown_session()
 
   def dropdown_session_change(self, **event_args):
     selected = self.dropdown_session.selected_value
     number_players = selected['number_players']
-    self.dropdown_component.set_options([row['name'] for row in app_tables.players.search()], number_players)
+#    self.dropdown_component.set_options([row['name'] for row in app_tables.players.search()], number_players)
+    self.dropdown_component.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
 
 #    if selected:
 #      alert(f"You selected: {selected}")
@@ -31,4 +33,5 @@ class Courts(CourtsTemplate):
   def refresh_dropdown_session(self):
     items = anvil.server.call('get_session_dropdown_items')
     self.dropdown_session.items = items
+
 

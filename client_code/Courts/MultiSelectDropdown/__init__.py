@@ -1,20 +1,23 @@
 from ._anvil_designer import MultiSelectDropdownTemplate
 from anvil import *
 import anvil.server
+from anvil.tables import app_tables
 
 class MultiSelectDropdown(MultiSelectDropdownTemplate):
     def __init__(self, **properties):
       self.init_components(**properties)
+
       self.selected_values = []
       self.all_options = []
- #     self.options_rp.role = 'options-dropdown'
- #     self.tag_display.role = 'tag_display'
+      self.options_rp.role = 'options-dropdown'
+      self.tag_display.role = 'tag_display'
       self.options_rp.set_event_handler("x-click", self.option_selected)
       self.dropdown_area.visible = True
       self.limit_text.text = ""
   
+      #      self.set_options([row['name'] for row in app_tables.players.search()], 11)
 #      self.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
-  
+
     def set_options(self, options, limit):
       self.all_options = options
       self.selection_limit = limit
@@ -22,7 +25,9 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
   
     def update_options(self):
       self.options_rp.items = [o for o in self.all_options if o not in self.selected_values]
-      qqq = 1
+      print("options_rp.items is: ", self.options_rp.items)
+      print("options_rp.visible is: ", self.options_rp.visible)
+
 
     def update_stats(self):
       total = len(self.all_options)  # Общее кол-во игроков
