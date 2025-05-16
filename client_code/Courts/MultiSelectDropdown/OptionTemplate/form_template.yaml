@@ -1,8 +1,8 @@
 components:
 - event_bindings: {click: link_1_click}
-  layout_properties: {grid_position: 'QUZXQM,PLWVNG'}
+  layout_properties: {full_width_row: false, grid_position: 'QUZXQM,PLWVNG'}
   name: link_1
-  properties: {underline: false}
+  properties: {align: center, font_size: 18, underline: false}
   type: form:dep_lin1x4oec0ytd:_Components.Link
 container: {type: ColumnPanel}
 is_package: true

@@ -21,7 +21,9 @@ class Courts(CourtsTemplate):
     
     # Any code you write here will run before the form opens.
     self.refresh_dropdown_session()
-
+    
+    self.repeating_panel.set_event_handler("x-save-court", self.save_court)
+  
   def dropdown_session_change(self, **event_args):
     selected = self.dropdown_session.selected_value
     number_players = selected['number_players']

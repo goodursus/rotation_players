@@ -21,7 +21,8 @@ class CourtComponent(CourtComponentTemplate):
     #    self.mark_rest_court()
 
     # Запрос данных из таблицы
-    rows = list(app_tables.courts.search())
+#    rows = list(app_tables.courts.search())
+    rows = list(self.search_table("courts"))
     self.repeating_panel = self.repeating_panel_2
 #    try:
 
@@ -86,7 +87,19 @@ class CourtComponent(CourtComponentTemplate):
 #    except Exception as e:
 #      print("Пропущено в режиме дизайна или при ошибке доступа к таблице:", e)
 
-  
+  def search_table(self, table_name: str, **search_filters):
+    """
+    Выполняет .search() по таблице с заданным именем.
+    Можно передавать фильтры как именованные параметры.
+    Пример: search_table("players", role="admin")
+    """
+    try:
+      table = getattr(app_tables, table_name)
+    except AttributeError:
+      raise ValueError(f"Таблица '{table_name}' не найдена в app_tables.")
+
+    return table.search(**search_filters)
+    
   def edit_player_click(self, **event_args):
     #    open_form(ListPlayers())
     ListPlayers()

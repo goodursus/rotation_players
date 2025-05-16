@@ -80,3 +80,6 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       
     def tag_clickable_area_click(self, **event_args):
       self.toggle_dropdown()
+
+    def icon_button_1_click(self, **event_args):
+      self.parent.raise_event('x-add-s-players', item = {})
