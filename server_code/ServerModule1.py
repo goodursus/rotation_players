@@ -279,9 +279,9 @@ def replace_players_for_session(session_id, tag_list):
     - добавляет новые
     """
   # Удалить все существующие строки с этим session_id
-  for row in app_tables.tags.search(session_id=session_id):
+  for row in app_tables.s_players.search(session_id=session_id):
     row.delete()
 
     # Добавить новые теги
   for tag in tag_list:
-    app_tables.tags.add_row(session_id=session_id, value=tag)  
+    app_tables.s_players.add_row(session_id=session_id, value=tag)  
