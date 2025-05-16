@@ -86,6 +86,7 @@ class CourtComponent(CourtComponentTemplate):
 #    except Exception as e:
 #      print("Пропущено в режиме дизайна или при ошибке доступа к таблице:", e)
 
+  
   def edit_player_click(self, **event_args):
     #    open_form(ListPlayers())
     ListPlayers()
