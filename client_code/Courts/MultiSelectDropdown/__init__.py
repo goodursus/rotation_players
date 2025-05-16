@@ -4,23 +4,27 @@ import anvil.server
 from anvil.tables import app_tables
 
 class MultiSelectDropdown(MultiSelectDropdownTemplate):
-    def __init__(self, **properties):
+    def __init__(self, parent_form = None, **properties):
       self.init_components(**properties)
 
       self.selected_values = []
       self.all_options = []
+      self.session_id = 0
       self.options_rp.role = 'options-dropdown'
       self.tag_display.role = 'tag_display'
       self.options_rp.set_event_handler("x-click", self.option_selected)
       self.dropdown_area.visible = False
       self.limit_text.text = ""
+
+      self.parent_form = parent_form
   
       #      self.set_options([row['name'] for row in app_tables.players.search()], 11)
 #      self.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
 
-    def set_options(self, options, limit):
+    def set_options(self, options, limit, session_id):
       self.all_options = options
       self.selection_limit = limit
+      self.session_id = session_id
       self.update_options()
   
     def update_options(self):
@@ -85,8 +89,9 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       tag_values = []
 
       for comp in self.tag_display.get_components():
-        if hasattr(comp, 'tag') and isinstance(comp.tag, dict) and 'value' in comp.tag:
-          tag_values.append(comp.tag['value'])
-    
-        # Вызов серверной функции с передачей session_id
-          anvil.server.call("replace_tags_for_session", session_id, tag_values)
+#        if hasattr(comp, 'tag') and isinstance(comp.tag, dict) and 'value' in comp.tag:
+#        tag_values.append(comp.tag['value'])
+        tag_values.append(comp.tag.value)
+
+    # Вызов серверной функции с передачей session_id
+      anvil.server.call("replace_players_for_session", self.session_id, tag_values)

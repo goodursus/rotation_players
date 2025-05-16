@@ -270,3 +270,18 @@ def get_session_dropdown_items():
 #    items.append(text)  # Если значение == текст
 
   return items
+
+@anvil.server.callable
+def replace_players_for_session(session_id, tag_list):
+  """
+    Полностью заменяет все теги для заданной session_id:
+    - удаляет старые строки
+    - добавляет новые
+    """
+  # Удалить все существующие строки с этим session_id
+  for row in app_tables.tags.search(session_id=session_id):
+    row.delete()
+
+    # Добавить новые теги
+  for tag in tag_list:
+    app_tables.tags.add_row(session_id=session_id, value=tag)  
