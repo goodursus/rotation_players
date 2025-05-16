@@ -30,9 +30,6 @@ class Courts(CourtsTemplate):
     self.multi_select_dropdown_1.set_options([row['name'] for row in app_tables.players.search()], number_players)
 #    self.multi_select_dropdown_1.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
 
-#    if selected:
-#      alert(f"You selected: {selected}")
-  
   def refresh_dropdown_session(self):
     items = anvil.server.call('get_session_dropdown_items')
     self.dropdown_session.items = items

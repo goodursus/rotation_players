@@ -82,4 +82,11 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       self.toggle_dropdown()
 
     def icon_button_1_click(self, **event_args):
-      self.parent.raise_event('x-add-s-players', item = {})
+      tag_values = []
+
+      for comp in self.tag_display.get_components():
+        if hasattr(comp, 'tag') and isinstance(comp.tag, dict) and 'value' in comp.tag:
+          tag_values.append(comp.tag['value'])
+    
+        # Вызов серверной функции с передачей session_id
+          anvil.server.call("replace_tags_for_session", session_id, tag_values)
