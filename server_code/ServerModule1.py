@@ -283,5 +283,7 @@ def replace_players_for_session(session_id, tag_list):
     row.delete()
 
     # Добавить новые теги
+  count = 1  
   for tag in tag_list:
-    app_tables.s_players.add_row(session_id=session_id, name =tag)  
+    app_tables.s_players.add_row(session_id = session_id, player_number = count, name = tag) 
+    count += 1
