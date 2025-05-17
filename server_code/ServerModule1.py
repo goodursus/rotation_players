@@ -284,4 +284,4 @@ def replace_players_for_session(session_id, tag_list):
 
     # Добавить новые теги
   for tag in tag_list:
-    app_tables.s_players.add_row(session_id=session_id, value=tag)  
+    app_tables.s_players.add_row(session_id=session_id, name =tag)  
