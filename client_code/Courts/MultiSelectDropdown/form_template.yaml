@@ -70,7 +70,7 @@ components:
   properties: {}
   type: ColumnPanel
 container:
-  properties: {col_widths: '{"ASYZGT":10,"PYXWSF":50}'}
+  properties: {col_widths: '{"ASYZGT":15,"PYXWSF":45}'}
   type: ColumnPanel
 custom_component: false
 is_package: true

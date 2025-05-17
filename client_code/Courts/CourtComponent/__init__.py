@@ -258,12 +258,6 @@ class CourtComponent(CourtComponentTemplate):
           value = self.name_to_code[card["name_" + str(i)]]
           player_ids[key] = value
 
-      #        players = {
-      #            'player_id_1': self.name_to_code[card['name_1']] if card['name_1'] is not None,
-      #            'player_id_2': self.name_to_code[card['name_2']],
-      #            'player_id_3': self.name_to_code[card['name_3']],
-      #            'player_id_4': self.name_to_code[card['name_4']],
-      #        }
       # Обновление записи в таблице court
       court_row = app_tables.courts.get(id=court_id)
       if court_row:

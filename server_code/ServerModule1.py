@@ -257,7 +257,7 @@ def upload_players(file):
 
 @anvil.server.callable
 def get_session_dropdown_items():
-  sessions = app_tables.session.search()
+  sessions = app_tables.session.search(open = True)
   items = []
   for s in sessions:
     text = (

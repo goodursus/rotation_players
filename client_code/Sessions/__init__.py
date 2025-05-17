@@ -26,18 +26,20 @@ class Sessions(SessionsTemplate):
       # Если таблица пустая, создаем одну пустую запись
       item['session_id'] = 1
       item['data_session'] = datetime.now().date()
+      item['open'] = False
     else:
       last_record = app_tables.session.search(tables.order_by("session_id", ascending = False))
       next_id = (last_record[0]['session_id'] + 1) if last_record else 1  # Если нет записей, то ID = 1
       item['session_id'] = next_id
       item['data_session'] = datetime.now().date()
+      item['open'] = False
 
 #    players = list(app_tables.s_players.search())
 #    player_count = len(players)
 #    player_count = self.item['number_players']
 #    item['number_players'] = player_count
 #    item['number_courts']  = (player_count + 3) // 4
-    editing_form = EditSessions(item=item)
+    editing_form = EditSessions(item = item)
 
     # if the user clicks OK on the alert
     if alert(content = editing_form, large=True):
