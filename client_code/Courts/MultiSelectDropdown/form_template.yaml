@@ -21,7 +21,7 @@ components:
     type: form:dep_lin1x4oec0ytd:_Components.IconButton
   layout_properties: {grid_position: ',undefined'}
   name: column_panel_1
-  properties: {col_spacing: small, col_widths: '{"YJYECZ":15,"QTPHAA":20,"IIQFLH":25}', spacing_above: none, spacing_below: none}
+  properties: {col_spacing: small, col_widths: '{"YJYECZ":15,"QTPHAA":20,"IIQFLH":30,"MQVUOF":10}', spacing_above: none, spacing_below: none}
   type: ColumnPanel
 - components:
   - components:

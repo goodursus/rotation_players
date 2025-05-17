@@ -26,13 +26,26 @@ class Courts(CourtsTemplate):
   def dropdown_session_change(self, **event_args):
     selected = self.dropdown_session.selected_value
     number_players = selected['number_players']
+    self.multi_select_dropdown_1.selection_limit = number_players
     session_id = selected['session_id']
     # Полный список всех имен
-    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = session_id)]
-    if not self.all_names:
+    self.selected_names = [row["name"] for row in app_tables.s_players.search(session_id = session_id)]
+    if not self.selected_names:
       self.multi_select_dropdown_1.set_options([row["name"] for row in app_tables.players.search()], number_players, session_id)
     else:
-      print(self.all_names)
+      self.all_names = [row["name"] for row in app_tables.players.search()]
+      self.multi_select_dropdown_1.selected_values = self.selected_names 
+      self.multi_select_dropdown_1.all_options = self.all_names
+      self.multi_select_dropdown_1.tag_display.clear()
+      for val in self.all_names:
+        button = Button(
+          text=val + " ✖",
+          role="tag-button",
+        )
+        button.tag.value = val
+        button.role = 'tag-button'
+        button.set_event_handler("click", self.multi_select_dropdown_1.remove_tag)
+        self.multi_select_dropdown_1.tag_display.add_component(button)
 
   def refresh_dropdown_session(self):
     items = anvil.server.call('get_session_dropdown_items')
