@@ -15,10 +15,6 @@ class Courts(CourtsTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    # Создаём экземпляр компонента
-#    self.dropdown_component = MultiSelectDropdown()
-#    self.column_panel_1.add_component(self.dropdown_component)
-    
     # Any code you write here will run before the form opens.
     self.all_names = []
     self.refresh_dropdown_session()
@@ -28,6 +24,9 @@ class Courts(CourtsTemplate):
     number_players = selected['number_players']
     self.multi_select_dropdown_1.selection_limit = number_players
     session_id = selected['session_id']
+    session_rule = selected['rule']
+    self.text_name_rule.text = 'Rule: ' + session_rule['name']
+    self.text_name_rule.text_color = 'blue'
     # Полный список всех имен
     self.selected_names = [row["name"] for row in app_tables.s_players.search(session_id = session_id)]
     if not self.selected_names:
