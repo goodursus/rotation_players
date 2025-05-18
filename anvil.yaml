@@ -127,6 +127,11 @@ db_schema:
       type: bool
     server: full
     title: session
+  table_6:
+    client: none
+    columns: []
+    server: full
+    title: Table 6
 dependencies:
 - dep_id: dep_w9k7g4ktaes38p
   resolution_hints: {app_id: 2WDT62VISAENBFUO, name: MultiSelectLib, package_name: MultiSelectLib}
