@@ -14,8 +14,16 @@ class EditSessions(EditSessionsTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
+    # Получаем всех доступных игроков
+    rules = list(app_tables.rules.search())
+    
+    # Настройка DropDown
+    self.dropdown_rule.selected_value = self.item['rule']
+    self.dropdown_rule.items = [(p['name'], p) for p in rules]
+    
     self.checkbox_open.checked    = self.item['open']
     self.date_picker_session.date = self.item["data_session"]
+    
   
   def date_picker_session_change(self, **event_args):
     """This method is called when the selected date changes"""
@@ -29,3 +37,7 @@ class EditSessions(EditSessionsTemplate):
   def checkbox_open_change(self, **event_args):
     """This method is called when the component is checked or unchecked"""
     self.item['open'] = self.checkbox_open.checked
+
+  def dropdown_rule_change(self, **event_args):
+#    selected_rule = self.dropdown_rule.selected_value  # Это строка таблицы
+    self.item['rule'] = self.dropdown_rule.selected_value

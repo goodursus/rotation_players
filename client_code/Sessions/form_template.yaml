@@ -15,14 +15,14 @@ components_by_slot:
       name: data_grid_1
       properties:
         columns:
-        - {data_key: '', id: WMNVTY, title: Open}
+        - {data_key: '', expand: false, id: WMNVTY, title: Open, width: 75.3636474609375}
         - {data_key: session_id, expand: false, id: HNACWO, title: Session number, width: 75.5999755859375}
-        - {data_key: data_session, id: WNSVYW, title: Data}
-        - {data_key: number_players, id: KCLDWB, title: Players}
-        - {data_key: number_courts, id: WXFIYR, title: Courts}
-        - {data_key: session_duration, id: LBCTTL, title: Session duration}
-        - {data_key: game_duration, id: GLEAAH, title: Game duration}
-        - {data_key: rule, id: KTJVVP, title: Rule}
+        - {data_key: data_session, expand: false, id: WNSVYW, title: Data, width: 180.3636474609375}
+        - {data_key: number_players, expand: false, id: KCLDWB, title: Players, width: 75.0909423828125}
+        - {data_key: number_courts, expand: false, id: WXFIYR, title: Courts, width: 73.181884765625}
+        - {data_key: session_duration, expand: false, id: LBCTTL, title: Session duration, width: 87.2728271484375}
+        - {data_key: game_duration, expand: false, id: GLEAAH, title: Game duration, width: 79.181884765625}
+        - {data_key: rule, expand: false, id: KTJVVP, title: Rule, width: 207.3636474609375}
         - {data_key: column_1, id: SXSMZH, title: ''}
       type: DataGrid
     layout_properties: {}

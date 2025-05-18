@@ -74,10 +74,11 @@ components:
   properties: {text: Rule}
   type: Label
 - data_bindings:
-  - {code: 'self.item[''rule'']', property: text, writeback: true}
-  layout_properties: {grid_position: 'GMQLJS,PMTBJS'}
-  name: text_box_7
-  properties: {type: number}
-  type: TextBox
+  - {code: '', property: items, writeback: false}
+  event_bindings: {change: dropdown_rule_change}
+  layout_properties: {grid_position: 'GMQLJS,KSWQMF'}
+  name: dropdown_rule
+  properties: {label: '', placeholder: Choise rule}
+  type: form:dep_lin1x4oec0ytd:_Components.DropdownMenu
 container: {type: ColumnPanel}
 is_package: true

@@ -12,7 +12,7 @@ class RowTemplateEditSessions(RowTemplateEditSessionsTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-
+#    self.text_1.text = self.item['rule']['name']
     # Any code you write here will run before the form opens.
     # Если значение поля is_active = True, подсветим строку
     is_active = self.item['open']
