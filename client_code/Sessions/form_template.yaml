@@ -22,6 +22,7 @@ components_by_slot:
         - {data_key: number_courts, id: WXFIYR, title: Courts}
         - {data_key: session_duration, id: LBCTTL, title: Session duration}
         - {data_key: game_duration, id: GLEAAH, title: Game duration}
+        - {data_key: rule, id: KTJVVP, title: Rule}
         - {data_key: column_1, id: SXSMZH, title: ''}
       type: DataGrid
     layout_properties: {}

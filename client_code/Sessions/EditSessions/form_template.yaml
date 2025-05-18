@@ -69,5 +69,15 @@ components:
   name: text_box_6
   properties: {type: number}
   type: TextBox
+- layout_properties: {grid_position: 'GMQLJS,CFDUNV'}
+  name: label_7
+  properties: {text: Rule}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''rule'']', property: text, writeback: true}
+  layout_properties: {grid_position: 'GMQLJS,PMTBJS'}
+  name: text_box_7
+  properties: {type: number}
+  type: TextBox
 container: {type: ColumnPanel}
 is_package: true

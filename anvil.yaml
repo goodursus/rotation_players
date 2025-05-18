@@ -87,6 +87,17 @@ db_schema:
       type: number
     server: full
     title: players
+  rules:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: id
+      type: number
+    - admin_ui: {order: 1, width: 273}
+      name: name
+      type: string
+    server: full
+    title: rules
   s_players:
     client: full
     columns:
@@ -125,13 +136,12 @@ db_schema:
     - admin_ui: {order: 6, width: 200}
       name: open
       type: bool
+    - admin_ui: {order: 7, width: 200}
+      name: rule
+      target: rules
+      type: link_single
     server: full
     title: session
-  table_6:
-    client: none
-    columns: []
-    server: full
-    title: Table 6
 dependencies:
 - dep_id: dep_w9k7g4ktaes38p
   resolution_hints: {app_id: 2WDT62VISAENBFUO, name: MultiSelectLib, package_name: MultiSelectLib}
