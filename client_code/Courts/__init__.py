@@ -9,6 +9,7 @@ from anvil.google.drive import app_files
 import anvil.tables.query as q
 from anvil.tables import app_tables
 from .MultiSelectDropdown import MultiSelectDropdown
+from .CourtComponent import CourtComponent
 
 class Courts(CourtsTemplate):
   def __init__(self, **properties):
@@ -54,5 +55,11 @@ class Courts(CourtsTemplate):
   def arrangement_button_click(self, **event_args):
     group_courts = anvil.server.call("get_court_groups", self.session_id)
     print(group_courts)
+    # Создаём экземпляр формы с параметрами
+    court_form = CourtComponent()
+
+    # Вставляем её на форму (например, в ColumnPanel или FlowPanel)
+    self.courts_panel.clear()
+    self.courts_panel.add_component(court_form)
 
 

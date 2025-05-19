@@ -19,7 +19,6 @@ class CourtComponent(CourtComponentTemplate):
     # Поиск не полного корта для отдыха
     #    self.not_full_court = self.find_rest_courty()
     #    self.mark_rest_court()
-
     # Запрос данных из таблицы
 #    rows = list(app_tables.courts.search())
     rows = list(self.search_table("courts"))
