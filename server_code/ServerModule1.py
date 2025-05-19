@@ -287,3 +287,32 @@ def replace_players_for_session(session_id, tag_list):
   for tag in tag_list:
     app_tables.s_players.add_row(session_id = session_id, player_number = count, name = tag) 
     count += 1
+####################################################
+# Расстановка пар игроков по рейтингу и по кортам
+####################################################
+@anvil.server.callable
+def get_court_groups(session_id):
+  # Получаем игроков сессии
+  s_rows = app_tables.s_players.search(session_id=session_id)
+
+  # Получаем рейтинги из основной таблицы
+  enriched = []
+  for s_row in s_rows:
+    player_row = app_tables.players.get(name=s_row['name'])  # Предполагаем, что name уникален
+    if player_row:
+      enriched.append({
+        'name': s_row['name'],
+        'player_number': s_row['player_number'],
+        'raiting': player_row['raiting']
+      })
+
+    # Сортируем по убыванию рейтинга
+  sorted_players = sorted(enriched, key=lambda x: x['raiting'], reverse=True)
+
+  # Разбиваем по 4 игрока на корт
+  court_groups = []
+  for i in range(0, len(sorted_players), 4):
+    group = sorted_players[i:i+4]
+    court_groups.append(group)
+
+  return court_groups    

@@ -17,20 +17,21 @@ class Courts(CourtsTemplate):
 
     # Any code you write here will run before the form opens.
     self.all_names = []
+    self.session_id = 0
     self.refresh_dropdown_session()
  
   def dropdown_session_change(self, **event_args):
     selected = self.dropdown_session.selected_value
     number_players = selected['number_players']
     self.multi_select_dropdown_1.selection_limit = number_players
-    session_id = selected['session_id']
+    self.session_id = selected['session_id']
     session_rule = selected['rule']
     self.text_name_rule.text = 'Rule: ' + session_rule['name']
     self.text_name_rule.text_color = 'blue'
     # Полный список всех имен
-    self.selected_names = [row["name"] for row in app_tables.s_players.search(session_id = session_id)]
+    self.selected_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
     if not self.selected_names:
-      self.multi_select_dropdown_1.set_options([row["name"] for row in app_tables.players.search()], number_players, session_id)
+      self.multi_select_dropdown_1.set_options([row["name"] for row in app_tables.players.search()], number_players, self.session_id)
     else:
       self.all_names = [row["name"] for row in app_tables.players.search()]
       self.multi_select_dropdown_1.selected_values = self.selected_names 
@@ -51,7 +52,7 @@ class Courts(CourtsTemplate):
     self.dropdown_session.items = items
 
   def arrangement_button_click(self, **event_args):
-    """This method is called when the component is clicked."""
-    pass
+    group_courts = anvil.server.call("get_court_groups", self.session_id)
+    print(group_courts)
 
 
