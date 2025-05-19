@@ -50,4 +50,8 @@ class Courts(CourtsTemplate):
     items = anvil.server.call('get_session_dropdown_items')
     self.dropdown_session.items = items
 
+  def arrangement_button_click(self, **event_args):
+    """This method is called when the component is clicked."""
+    pass
+
 

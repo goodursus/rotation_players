@@ -85,6 +85,9 @@ db_schema:
     - admin_ui: {order: 0, width: 200}
       name: player_id
       type: number
+    - admin_ui: {order: 4, width: 200}
+      name: raiting
+      type: number
     server: full
     title: players
   rules:

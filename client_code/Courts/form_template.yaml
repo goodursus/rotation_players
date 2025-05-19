@@ -32,8 +32,9 @@ components_by_slot:
         name: multi_select_dropdown_1
         properties: {}
         type: form:Courts.MultiSelectDropdown
-      - layout_properties: {grid_position: 'VGEBHP,CBBYOL'}
-        name: button_1
+      - event_bindings: {click: arrangement_button_click}
+        layout_properties: {grid_position: 'VGEBHP,CBBYOL'}
+        name: arrangement_button
         properties: {appearance: elevated, text: Players' arrangement}
         type: form:dep_lin1x4oec0ytd:_Components.Button
       - layout_properties: {grid_position: 'VGEBHP,TXEYYE'}
