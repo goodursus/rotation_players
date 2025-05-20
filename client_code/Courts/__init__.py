@@ -61,5 +61,6 @@ class Courts(CourtsTemplate):
     # Вставляем её на форму (например, в ColumnPanel или FlowPanel)
     self.courts_panel.clear()
     self.courts_panel.add_component(court_form)
+    self.court_form.lottery_click()
 
 
