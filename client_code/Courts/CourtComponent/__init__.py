@@ -12,10 +12,12 @@ from datetime import timedelta
 
 
 class CourtComponent(CourtComponentTemplate):
-  def __init__(self, **properties):
+  def __init__(self, parent_form = None, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-
+    
+    self.parent_form = parent_form
+    
     # Поиск не полного корта для отдыха
     #    self.not_full_court = self.find_rest_courty()
     #    self.mark_rest_court()
@@ -50,8 +52,8 @@ class CourtComponent(CourtComponentTemplate):
 
     # Полный список всех имен
     self.all_names = [row["name"] for row in app_tables.s_players.search()]
-
-    self.repeating_panel_2.items = anvil.server.call("get_records_with_names")
+    self.session_id = self.parent_form.session_id
+    self.repeating_panel_2.items = anvil.server.call("get_records_with_names", self.session_id)
 
     self.repeating_panel.set_event_handler("x-add-court", self.add_court)
     self.repeating_panel.set_event_handler("x-save-court", self.save_court)

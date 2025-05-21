@@ -59,9 +59,9 @@ def get_score(value):
   return score 
 
 @anvil.server.callable
-def get_records_with_names():
+def get_records_with_names(session_id):
     # Создаем словарь кодов и имен
-    players_dict = {row['player_number']: row['name'] for row in app_tables.s_players.search()}
+    players_dict = {row['player_number']: row['name'] for row in app_tables.s_players.search(session_id = session_id)}
     
     # Загружаем записи и подставляем имя + другие данные
     records = [
