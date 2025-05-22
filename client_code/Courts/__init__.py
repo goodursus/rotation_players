@@ -56,11 +56,11 @@ class Courts(CourtsTemplate):
     group_courts = anvil.server.call("get_court_groups", self.session_id)
     print(group_courts)
     # Создаём экземпляр формы с параметрами
-    self.court_form = CourtComponent(parent_form=self)
+    self.court_form = CourtComponent(parent_form = self)
 
     # Вставляем её на форму (например, в ColumnPanel или FlowPanel)
     self.courts_panel.clear()
     self.courts_panel.add_component(self.court_form)
-    self.court_form.lottery_click()
+    self.court_form.arrangement()
 
 

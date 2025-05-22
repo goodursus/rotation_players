@@ -17,7 +17,8 @@ class CourtComponent(CourtComponentTemplate):
     self.init_components(**properties)
     
     self.parent_form = parent_form
-    
+    self.session_id = self.parent_form.session_id
+
     # Поиск не полного корта для отдыха
     #    self.not_full_court = self.find_rest_courty()
     #    self.mark_rest_court()
@@ -28,7 +29,7 @@ class CourtComponent(CourtComponentTemplate):
 #    try:
 
   # Загрузка данных из таблицы соответствия
-    correspondence_table = app_tables.s_players.search()
+    correspondence_table = app_tables.s_players.search(session_id = self.session_id)
     # Создание словаря соответствия
     self.name_to_code = {
       row["name"]: row["player_number"] for row in correspondence_table
@@ -41,19 +42,19 @@ class CourtComponent(CourtComponentTemplate):
       #      self.add_court(empty_record)
       anvil.server.call("add_court", empty_record)
     else:
-      last_record = app_tables.courts.search(
-        tables.order_by("game_id", ascending=False)
+      last_court = app_tables.courts.search(
+        tables.order_by("game_id", ascending = False),
+        session_id = self.session_id
       )
-      self.last_game = last_record[0]["game_id"]
+      self.last_game = last_court[0]["game_id"]
       self.current_game_box.text = self.last_game
       # Поиск не полного корта для отдыха
       self.not_full_court = self.find_rest_courty()
       self.mark_rest_court()
 
     # Полный список всех имен
-    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = )]
-    self.session_id = self.parent_form.session_id
-    self.repeating_panel_2.items = anvil.server.call("get_records_with_names", self.session_id)
+#    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
+#    self.repeating_panel_2.items = anvil.server.call("get_records_with_names", self.session_id)
 
     self.repeating_panel.set_event_handler("x-add-court", self.add_court)
     self.repeating_panel.set_event_handler("x-save-court", self.save_court)
@@ -87,7 +88,52 @@ class CourtComponent(CourtComponentTemplate):
     self.label_remaining_time.text = f"{str(self.total_time)}"
 #    except Exception as e:
 #      print("Пропущено в режиме дизайна или при ошибке доступа к таблице:", e)
+  
+  def arrangement(self, **event_args):
+    # Запрос подтверждения у пользователя
+    user_response = confirm(
+      "Are you sure you want to delete all court records",
+      title = "Confirm Delete",
+      buttons=["Yes", "No"],
+    )
+    if user_response == "Yes":
+      # Поиск всех строк в таблице
+      rows = app_tables.courts.search()
+      # Удаление каждой строки
+      for row in rows:
+        row.delete()
 
+      #    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
+    #    self.repeating_panel_2.items = anvil.server.call("get_records_with_names", self.session_id)
+      group_court = anvil.server.call("get_court_groups", self.session_id)
+
+#      last_record = app_tables.session.search(
+#        tables.order_by("session_id", ascending=False)
+#      )
+#      last_session = last_record[0]["session_id"]
+      current_session = app_tables.session.get(session_id = self.session_id)
+      session = dict(current_session)
+      for i in range(session["number_courts"]):
+        item = self.empty_court()
+        item["id"] = i + 1
+        anvil.server.call("add_court", item)
+
+      rows = app_tables.s_players.search()
+      names = [row["name"] for row in rows]
+      random.shuffle(names)
+      shuffled_names = names
+      player_count = len(shuffled_names)
+      courts_count = (player_count + 3) // 4
+      cards_data = [shuffled_names[i * 4 : (i + 1) * 4] for i in range(courts_count)]
+
+      # Обновление полей name_1, name_2, name_3, name_4 в существующем списке
+      self.update_repeating_panel_items(cards_data)
+
+      # Передача данных в каждую карточку
+      card_components = self.repeating_panel.get_components()
+      for card in card_components:
+        card.set_all_names(names)  # Передаем полный список имен
+  
   def search_table(self, table_name: str, **search_filters):
     """
     Выполняет .search() по таблице с заданным именем.
@@ -192,47 +238,6 @@ class CourtComponent(CourtComponentTemplate):
     card_components = self.repeating_panel.get_components()
     for card in card_components:
       card.set_all_names(self.all_names)  # Передаем список имен через метод
-
-  def lottery_click(self, **event_args):
-    # Запрос подтверждения у пользователя
-    user_response = confirm(
-      "Are you sure you want to delete all court records",
-      title="Confirm Delete",
-      buttons=["Yes", "No"],
-    )
-    if user_response == "Yes":
-      # Поиск всех строк в таблице
-      rows = app_tables.courts.search()
-      # Удаление каждой строки
-      for row in rows:
-        row.delete()
-
-      last_record = app_tables.session.search(
-        tables.order_by("session_id", ascending=False)
-      )
-      last_session = last_record[0]["session_id"]
-      current_session = app_tables.session.get(session_id=last_session)
-      session = dict(current_session)
-      for i in range(session["number_courts"]):
-        item = self.empty_court()
-        item["id"] = i + 1
-        anvil.server.call("add_court", item)
-
-      rows = app_tables.s_players.search()
-      names = [row["name"] for row in rows]
-      random.shuffle(names)
-      shuffled_names = names
-      player_count = len(shuffled_names)
-      courts_count = (player_count + 3) // 4
-      cards_data = [shuffled_names[i * 4 : (i + 1) * 4] for i in range(courts_count)]
-
-      # Обновление полей name_1, name_2, name_3, name_4 в существующем списке
-      self.update_repeating_panel_items(cards_data)
-
-      # Передача данных в каждую карточку
-      card_components = self.repeating_panel.get_components()
-      for card in card_components:
-        card.set_all_names(names)  # Передаем полный список имен
 
   def update_repeating_panel_items(self, cards_data):
     current_items = self.repeating_panel.items
