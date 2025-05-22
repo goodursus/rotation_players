@@ -51,7 +51,7 @@ class CourtComponent(CourtComponentTemplate):
       self.mark_rest_court()
 
     # Полный список всех имен
-    self.all_names = [row["name"] for row in app_tables.s_players.search()]
+    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = )]
     self.session_id = self.parent_form.session_id
     self.repeating_panel_2.items = anvil.server.call("get_records_with_names", self.session_id)
 
