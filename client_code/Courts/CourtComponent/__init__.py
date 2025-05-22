@@ -105,7 +105,6 @@ class CourtComponent(CourtComponentTemplate):
 
       #    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
     #    self.repeating_panel_2.items = anvil.server.call("get_records_with_names", self.session_id)
-      group_court = anvil.server.call("get_court_groups", self.session_id)
 
 #      last_record = app_tables.session.search(
 #        tables.order_by("session_id", ascending=False)
@@ -124,7 +123,16 @@ class CourtComponent(CourtComponentTemplate):
       shuffled_names = names
       player_count = len(shuffled_names)
       courts_count = (player_count + 3) // 4
-      cards_data = [shuffled_names[i * 4 : (i + 1) * 4] for i in range(courts_count)]
+      cards_data_old = [shuffled_names[i * 4 : (i + 1) * 4] for i in range(courts_count)]
+
+      groups_court = anvil.server.call("get_court_groups", self.session_id)
+      cards_data = []
+      for group in groups_court:
+        current_court = []
+        for name in group:
+          player = name['name']
+          current_court.append(player)
+        cards_data.append(current_court)
 
       # Обновление полей name_1, name_2, name_3, name_4 в существующем списке
       self.update_repeating_panel_items(cards_data)
@@ -230,6 +238,7 @@ class CourtComponent(CourtComponentTemplate):
       "status_3": -1,
       #        "bg_color_4": self.get_color_status(-1),
       "status_4": -1,
+      "session_id": self.session_id
     }
     return records
 
