@@ -142,7 +142,8 @@ class CourtComponent(CourtComponentTemplate):
       self.fill_court(groups_court)
 
       # Обновление полей name_1, name_2, name_3, name_4 в существующем списке
-      self.update_repeating_panel_items(cards_data)
+#      self.update_repeating_panel_items(cards_data)
+      self.repeating_panel.items = anvil.server.call("get_records_with_names", self.session_id)
 
       # Передача данных в каждую карточку
       card_components = self.repeating_panel.get_components()
