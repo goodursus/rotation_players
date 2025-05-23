@@ -26,7 +26,7 @@ class CourtComponent(CourtComponentTemplate):
     # Запрос данных из таблицы
 #    rows = list(app_tables.courts.search())
 
-    self.repeating_panel.set_event_handler("x-add-court", self.add_court)
+#    self.repeating_panel.set_event_handler("x-add-court", self.add_court)
     self.repeating_panel.set_event_handler("x-save-court", self.save_court)
     self.repeating_panel.set_event_handler("x-del-court", self.del_court)
 
@@ -67,7 +67,7 @@ class CourtComponent(CourtComponentTemplate):
       # Если таблица пустая, создаем нужное количество кортов
       for i in self.number_courte:
         empty_record = self.empty_court()
-        anvil.server.call("add_court", empty_record)
+#        anvil.server.call("add_court", empty_record)
 #    else:
 #      last_court = app_tables.courts.search(
 #        tables.order_by("game_id", ascending = False),
@@ -109,7 +109,7 @@ class CourtComponent(CourtComponentTemplate):
 #        row.delete()
 
       #    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
-      self.repeating_panel.items = anvil.server.call("get_records_with_names", self.session_id)
+#      self.repeating_panel.items = anvil.server.call("get_records_with_names", self.session_id)
 
 #      last_record = app_tables.session.search(
 #        tables.order_by("session_id", ascending=False)
@@ -120,7 +120,7 @@ class CourtComponent(CourtComponentTemplate):
       for i in range(session["number_courts"]):
         item = self.empty_court()
         item["id"] = i + 1
-        anvil.server.call("add_court", item)
+#        anvil.server.call("add_court", item)
 
       rows = app_tables.s_players.search()
       names = [row["name"] for row in rows]
@@ -129,7 +129,7 @@ class CourtComponent(CourtComponentTemplate):
       player_count = len(shuffled_names)
       courts_count = (player_count + 3) // 4
       cards_data_old = [shuffled_names[i * 4 : (i + 1) * 4] for i in range(courts_count)]
-
+    
       groups_court = anvil.server.call("get_court_groups", self.session_id)
       cards_data = []
       for group in groups_court:
@@ -139,6 +139,8 @@ class CourtComponent(CourtComponentTemplate):
           current_court.append(player)
         cards_data.append(current_court)
 
+      self.fill_court(groups_court)
+
       # Обновление полей name_1, name_2, name_3, name_4 в существующем списке
       self.update_repeating_panel_items(cards_data)
 
@@ -146,7 +148,26 @@ class CourtComponent(CourtComponentTemplate):
       card_components = self.repeating_panel.get_components()
       for card in card_components:
         card.set_all_names(names)  # Передаем полный список имен
-  
+
+  def fill_court(self, groups_court):
+    for index, group in enumerate(groups_court):
+      record = {
+        "id": index,
+        "game_id": 1,
+        "session_id": self.session_id
+      }
+
+      for i in range(4):  # Всегда 4 игрока
+        if i < len(group):
+          row = group[i]
+          record[f"status_{i + 1}"] = -1
+          record[f"player_id_{i + 1}"] = row["player_number"]
+        else:
+          record[f"status_{i + 1}"] = -1
+          record[f"player_id_{i + 1}"] = 0  # или None, если нужно
+
+      anvil.server.call("add_court", record)
+      
   def search_table(self, table_name: str, **search_filters):
     """
     Выполняет .search() по таблице с заданным именем.
