@@ -54,7 +54,7 @@ class CourtComponent(CourtComponentTemplate):
 
     # Полный список всех имен
 #    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
-#    self.repeating_panel_2.items = anvil.server.call("get_records_with_names", self.session_id)
+#    self.repeating_panel.items = anvil.server.call("get_records_with_names", self.session_id)
 
     self.repeating_panel.set_event_handler("x-add-court", self.add_court)
     self.repeating_panel.set_event_handler("x-save-court", self.save_court)
@@ -104,7 +104,7 @@ class CourtComponent(CourtComponentTemplate):
         row.delete()
 
       #    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
-      self.repeating_panel_2.items = anvil.server.call("get_records_with_names", self.session_id)
+      self.repeating_panel.items = anvil.server.call("get_records_with_names", self.session_id)
 
 #      last_record = app_tables.session.search(
 #        tables.order_by("session_id", ascending=False)

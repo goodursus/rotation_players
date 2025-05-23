@@ -46,7 +46,7 @@ components:
   - components:
     - data_bindings: []
       layout_properties: {grid_position: 'EMNCBD,JVFFRJ'}
-      name: repeating_panel_2
+      name: repeating_panel
       properties: {item_template: CourtView}
       type: RepeatingPanel
     layout_properties: {grid_position: 'CCUNUP,UIGTPQ'}
