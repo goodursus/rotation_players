@@ -62,8 +62,8 @@ def get_score(value):
 def get_records_with_names(session_id):
     # Создаем словарь кодов и имен
     players_dict = {row['player_number']: row['name'] for row in app_tables.s_players.search(session_id = session_id)}
-    
-    # Загружаем записи и подставляем имя + другие данные
+
+  # Загружаем записи и подставляем имя + другие данные
     records = [
         {
             "name_1": players_dict.get(row['player_id_1'], "Not attached"),  # Если код отсутствует, ставим "Неизвестно"

@@ -25,7 +25,7 @@ class CourtComponent(CourtComponentTemplate):
     # Запрос данных из таблицы
 #    rows = list(app_tables.courts.search())
     rows = list(self.search_table("courts"))
-    self.repeating_panel = self.repeating_panel_2
+#    self.repeating_panel = self.repeating_panel
 #    try:
 
   # Загрузка данных из таблицы соответствия
@@ -284,12 +284,12 @@ class CourtComponent(CourtComponentTemplate):
 
   def mark_rest_court(self):
     # Обновляем выпадающие списки вручную
-    card_components = self.repeating_panel_2.get_components()
+    card_components = self.repeating_panel.get_components()
     for i, card in enumerate(card_components):
       if self.not_full_court == i:
         card.outlined_card_3.background = "#FFCCCC"
 
-    self.repeating_panel_2.raise_event("x-refresh")
+    self.repeating_panel.raise_event("x-refresh")
 
   ##############################################################
   # Timer
