@@ -21,8 +21,9 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       #      self.set_options([row['name'] for row in app_tables.players.search()], 11)
 #      self.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
 
-    def set_options(self, options, limit, session_id):
+    def set_options(self, options, limit, session_id, selected_names):
       self.all_options = options
+      self.selected_values = selected_names
       self.selection_limit = limit
       self.session_id = session_id
       self.update_options()

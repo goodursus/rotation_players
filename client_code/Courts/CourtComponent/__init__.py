@@ -19,6 +19,7 @@ class CourtComponent(CourtComponentTemplate):
     self.parent_form = parent_form
     self.session_id = self.parent_form.session_id
     self.number_courts = self.parent_form.number_courts
+    self.all_names = self.parent_form.all_names
 
     # Поиск не полного корта для отдыха
     #    self.not_full_court = self.find_rest_courty()
@@ -30,10 +31,10 @@ class CourtComponent(CourtComponentTemplate):
     self.repeating_panel.set_event_handler("x-save-court", self.save_court)
     self.repeating_panel.set_event_handler("x-del-court", self.del_court)
 
-    # Передача all_names в каждую карточку
-    card_components = self.repeating_panel.get_components()
-    for card in card_components:
-      card.set_all_names(self.all_names)  # Передаем список имен через метод
+#    # Передача all_names в каждую карточку
+#    card_components = self.repeating_panel.get_components()
+#    for card in card_components:
+#      card.set_all_names(self.all_names)  # Передаем список имен через метод
 
     # Инициализация переменных
     self.total_time = timedelta(
@@ -103,10 +104,10 @@ class CourtComponent(CourtComponentTemplate):
 #    )
 #    if user_response == "Yes":
 #      # Поиск всех строк в таблице
-#      rows = app_tables.courts.search()
-#      # Удаление каждой строки
-#      for row in rows:
-#        row.delete()
+      rows = app_tables.courts.search()
+      # Удаление каждой строки
+      for row in rows:
+        row.delete()
 
       #    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
 #      self.repeating_panel.items = anvil.server.call("get_records_with_names", self.session_id)
@@ -115,21 +116,13 @@ class CourtComponent(CourtComponentTemplate):
 #        tables.order_by("session_id", ascending=False)
 #      )
 #      last_session = last_record[0]["session_id"]
-      current_session = app_tables.session.get(session_id = self.session_id)
-      session = dict(current_session)
-      for i in range(session["number_courts"]):
-        item = self.empty_court()
-        item["id"] = i + 1
+#      current_session = app_tables.session.get(session_id = self.session_id)
+#      session = dict(current_session)
+#      for i in range(session["number_courts"]):
+#        item = self.empty_court()
+#        item["id"] = i + 1
 #        anvil.server.call("add_court", item)
 
-      rows = app_tables.s_players.search()
-      names = [row["name"] for row in rows]
-      random.shuffle(names)
-      shuffled_names = names
-      player_count = len(shuffled_names)
-      courts_count = (player_count + 3) // 4
-      cards_data_old = [shuffled_names[i * 4 : (i + 1) * 4] for i in range(courts_count)]
-    
       groups_court = anvil.server.call("get_court_groups", self.session_id)
       cards_data = []
       for group in groups_court:
@@ -148,12 +141,12 @@ class CourtComponent(CourtComponentTemplate):
       # Передача данных в каждую карточку
       card_components = self.repeating_panel.get_components()
       for card in card_components:
-        card.set_all_names(names)  # Передаем полный список имен
+        card.set_all_names(self.all_names)  # Передаем полный список имен
 
   def fill_court(self, groups_court):
     for index, group in enumerate(groups_court):
       record = {
-        "id": index,
+        "id": index + 1,
         "game_id": 1,
         "session_id": self.session_id
       }

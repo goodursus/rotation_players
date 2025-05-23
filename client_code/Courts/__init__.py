@@ -33,11 +33,13 @@ class Courts(CourtsTemplate):
     # Полный список всех имен
     self.selected_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
     if not self.selected_names:
-      self.multi_select_dropdown_1.set_options([row["name"] for row in app_tables.players.search()], number_players, self.session_id)
+      self.multi_select_dropdown_1.set_options([row["name"] for row in app_tables.players.search()], number_players, self.session_id, self.selected_names)
     else:
-      self.all_names = [row["name"] for row in app_tables.players.search()]
-      self.multi_select_dropdown_1.selected_values = self.selected_names 
-      self.multi_select_dropdown_1.all_options = self.all_names
+#      self.all_names = [row["name"] for row in app_tables.players.search()]
+      self.multi_select_dropdown_1.set_options(self.selected_names, number_players, self.session_id, self.selected_names.copy())
+      self.all_names = self.selected_names
+#      self.multi_select_dropdown_1.selected_values = self.selected_names 
+#      self.multi_select_dropdown_1.all_options = self.selected_names
       self.multi_select_dropdown_1.tag_display.clear()
       for val in self.all_names:
         button = Button(
