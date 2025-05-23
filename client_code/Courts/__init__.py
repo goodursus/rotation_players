@@ -25,6 +25,7 @@ class Courts(CourtsTemplate):
     selected = self.dropdown_session.selected_value
     number_players = selected['number_players']
     self.multi_select_dropdown_1.selection_limit = number_players
+    self.number_courts = selected['number_courts']
     self.session_id = selected['session_id']
     session_rule = selected['rule']
     self.text_name_rule.text = 'Rule: ' + session_rule['name']

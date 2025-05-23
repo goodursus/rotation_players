@@ -18,43 +18,13 @@ class CourtComponent(CourtComponentTemplate):
     
     self.parent_form = parent_form
     self.session_id = self.parent_form.session_id
+    self.number_courts = self.parent_form.number_courts
 
     # Поиск не полного корта для отдыха
     #    self.not_full_court = self.find_rest_courty()
     #    self.mark_rest_court()
     # Запрос данных из таблицы
 #    rows = list(app_tables.courts.search())
-    rows = list(self.search_table("courts"))
-#    self.repeating_panel = self.repeating_panel
-#    try:
-
-  # Загрузка данных из таблицы соответствия
-    correspondence_table = app_tables.s_players.search(session_id = self.session_id)
-    # Создание словаря соответствия
-    self.name_to_code = {
-      row["name"]: row["player_number"] for row in correspondence_table
-    }
-
-  # Проверка, пуста ли таблица
-    if not rows:
-      # Если таблица пустая, создаем одну пустую запись
-      empty_record = self.empty_court()
-      #      self.add_court(empty_record)
-      anvil.server.call("add_court", empty_record)
-    else:
-      last_court = app_tables.courts.search(
-        tables.order_by("game_id", ascending = False),
-        session_id = self.session_id
-      )
-      self.last_game = last_court[0]["game_id"]
-      self.current_game_box.text = self.last_game
-      # Поиск не полного корта для отдыха
-      self.not_full_court = self.find_rest_courty()
-      self.mark_rest_court()
-
-    # Полный список всех имен
-#    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
-#    self.repeating_panel.items = anvil.server.call("get_records_with_names", self.session_id)
 
     self.repeating_panel.set_event_handler("x-add-court", self.add_court)
     self.repeating_panel.set_event_handler("x-save-court", self.save_court)
@@ -88,20 +58,55 @@ class CourtComponent(CourtComponentTemplate):
     self.label_remaining_time.text = f"{str(self.total_time)}"
 #    except Exception as e:
 #      print("Пропущено в режиме дизайна или при ошибке доступа к таблице:", e)
+
+  def init_courts(self, **event_args):
+    
+    rows = list(self.search_table("courts"))
+    # Проверка, пуста ли таблица
+    if not rows:
+      # Если таблица пустая, создаем нужное количество кортов
+      for i in self.number_courte:
+        empty_record = self.empty_court()
+        anvil.server.call("add_court", empty_record)
+#    else:
+#      last_court = app_tables.courts.search(
+#        tables.order_by("game_id", ascending = False),
+#        session_id = self.session_id
+#      )
+#      self.last_game = last_court[0]["game_id"]
+#      self.current_game_box.text = self.last_game
+#      # Поиск не полного корта для отдыха
+      self.not_full_court = self.find_rest_courty()
+      self.mark_rest_court()
+      
+      
+      
+      # Загрузка данных из таблицы соответствия
+      correspondence_table = app_tables.s_players.search(session_id = self.session_id)
+      # Создание словаря соответствия
+      self.name_to_code = {
+        row["name"]: row["player_number"] for row in correspondence_table
+      }
+
+
+      # Полный список всех имен
+    #    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
+    #    self.repeating_panel.items = anvil.server.call("get_records_with_names", self.session_id)
+    
   
   def arrangement(self, **event_args):
-    # Запрос подтверждения у пользователя
-    user_response = confirm(
-      "Are you sure you want to delete all court records",
-      title = "Confirm Delete",
-      buttons=["Yes", "No"],
-    )
-    if user_response == "Yes":
-      # Поиск всех строк в таблице
-      rows = app_tables.courts.search()
-      # Удаление каждой строки
-      for row in rows:
-        row.delete()
+#    # Запрос подтверждения у пользователя
+#    user_response = confirm(
+#      "Are you sure you want to delete all court records",
+#      title = "Confirm Delete",
+#      buttons=["Yes", "No"],
+#    )
+#    if user_response == "Yes":
+#      # Поиск всех строк в таблице
+#      rows = app_tables.courts.search()
+#      # Удаление каждой строки
+#      for row in rows:
+#        row.delete()
 
       #    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
       self.repeating_panel.items = anvil.server.call("get_records_with_names", self.session_id)
