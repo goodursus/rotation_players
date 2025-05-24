@@ -17,6 +17,8 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       self.limit_text.text = ""
 
       self.parent_form = parent_form
+
+      self.tag_display.clear()
   
       #      self.set_options([row['name'] for row in app_tables.players.search()], 11)
 #      self.set_options(["Яблоко", "Банан", "Апельсин", "Груша"], 2)
