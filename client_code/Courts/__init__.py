@@ -27,8 +27,8 @@ class Courts(CourtsTemplate):
     self.multi_select_dropdown_1.selection_limit = number_players
     self.number_courts = selected['number_courts']
     self.session_id = selected['session_id']
-    session_rule = selected['rule']
-    self.text_name_rule.text = 'Rule: ' + session_rule['name']
+    self.session_rule = selected['rule']
+    self.text_name_rule.text = 'Rule: ' + self.session_rule['name']
     self.text_name_rule.text_color = 'blue'
     # Полный список всех имен
     self.selected_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
@@ -56,8 +56,8 @@ class Courts(CourtsTemplate):
     self.dropdown_session.items = items
 
   def arrangement_button_click(self, **event_args):
-    group_courts = anvil.server.call("get_court_groups", self.session_id)
-    print(group_courts)
+#    group_courts = anvil.server.call("get_court_groups", self.session_id)
+#    print(group_courts)
     # Создаём экземпляр формы с параметрами
     self.court_form = CourtComponent(parent_form = self)
 

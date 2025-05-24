@@ -28,6 +28,7 @@ class MultiSelectDropdown(MultiSelectDropdownTemplate):
       self.selected_values = selected_names
       self.selection_limit = limit
       self.session_id = session_id
+      self.tag_display.clear()
       self.update_options()
   
     def update_options(self):

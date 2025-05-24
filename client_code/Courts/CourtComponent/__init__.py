@@ -20,6 +20,7 @@ class CourtComponent(CourtComponentTemplate):
     self.session_id = self.parent_form.session_id
     self.number_courts = self.parent_form.number_courts
     self.all_names = self.parent_form.all_names
+    self.session_rule = self.parent_form.session_rule
 
     # Поиск не полного корта для отдыха
     #    self.not_full_court = self.find_rest_courty()
@@ -65,22 +66,20 @@ class CourtComponent(CourtComponentTemplate):
     rows = list(self.search_table("courts"))
     # Проверка, пуста ли таблица
     if not rows:
-      # Если таблица пустая, создаем нужное количество кортов
-      for i in self.number_courte:
-        empty_record = self.empty_court()
+#      # Если таблица пустая, создаем нужное количество кортов
+#      for i in self.number_courte:
+#        empty_record = self.empty_court()
 #        anvil.server.call("add_court", empty_record)
 #    else:
-#      last_court = app_tables.courts.search(
-#        tables.order_by("game_id", ascending = False),
-#        session_id = self.session_id
-#      )
-#      self.last_game = last_court[0]["game_id"]
-#      self.current_game_box.text = self.last_game
+      last_court = app_tables.courts.search(
+        tables.order_by("game_id", ascending = False),
+        session_id = self.session_id
+      )
+      self.last_game = last_court[0]["game_id"]
+      self.current_game_box.text = self.last_game
 #      # Поиск не полного корта для отдыха
       self.not_full_court = self.find_rest_courty()
       self.mark_rest_court()
-      
-      
       
       # Загрузка данных из таблицы соответствия
       correspondence_table = app_tables.s_players.search(session_id = self.session_id)
@@ -89,13 +88,11 @@ class CourtComponent(CourtComponentTemplate):
         row["name"]: row["player_number"] for row in correspondence_table
       }
 
-
-      # Полный список всех имен
-    #    self.all_names = [row["name"] for row in app_tables.s_players.search(session_id = self.session_id)]
-    #    self.repeating_panel.items = anvil.server.call("get_records_with_names", self.session_id)
-    
-  
   def arrangement(self, **event_args):
+   if self.session_rule['id'] == 2:
+     self.fixed_court()
+      
+  def fixed_court(self, **event_args):
 #    # Запрос подтверждения у пользователя
 #    user_response = confirm(
 #      "Are you sure you want to delete all court records",
@@ -142,6 +139,17 @@ class CourtComponent(CourtComponentTemplate):
       card_components = self.repeating_panel.get_components()
       for card in card_components:
         card.set_all_names(self.all_names)  # Передаем полный список имен
+
+      last_court = app_tables.courts.search(
+        tables.order_by("game_id", ascending = False),
+        session_id = self.session_id
+      )
+      self.last_game = last_court[0]["game_id"]
+      self.current_game_box.text = self.last_game
+      #      # Поиск не полного корта для отдыха
+      self.not_full_court = self.find_rest_courty()
+      self.mark_rest_court()
+
 
   def fill_court(self, groups_court):
     for index, group in enumerate(groups_court):
@@ -306,7 +314,7 @@ class CourtComponent(CourtComponentTemplate):
     # Обновляем выпадающие списки вручную
     card_components = self.repeating_panel.get_components()
     for i, card in enumerate(card_components):
-      if self.not_full_court == i:
+      if self.not_full_court == i + 1:
         card.outlined_card_3.background = "#FFCCCC"
 
     self.repeating_panel.raise_event("x-refresh")
