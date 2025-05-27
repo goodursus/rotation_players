@@ -4,10 +4,16 @@ components:
   properties: {}
   type: FlowPanel
 - components:
-  - event_bindings: {click: link_players_click}
+  - components: []
+    event_bindings: {click: link_players_click}
     layout_properties: {grid_position: 'YSQCIV,TNFXXH'}
     name: link_players
     properties: {text: Players}
+    type: Link
+  - event_bindings: {click: link_meetup_layers_click}
+    layout_properties: {grid_position: 'KUTSQE,UKQHNH'}
+    name: link_meetup_layers
+    properties: {text: MeetUp}
     type: Link
   - event_bindings: {click: link_session_click}
     layout_properties: {grid_position: 'MIIAOD,PXLZRA'}
@@ -42,6 +48,6 @@ container:
 is_package: true
 slots:
   slot_1:
-    index: 2
+    index: 3
     set_layout_properties: {slot: default}
     target: {name: '', type: container}

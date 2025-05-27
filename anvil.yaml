@@ -73,6 +73,20 @@ db_schema:
       type: number
     server: full
     title: courts
+  meetup_players:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: position
+      type: number
+    - admin_ui: {order: 1, width: 200}
+      name: name
+      type: string
+    - admin_ui: {order: 2, width: 200}
+      name: profile_url
+      type: string
+    server: full
+    title: meetup_players
   players:
     client: full
     columns:

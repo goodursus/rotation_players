@@ -42,3 +42,7 @@ class MainTemplate(MainTemplateTemplate):
     """This method is called when the link is clicked"""
     open_form('Sessions')
 
+  def link_meetup_layers_click(self, **event_args):
+    """This method is called when the link is clicked"""
+    open_form('Meetup')
+
