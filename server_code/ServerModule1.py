@@ -319,3 +319,26 @@ def get_court_groups(session_id):
     court_groups.append(group)
 
   return court_groups    
+
+@anvil.server.callable
+def import_players_from_json(json_data):
+  """Импорт игроков из JSON данных"""
+  try:
+    # Получаем таблицу all_players
+    players_table = app_tables.meetup_players
+
+    # Очищаем существующие данные (опционально)
+    # for row in players_table.search():
+    #     row.delete()
+
+    # Добавляем новых игроков
+    for player in json_data:
+      players_table.add_row(
+        position=player.get('position', 0),
+        name=player.get('name', ''),
+        profile_url=player.get('profile_url', '')
+      )
+
+    return f"Успешно импортировано {len(json_data)} игроков"
+  except Exception as e:
+    return f"Ошибка при импорте: {str(e)}"  

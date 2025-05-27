@@ -1,6 +1,13 @@
 components_by_slot:
   slot_1:
   - components:
+    - data_bindings:
+      - {code: 'self.item[''.json'']', property: file_types, writeback: false}
+      event_bindings: {change: file_loader_change}
+      layout_properties: {grid_position: 'HGBAYZ,SXQDQI'}
+      name: file_loader
+      properties: {font_size: 20, text: Load list players}
+      type: form:dep_lin1x4oec0ytd:_Components.FileLoader
     - layout_properties: {grid_position: 'MJLPEX,YHADLG'}
       name: text_1
       properties: {text: e-mail}

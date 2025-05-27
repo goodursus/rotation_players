@@ -74,7 +74,7 @@ db_schema:
     server: full
     title: courts
   meetup_players:
-    client: none
+    client: full
     columns:
     - admin_ui: {order: 0, width: 200}
       name: position
